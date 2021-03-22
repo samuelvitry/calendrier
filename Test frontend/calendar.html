@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Calendrier</title>
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+            html, body{
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                height: 125vh;
+                background-size: cover;
+                font-family: sans-serif;
+                margin-top: 80px;
+                padding: 30px;
+            }
+            header {
+                background-color: #E36B14;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 80px;
+                display: flex;
+                align-items: center;
+            }
+            header * {
+                display: inline;
+                margin: 20px;
+            }
+            .profil-button{
+                position: absolute;
+                right: 0;
+                height: 70px;
+            }
+            .calendar-select-button{
+                position: relative;
+                display: inline-block;
+                margin: 1em;
+                padding: 1em 2em;
+                border: 0;
+                border-radius: 30px;
+                text-align: center;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="top-bar">
+            <h1 class="logo-main">Calendar</h1>
+            <nav class="calendar-nav">
+                <ul class="calendar-nav-list">
+                    <li class="calendar-select-link"><button class="calendar-select-button">Perso</button></li>
+                    <li class="calendar-select-link"><button class="calendar-select-button">Travail</button></li>
+                    <li class="calendar-select-link"><button class="calendar-select-button">Test</button></li>
+                </ul>
+            </nav>
+            <img src="empty_profil_pic.png" alt="" class="profil-button">
+        </header>
+        <p>test</p>
+    </body>
+</html>

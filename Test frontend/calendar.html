@@ -9,6 +9,8 @@
             html, body{
                 margin: 0;
                 padding: 0;
+                height: 100%;
+                width: ;
             }
             body {
                 height: 125vh;
@@ -19,7 +21,7 @@
             }
             header {
                 background-color: #E36B14;
-                position: fixed;
+                position: absolute;
                 top: 0;
                 left: 0;
                 right: 0;
@@ -45,6 +47,25 @@
                 border-radius: 30px;
                 text-align: center;
             }
+            .right-section{
+                width: 80%;
+                float: right;
+                position: relative;
+                background-color: teal;
+                display: flex;
+            }
+            .left-section{
+                width: 20%;
+                float: left;
+                position: relative;
+                background-color: yellow;
+                display: flex;
+            }
+            .main-section{
+                position: static;
+                width: 100%;
+                padding: 0px;
+            }
         </style>
     </head>
     <body>
@@ -59,6 +80,13 @@
             </nav>
             <img src="empty_profil_pic.png" alt="" class="profil-button">
         </header>
-        <p>test</p>
+        <section class="main-section">
+            <div class="left-section">
+                <p>left</p>
+            </div>
+            <div class="right-section">
+                <p>right</p>
+            </div>
+        </section>
     </body>
 </html>

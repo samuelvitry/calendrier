@@ -48,14 +48,40 @@
             .right-section{
                 flex: 75%;
                 background-color: teal;
+                height: 100%;
             }
             .left-section{
                 flex: 25%;
                 background-color: yellow;
+                height: 100%;
             }
             .main-section{
                 width: 100%;
                 display: flex;
+                height: 80%;
+            }
+            .inline {
+                display: inline;
+                margin: 0;
+            }
+            .next-event-item{
+                display: inline;
+            }
+            .main-calendar {
+                margin: 50px;
+                border-radius: 20px;
+                height: 100%;
+                background-color: chartreuse;
+            }
+            .top-section-calendar {
+                text-align: center;
+                position: relative;
+                top: 20px;
+            }
+            .month-name-calendar, .prev-month, .next-month {
+                margin-left: 10%;
+                margin-right: 10%;
+                display: inline;
             }
         </style>
     </head>
@@ -73,10 +99,30 @@
         </header>
         <section class="main-section">
             <div class="left-section">
-                <p>left</p>
+                <section class="next-event">
+                    <h2>Prochains évenements</h2>
+                    <div class="next-envent-item">
+                        <p class="inline">Auto école</p>
+                        <p class="inline">1 Mar 18h30</p>
+                    </div>
+                </section>
+                <section class="to-do-list">
+                    <h2>To do list</h2>
+                    <button class="to-do-list-check" class="inline"></button>
+                    <p class="to-do-list-text" class="inline">Terminer le code HTML</p>
+                </section>
             </div>
             <div class="right-section">
-                <p>right</p>
+                <div class="main-calendar">
+                    <div class="top-section-calendar">
+                        <button class="prev-month" class="inline"></button>
+                        <h2 class="month-name-calendar" class="inline">Mars 2021</h2>
+                        <button class="next-month" class="inline"></button>
+                    </div>
+                    <div class="actual-main-calendar">
+                        
+                    </div>
+                </div>
             </div>
         </section>
     </body>

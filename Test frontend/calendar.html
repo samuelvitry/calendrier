@@ -3,8 +3,21 @@
     <head>
         <title>Calendrier</title>
         <style>
+            @font-face {
+                font-family: Lexend-Bold;
+                src: url(Lexend-Bold.ttf);
+            }
+            @font-face {
+                font-family: Lexend-Light;
+                src: url(Lexend-Light.ttf);
+            }
+            @font-face {
+                font-family: Lexend-Thin;
+                src: url(Lexend-Thin.ttf);
+            }
             * {
                 box-sizing: border-box;
+                font-family: Lexend-light;
             }
             html, body{
                 margin: 0;
@@ -83,6 +96,47 @@
                 margin-right: 10%;
                 display: inline;
             }
+            .actual-main-calendar{
+                position: relative;
+                margin: 7%;
+                margin-top: 10%;
+                display: flex;
+                justify-content: center;
+                height: 60%;
+            }
+            .actual-main-calendar * {
+                width: 100%;
+                border-width: 1px;
+                border-color: black;
+                border-style: solid;
+                border-left: none;
+            }
+            .lundi {
+                border-left: solid;
+                border-width: 1px;
+            }
+            .ligne1 {
+                height: 7.5%;
+                width: 100%;
+                border: none;
+                border-bottom: solid;
+                border-width: 1px;
+            }
+            .ligne2, .ligne3, .ligne4, .ligne5 {
+                height: 18.5%;
+                width: 100%;
+                border: none;
+                border-bottom: solid;
+                border-width: 1px;
+            }
+            .event-calendar, .event-calendar * {
+                border: none;
+                font-size: small;
+            }
+            .day-name {
+                border: none;
+                text-align: center;
+            }
         </style>
     </head>
     <body>
@@ -120,7 +174,44 @@
                         <button class="next-month" class="inline"></button>
                     </div>
                     <div class="actual-main-calendar">
-                        
+                        <div class="lundi">
+                            <div class="ligne1">
+                                <p class="day-name">Monday</p>
+                            </div>
+                            <div class="ligne2">
+                                <div class="event-calendar">
+                                    <p class="inline">18h30</p>
+                                    <p class="inline">Auto école</p>
+                                </div>
+                            </div>
+                            <div class="ligne3">
+
+                            </div>
+                            <div class="ligne4">
+
+                            </div>
+                            <div class="ligne5">
+
+                            </div>
+                        </div>
+                        <div class="mardi">
+
+                        </div>
+                        <div class="mercredi">
+
+                        </div>
+                        <div class="jeudi">
+
+                        </div>
+                        <div class="vendredi">
+
+                        </div>
+                        <div class="samedi">
+
+                        </div>
+                        <div class="dimanche">
+
+                        </div>
                     </div>
                 </div>
             </div>

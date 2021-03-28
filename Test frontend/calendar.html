@@ -25,29 +25,56 @@
                 height: 100%;
             }
             body {
-                height: 125vh;
+                height: 98%;
+                width: 100%;
                 background-size: cover;
                 font-family: sans-serif;
-                margin-top: 80px;
+                background-color: #DEDEDE;
+                overflow: hidden;
+                position: relative;
             }
-            header {
-                background-color: #E36B14;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 80px;
+            .top-inside {
+                margin: 30px;
+                margin-bottom: 0;
+                border-radius: 20px;
+                height: 7%;
+                width: 95%;
+                border: solid;
+                border-color: #BF382C;
+                border-width: 2px;
                 display: flex;
                 align-items: center;
+                position: relative;
+                background-color: #D9B29C;
             }
-            header * {
+            .top-inside * {
+                display: inline;
+                margin: 20px;
+            }
+            .bas-de-page {
+                margin: 30px;
+                margin-top: 30px;
+                border-radius: 20px;
+                height: 7%;
+                width: 95%;
+                border: solid;
+                border-color: #BF382C;
+                border-width: 2px;
+                display: flex;
+                align-items: center;
+                position: relative;
+                background-color: #D9B29C;
+            }
+            .bas-de-page * {
                 display: inline;
                 margin: 20px;
             }
             .profil-button{
+                display: inline;
+                margin: 20px;
+                height: 90%;
                 position: absolute;
                 right: 0;
-                height: 70px;
             }
             .calendar-select-button{
                 position: relative;
@@ -60,13 +87,21 @@
             }
             .right-section{
                 flex: 75%;
-                background-color: #E5DDD5;
-                height: 100%;
+                height: 95%;
             }
             .left-section{
                 flex: 25%;
-                background-color: yellow;
+                height: 95%;
+            }
+            .left-inside {
+                margin: 30px;
+                margin-right: 0;
+                border-radius: 20px;
                 height: 100%;
+                border: solid;
+                border-color: #BF382C;
+                border-width: 2px;
+                background-color: #D9B29C;
             }
             .main-section{
                 width: 100%;
@@ -81,10 +116,13 @@
                 display: inline;
             }
             .main-calendar {
-                margin: 50px;
+                margin: 30px;
                 border-radius: 20px;
                 height: 100%;
-                background-color: chartreuse;
+                background-color: #D9B29C;
+                border: solid;
+                border-color: #BF382C;
+                border-width: 2px;
             }
             .top-section-calendar {
                 text-align: center;
@@ -140,7 +178,7 @@
         </style>
     </head>
     <body>
-        <header class="top-bar">
+        <div class="top-inside">
             <h1 class="logo-main">Calendar</h1>
             <nav class="calendar-nav">
                 <ul class="calendar-nav-list">
@@ -150,21 +188,23 @@
                 </ul>
             </nav>
             <img src="empty_profil_pic.png" alt="" class="profil-button">
-        </header>
+        </div>
         <section class="main-section">
             <div class="left-section">
-                <section class="next-event">
-                    <h2>Prochains évenements</h2>
-                    <div class="next-envent-item">
-                        <p class="inline">Auto école</p>
-                        <p class="inline">1 Mar 18h30</p>
-                    </div>
-                </section>
-                <section class="to-do-list">
-                    <h2>To do list</h2>
-                    <button class="to-do-list-check" class="inline"></button>
-                    <p class="to-do-list-text" class="inline">Terminer le code HTML</p>
-                </section>
+                <div class="left-inside">
+                    <section class="next-event">
+                        <h2>Prochains évenements</h2>
+                        <div class="next-envent-item">
+                            <p class="inline">Auto école</p>
+                            <p class="inline">1 Mar 18h30</p>
+                        </div>
+                    </section>
+                    <section class="to-do-list">
+                        <h2>To do list</h2>
+                        <button class="to-do-list-check" class="inline"></button>
+                        <p class="to-do-list-text" class="inline">Terminer le code HTML</p>
+                    </section>
+                </div>
             </div>
             <div class="right-section">
                 <div class="main-calendar">
@@ -216,5 +256,8 @@
                 </div>
             </div>
         </section>
+        <div class="bas-de-page">
+
+        </div>
     </body>
 </html>

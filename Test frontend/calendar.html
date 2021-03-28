@@ -29,7 +29,7 @@
                 width: 100%;
                 background-size: cover;
                 font-family: sans-serif;
-                background-color: #DEDEDE;
+                background-color: #ECF0F1;
                 overflow: hidden;
                 position: relative;
             }
@@ -40,12 +40,13 @@
                 height: 7%;
                 width: 95%;
                 border: solid;
-                border-color: #BF382C;
+                border-color: #3498DB;
                 border-width: 2px;
                 display: flex;
                 align-items: center;
                 position: relative;
-                background-color: #D9B29C;
+                background-color: #3498DB;
+                box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.4);
             }
             .top-inside * {
                 display: inline;
@@ -58,12 +59,13 @@
                 height: 7%;
                 width: 95%;
                 border: solid;
-                border-color: #BF382C;
+                border-color: #3498DB;
                 border-width: 2px;
                 display: flex;
                 align-items: center;
                 position: relative;
-                background-color: #D9B29C;
+                background-color: #3498DB;
+                box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.4);
             }
             .bas-de-page * {
                 display: inline;
@@ -99,9 +101,10 @@
                 border-radius: 20px;
                 height: 100%;
                 border: solid;
-                border-color: #BF382C;
+                border-color: #3498DB;
                 border-width: 2px;
-                background-color: #D9B29C;
+                background-color: #3498DB;
+                box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.4);
             }
             .main-section{
                 width: 100%;
@@ -119,10 +122,11 @@
                 margin: 30px;
                 border-radius: 20px;
                 height: 100%;
-                background-color: #D9B29C;
+                background-color: #3498DB;
                 border: solid;
-                border-color: #BF382C;
+                border-color: #3498DB;
                 border-width: 2px;
+                box-shadow: 9px 9px 9px rgba(0, 0, 0, 0.4);
             }
             .top-section-calendar {
                 text-align: center;
@@ -175,11 +179,23 @@
                 border: none;
                 text-align: center;
             }
+            .next-month, .prev-month {
+                border-radius: 100%;
+                border: none;
+                background-color: rgba(0, 0, 0, 0);
+                text-align: center;
+                font-size: 32px;
+                width: 10%;
+            }
+            .next-month:hover, .prev-month:hover {
+                color: #fff;
+            }
         </style>
     </head>
     <body>
         <div class="top-inside">
             <h1 class="logo-main">Calendar</h1>
+            <!--
             <nav class="calendar-nav">
                 <ul class="calendar-nav-list">
                     <li class="calendar-select-link"><button class="calendar-select-button">Perso</button></li>
@@ -187,6 +203,7 @@
                     <li class="calendar-select-link"><button class="calendar-select-button">Test</button></li>
                 </ul>
             </nav>
+            -->
             <img src="empty_profil_pic.png" alt="" class="profil-button">
         </div>
         <section class="main-section">
@@ -204,14 +221,23 @@
                         <button class="to-do-list-check" class="inline"></button>
                         <p class="to-do-list-text" class="inline">Terminer le code HTML</p>
                     </section>
+                    <section class="calendar-select">
+                        <h2>Calendriers</h2>
+                        <ul>
+                            <li class="calendar-select-item"><input type="checkbox">Perso</li>
+                            <li class="calendar-select-item"><input type="checkbox">Travail</li>
+                            <li class="calendar-select-item"><input type="checkbox">Famille</li>
+                            <li class="calendar-select-item"><input type="checkbox">Autre</li>
+                        </ul>
+                    </section>
                 </div>
             </div>
             <div class="right-section">
                 <div class="main-calendar">
                     <div class="top-section-calendar">
-                        <button class="prev-month" class="inline"></button>
+                        <a class="prev-month" class="inline">&#8249;</a>
                         <h2 class="month-name-calendar" class="inline">Mars 2021</h2>
-                        <button class="next-month" class="inline"></button>
+                        <a class="next-month" class="inline">&#8250;</a>
                     </div>
                     <div class="actual-main-calendar">
                         <div class="lundi">

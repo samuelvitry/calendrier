@@ -10,6 +10,12 @@ export const TodoList = () => {
             <Typography variant="h4">To-do list</Typography>
             <TodoListItem txt="Terminer la base du front end" />
             <TodoListItem txt="Ameliorer le CSS" />
+            <TodoListItem txt="Logique d'affichage" />
+            <TodoListItem txt="Police de charactères" />
+            <TodoListItem txt="Couleurs" />
+            <TodoListItem txt="Responsive design" />
+            <TodoListItem txt="Rendre les éléments fonctionels" />
+            <TodoListItem txt="Annimations" />
             <TodolistAdd />
         </section>
     )

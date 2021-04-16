@@ -1,5 +1,6 @@
 import React from 'react'
-import { TextField, Button, Grid } from '@material-ui/core'
+import { TextField, Grid } from '@material-ui/core'
+import { Button } from './Button'
 
 export const TodolistAdd = () => {
     return (
@@ -8,7 +9,7 @@ export const TodolistAdd = () => {
                 <TextField id="standard-basic" placeholder="Add something..." color='secondary'/>
             </Grid>
             <Grid item style={{ display: "flex", position: "absolute", right: '5%'}}>
-                <Button className="to-do-add-button" variant="contained" color="secondary" disableElevation>ADD</Button>
+                <Button className="to-do-add-button" full={true} txt='ADD'></Button>
             </Grid>
         </Grid>
     )

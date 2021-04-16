@@ -1,7 +1,6 @@
 import React from 'react'
 import {NextEvents} from './NextEvents'
 import {TodoList} from './TodoList'
-import { CalendarSelect } from './CalendarSelect'
 import { MonthlyCalendar } from './MonthlyCalendar'
 
 export const Main = () => {
@@ -13,7 +12,7 @@ export const Main = () => {
                 <TodoList />
             </aside>
             <div class="right-section">
-                <MonthlyCalendar month="Avril 2021"/>
+                <MonthlyCalendar month={4} year={2021}/>
             </div>
       </section>
     )

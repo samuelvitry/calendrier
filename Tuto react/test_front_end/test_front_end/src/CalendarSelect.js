@@ -18,7 +18,7 @@ export const CalendarSelect = () => {
         <section className="calendar-select">
             <Typography variant="h4">Selection des calendriers</Typography>
             <div className="container-select-calendar">
-                <CalendarSelectItem selected={true} name="Perso" />
+                <CalendarSelectItem selected={true} name="Perso" icon="HomeIcon" />
                 <CalendarSelectItem selected={false} name="Travail" />
                 <CalendarSelectItem selected={true} name="Famille" />
             </div>

@@ -8,6 +8,12 @@ class User(models.Model):
     cle = models.CharField(max_length=1024)
     def __str__(self):
         return self.username
+    def isValid(mail, mdp):
+        if User.objects.filter(email=mail, password=mdp).exists():
+            return True
+        else:
+            return False
+            
 
 class Evenement(models.Model):
     event_name = models.CharField(max_length=512)

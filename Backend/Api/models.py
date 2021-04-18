@@ -14,6 +14,7 @@ class User(models.Model):
         else:
             return False
             
+#le chiffrement des clé peut inclure la primary key de l'user ainsi que la date de création + un code a X chiffre défini ou non par l'utilisateur (il faut avoir un champ qui dit si il y en as un)
 
 class Evenement(models.Model):
     event_name = models.CharField(max_length=512)

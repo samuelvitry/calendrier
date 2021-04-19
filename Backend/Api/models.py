@@ -24,3 +24,4 @@ class Evenement(models.Model):
     def __str__(self):
         return self.event_name
     creation_date = models.DateTimeField(auto_now_add=True)
+    

@@ -1,36 +1,49 @@
 import React, { useState } from 'react'
 import { Button, Tooltip, Typography } from '@material-ui/core'
-import { NavigateBefore, NavigateNext, TrainRounded } from '@material-ui/icons'
+import { NavigateBefore, NavigateNext } from '@material-ui/icons'
 import {MonthlyCalendarDay} from './MonthlyCalendarDay'
 
 
-/* 
-const MonthlyLine = (props) => {
-
-    return(
-        <div className="monthly-line">
-            <MonthlyCalendarDay day="10" disabled={false}/>
-            <MonthlyCalendarDay day="11" disabled={false}/>
-            <MonthlyCalendarDay day="12" disabled={false}/>
-            <MonthlyCalendarDay day="13" disabled={false}/>
-            <MonthlyCalendarDay day="14" disabled={false}/>
-            <MonthlyCalendarDay day="15" disabled={false}/>
-            <MonthlyCalendarDay day="16" disabled={false} numColor="#FF6B35"/>
-        </div>
-    )
-}
-*/
 
 export const MonthlyCalendar = (props) => {
 
     const [isExpanded, setisExpanded] = useState(false);
+    
+    //
+    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400}]
+    const stockageEvent = {}
+
+    //attribution des event au jours
+    for (let i = 0; i < eventList.length; i++) {
+        var event = eventList[i]
+        var date_debut = new Date(event['start_date'] * 1000)
+        var date_fin = new Date(event['end_date'] * 1000)
+        var isLong = false
+        if (date_fin - date_debut < 86400000) {
+            isLong = false
+        }
+        else{
+            isLong = true
+        }
+        if (date_debut >= getJour(1) && date_fin <= getJour(35)){
+            if (getMoinsJour(date_debut) in stockageEvent) {
+                stockageEvent[getMoinsJour(date_debut)].push(event);
+            }
+            else {
+                stockageEvent[getMoinsJour(date_debut)] = [event]
+            }
+        }
+        else{
+            break
+        }
+    }
 
     let  [,setState]=useState();
     function handleUpdate() {
         //passing empty object will re-render the component
        setState({});
     }
-    
+
     function expand () {
         if (isExpanded === false){
             setisExpanded(true);
@@ -67,10 +80,18 @@ export const MonthlyCalendar = (props) => {
         }
     }
     function monthString (nbr) {
-        var months = new Array('January', 'February', 'March',
+        var months = new Array(['January', 'February', 'March',
                      'April', 'May', 'June', 'July', 'August',
-                     'September', 'October', 'November', 'December');
+                     'September', 'October', 'November', 'December']);
         return months[nbr-1];
+    }
+    function getMoinsJour (date) {
+        var day = new Date(props.year, props.month, 0).getDay();
+        if (day === 0) {
+            day = 7
+        }
+        day = day - 1
+        return date.getDate() + day
     }
     function getJour (nbr) {
         var offsetbeggin = new Date(props.year, props.month - 1, 0).getDay();
@@ -81,6 +102,7 @@ export const MonthlyCalendar = (props) => {
     const LastLine = (props) => {
 
         const [isOut, setIsOut] = useState(props.isExpanded);
+        setIsOut(isOut);
 
         if (offsetDebut(1) === false && offsetFin(7) === false){
             return null;
@@ -104,8 +126,8 @@ export const MonthlyCalendar = (props) => {
     //le fait on arrive a appeler la fonction expand depuis le composant dernière line mais pas dans le parent, je fait donc un composant parent a toutes les lignes
     const Line = (props) => {
 
-        const [isOut, setIsOut] = useState(props.isExpanded);
-        const [offset, setoffset] = useState(props.offset);
+        //const [isOut, setIsOut] = useState(props.isExpanded);
+        //const [offset, setoffset] = useState(props.offset);
 
         return (
             <div>

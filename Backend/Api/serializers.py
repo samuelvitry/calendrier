@@ -20,3 +20,11 @@ class userSerializer(serializers.ModelSerializer):
             'username',
             'account_creation_date',
         )
+
+class loginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'password',
+        )

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import uuid from 'react-uuid'
 import {TodoListItem} from './TodoListItem'
 import { Button } from './Button'

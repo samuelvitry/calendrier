@@ -21,6 +21,12 @@ export const MonthlyCalendarDay = (props) => {
         {"name": "Tournage BFM", "date": "13h30", "color": "#FF6B35"}
     ]);
     const [isExpanded, setisExpanded] = useState(props.expand)
+
+    //regler les variables non utilisés a supprimer
+    seteventList(eventList);
+    setshorteventList(shorteventList);
+    setisExpanded(isExpanded);
+
     if (isExpanded){
         console.log('true');
     }
@@ -37,7 +43,7 @@ export const MonthlyCalendarDay = (props) => {
             
             return (
                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <a className="button-empty" onClick={() => onPress()}>
+                    <a href='/#' className="button-empty" onClick={() => onPress()}>
                         <ExpandMoreIcon style={{color: props.disabled ? '#8EABBE' : '#E0EDF5'}}/>
                     </a> 
                 </div>

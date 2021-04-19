@@ -5,11 +5,26 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, generics
 from .models import Evenement, User
-from .serializers import eventSerializer, userSerializer
+from .serializers import eventSerializer, userSerializer, loginSerializer
 
 class eventList(generics.ListAPIView):
     queryset = Evenement.objects.all()
     serializer_class = eventSerializer
+
+class logIn(APIView):
+    serializer_class = loginSerializer
+    serializer = self.serializer_class(data=request.data)
+
+    if not self.request.session.exists(self.request.session.session_key):
+        self.request.session.create()
+    
+    def post(self, request, format=None):
+        mail = serializer.data.get('email')
+        mdp = serializer.data.get('password')
+
+        if User.objects.filter(email=mail, password=mdp).exists():
+            request.session['isLog'] = True
+            #requet.session[proprio] = proprio
 
 #class logIn(APIView):
 #appeler isValid du model user avec les argument mail et mdp reçu et si true alors session.islog = true et determiner les valeurs de sessions

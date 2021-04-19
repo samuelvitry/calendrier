@@ -11,7 +11,6 @@ export const TodoList = () => {
 
     let  [,setState]=useState();
     function handleUpdate() {
-        //passing empty object will re-render the component
        setState({});
     }
 

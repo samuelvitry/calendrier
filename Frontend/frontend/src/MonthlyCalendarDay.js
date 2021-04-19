@@ -7,8 +7,30 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 export const MonthlyCalendarDay = (props) => {
 
-
-    const [eventList, seteventList] = useState([
+    const eventList = props.eventList
+    var shorteventList = []
+    if (eventList.length > 3){
+        for (let i = 0; i < 3; i++) {
+            shorteventList.push(eventList[i])
+        }   
+    }
+    else{
+        shorteventList = eventList
+    }
+    function screenDate(date){
+        console.log(date)
+        var heur = date.getHours();
+        var min = date.getMinutes();
+        console.log(heur)
+        console.log(min)
+        return (heur + "h" + min);
+    }
+    for (let i = 0; i < eventList.length; i++){
+        var event = eventList[i]
+        var date =  new Date(event['start_date'])
+        event['date'] = screenDate(date)
+    }
+    /*const [eventList, seteventList] = useState([
         {"name": "Auto école", "date": "9h30", "color": "white"}, 
         {"name": "Coiffeur", "date": "10h30", "color": "#3581B8"},  
         {"name": "Tournage BFM", "date": "13h30", "color": "#FF6B35"}, 
@@ -19,13 +41,10 @@ export const MonthlyCalendarDay = (props) => {
         {"name": "Auto école", "date": "9h30", "color": "white"}, 
         {"name": "Coiffeur", "date": "10h30", "color": "#3581B8"},  
         {"name": "Tournage BFM", "date": "13h30", "color": "#FF6B35"}
-    ]);
+    ]);*/
     const [isExpanded, setisExpanded] = useState(props.expand)
 
-    //regler les variables non utilisés a supprimer
-    seteventList(eventList);
-    setshorteventList(shorteventList);
-    setisExpanded(isExpanded);
+
 
     if (isExpanded){
         console.log('true');
@@ -43,7 +62,7 @@ export const MonthlyCalendarDay = (props) => {
             
             return (
                 <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <a href='/#' className="button-empty" onClick={() => onPress()}>
+                    <a className="button-empty" onClick={() => onPress()}>
                         <ExpandMoreIcon style={{color: props.disabled ? '#8EABBE' : '#E0EDF5'}}/>
                     </a> 
                 </div>

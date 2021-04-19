@@ -63,13 +63,22 @@ export const MonthlyCalendarDay = (props) => {
         props.etendre();
     }
 
+    var nameDir = []
+    for (let i = 0; i < eventList.length; i++){
+        var event = eventList[i]
+        console.log(event['name'])
+        nameDir[i] = event['name']
+    }
+    console.log('lmao');
+    console.log(nameDir);
+
     return isExpanded ?  (
         <div className="monthly-day-card" style={{backgroundColor: props.disabled ? '#121E2B' : '#233D58', color: props.disabled ? '#8EABBE' : '#E0EDF5'}}>
             <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
             <div className="events-list">
-                {eventList.map(eventList => (
-                    <MonthlyCalendarItem name={eventList.name} date={eventList.display_date} color={eventList.color} key={eventList.name}/>
-                ))}
+                <MonthlyCalendarItem name={nameDir[0]} />
+                <MonthlyCalendarItem name={nameDir[1]} />
+                <MonthlyCalendarItem name={nameDir[2]} />
             </div>
             <div className='expand-icon-down'>
                 <ExpandButton onPress={() => agrandir()}/>
@@ -79,9 +88,9 @@ export const MonthlyCalendarDay = (props) => {
         <div className="monthly-day-card" style={{backgroundColor: props.disabled ? '#121E2B' : '#233D58', color: props.disabled ? '#8EABBE' : '#E0EDF5'}}>
             <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
             <div className="events-list">
-                {shorteventList.map(shorteventList => (
-                    <MonthlyCalendarItem name={shorteventList.name} date={shorteventList.display_date} color={shorteventList.color} key={shorteventList.name}/>
-                ))}
+                <MonthlyCalendarItem name={nameDir[0]} />
+                <MonthlyCalendarItem name={nameDir[1]} />
+                <MonthlyCalendarItem name={nameDir[2]} />
             </div>
             <div className='expand-icon-up'>
                 <ExpandButton onPress={() => agrandir()}/>

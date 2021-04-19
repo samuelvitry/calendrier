@@ -177,6 +177,7 @@ hr {
 .monthly-item {
     display: flex;
     flex-wrap: wrap;
+    min-height: 30%;
 }
 .monthly-line {
     display: flex;

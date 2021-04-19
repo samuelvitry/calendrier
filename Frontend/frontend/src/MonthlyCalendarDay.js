@@ -21,10 +21,10 @@ export const MonthlyCalendarDay = (props) => {
         var heur = date.getHours();
         var minutes = date.getMinutes();
         if (minutes < 10){
-            minutes = '0'+minutes
+            minutes = '0' + minutes
         }
         if (heur < 10){
-            heur = '0'+heur
+            heur = '0' + heur
         }
         return (heur + "h" + minutes);
     }
@@ -66,9 +66,9 @@ export const MonthlyCalendarDay = (props) => {
     return isExpanded ?  (
         <div className="monthly-day-card" style={{backgroundColor: props.disabled ? '#121E2B' : '#233D58', color: props.disabled ? '#8EABBE' : '#E0EDF5'}}>
             <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
-            <div>
+            <div className="events-list">
                 {eventList.map(eventList => (
-                    <MonthlyCalendarItem name={eventList.name} date={eventList.date} color={eventList.color} key={eventList.name}/>
+                    <MonthlyCalendarItem name={eventList.name} date={eventList.display_date} color={eventList.color} key={eventList.name}/>
                 ))}
             </div>
             <div className='expand-icon-down'>
@@ -78,9 +78,9 @@ export const MonthlyCalendarDay = (props) => {
     ) : (
         <div className="monthly-day-card" style={{backgroundColor: props.disabled ? '#121E2B' : '#233D58', color: props.disabled ? '#8EABBE' : '#E0EDF5'}}>
             <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
-            <div>
+            <div className="events-list">
                 {shorteventList.map(shorteventList => (
-                    <MonthlyCalendarItem name={shorteventList.name} date={shorteventList.date} color={shorteventList.color} key={shorteventList.name}/>
+                    <MonthlyCalendarItem name={shorteventList.name} date={shorteventList.display_date} color={shorteventList.color} key={shorteventList.name}/>
                 ))}
             </div>
             <div className='expand-icon-up'>

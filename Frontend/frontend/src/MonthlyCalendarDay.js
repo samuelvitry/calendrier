@@ -18,41 +18,26 @@ export const MonthlyCalendarDay = (props) => {
         shorteventList = eventList
     }
     function screenDate(date){
-        console.log(date)
         var heur = date.getHours();
-        var min = date.getMinutes();
-        console.log(heur)
-        console.log(min)
-        return (heur + "h" + min);
+        var minutes = date.getMinutes();
+        if (minutes < 10){
+            minutes = '0'+minutes
+        }
+        if (heur < 10){
+            heur = '0'+heur
+        }
+        return (heur + "h" + minutes);
     }
     for (let i = 0; i < eventList.length; i++){
         var event = eventList[i]
-        var date =  new Date(event['start_date'])
-        event['date'] = screenDate(date)
+        if(event['end_date'] - event['start_date'] < 86400){
+            var date =  new Date(event['start_date'] * 1000)
+            event['display_date'] = screenDate(date)
+        }
     }
-    /*const [eventList, seteventList] = useState([
-        {"name": "Auto école", "date": "9h30", "color": "white"}, 
-        {"name": "Coiffeur", "date": "10h30", "color": "#3581B8"},  
-        {"name": "Tournage BFM", "date": "13h30", "color": "#FF6B35"}, 
-        {"name": "Coiffeur lol", "date": "14h30", "color": "#3581B8"},  
-        {"name": "Mise à l'eau", "date": "15h30", "color": "white"}
-    ]);
-    const [shorteventList, setshorteventList] = useState([
-        {"name": "Auto école", "date": "9h30", "color": "white"}, 
-        {"name": "Coiffeur", "date": "10h30", "color": "#3581B8"},  
-        {"name": "Tournage BFM", "date": "13h30", "color": "#FF6B35"}
-    ]);*/
     const [isExpanded, setisExpanded] = useState(props.expand)
 
-
-
-    if (isExpanded){
-        console.log('true');
-    }
-    else {
-        console.log('false');
-    }
-    
+    console.log(eventList);
 
     //passer cette variable en props (ou pas dependament de qui fait les requetes)
 

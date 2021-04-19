@@ -28,8 +28,6 @@ export const MonthlyCalendar = (props) => {
                 }
                 for (let i = 0; i < isLong; i++) {
                     stockageEvent[getMoinsJour(date_debut) + i] = [event]
-                    console.log(event['name']);
-                    console.log(getMoinsJour(date_debut) + i);
                 }
             }
             else {
@@ -53,7 +51,6 @@ export const MonthlyCalendar = (props) => {
             stockageEvent[i] = []
         }
     }
-
     let  [,setState]=useState();
     function handleUpdate() {
         //passing empty object will re-render the component

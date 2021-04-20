@@ -2,13 +2,19 @@ import React from 'react'
 import { Typography } from '@material-ui/core'
 
 export const MonthlyCalendarItem = (props) => {
-    if (props.name == ''){
-        
+
+    if (props.blank){
+        return (
+            <div style={{padding: '8%'}}>
+                
+            </div>
+        )
     }
-    return (
-        <div className="monthly-item" style={{borderLeft: 'solid', borderColor: props.color , borderWidth: '2px', margin: '2px', boxSizing: 'border-box'}}>
-            <Typography variant="body2" style={{marginLeft: '5px'}}>{props.name}</Typography>
-            <Typography variant="body2" style={{marginLeft: '5px'}}>{props.date}</Typography>
-        </div>
-    )
+    else {
+        return (
+            <div className="monthly-item" style={{borderLeft: 'solid', borderColor: props.color , borderWidth: '2px', margin: '2px', boxSizing: 'border-box'}}>
+                <Typography variant="body2" style={{marginLeft: '5px'}}>{props.name}</Typography>
+            </div>
+        )
+    }
 }

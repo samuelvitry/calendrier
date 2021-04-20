@@ -178,6 +178,9 @@ hr {
     display: flex;
     flex-wrap: wrap;
     min-height: 30%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 .monthly-line {
     display: flex;

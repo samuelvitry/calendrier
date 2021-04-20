@@ -17,6 +17,10 @@ export const MonthlyCalendarDay = (props) => {
     else{
         shorteventList = eventList
     }
+    while (shorteventList.length < 3){
+        const blankEvent = {'blank': true}
+        shorteventList.push(blankEvent);
+    }
     function screenDate(date){
         var heur = date.getHours();
         var minutes = date.getMinutes();
@@ -63,22 +67,14 @@ export const MonthlyCalendarDay = (props) => {
         props.etendre();
     }
 
-    var nameDir = []
-    for (let i = 0; i < eventList.length; i++){
-        var event = eventList[i]
-        console.log(event['name'])
-        nameDir[i] = event['name']
-    }
-    console.log('lmao');
-    console.log(nameDir);
 
     return isExpanded ?  (
         <div className="monthly-day-card" style={{backgroundColor: props.disabled ? '#121E2B' : '#233D58', color: props.disabled ? '#8EABBE' : '#E0EDF5'}}>
             <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
             <div className="events-list">
-                <MonthlyCalendarItem name={nameDir[0]} />
-                <MonthlyCalendarItem name={nameDir[1]} />
-                <MonthlyCalendarItem name={nameDir[2]} />
+                <MonthlyCalendarItem name={eventList[0]['name']} blank={eventList[0]['blank']} date={eventList[0]['display_date']} color={eventList[0]['color']}/>
+                <MonthlyCalendarItem name={eventList[1]['name']} blank={eventList[1]['blank']} date={eventList[1]['display_date']} color={eventList[1]['color']}/>
+                <MonthlyCalendarItem name={eventList[2]['name']} blank={eventList[2]['blank']} date={eventList[2]['display_date']} color={eventList[2]['color']}/>
             </div>
             <div className='expand-icon-down'>
                 <ExpandButton onPress={() => agrandir()}/>
@@ -88,9 +84,9 @@ export const MonthlyCalendarDay = (props) => {
         <div className="monthly-day-card" style={{backgroundColor: props.disabled ? '#121E2B' : '#233D58', color: props.disabled ? '#8EABBE' : '#E0EDF5'}}>
             <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
             <div className="events-list">
-                <MonthlyCalendarItem name={nameDir[0]} />
-                <MonthlyCalendarItem name={nameDir[1]} />
-                <MonthlyCalendarItem name={nameDir[2]} />
+                <MonthlyCalendarItem name={eventList[0]['name']} blank={eventList[0]['blank']} date={eventList[0]['display_date']} color={eventList[0]['color']}/>
+                <MonthlyCalendarItem name={eventList[1]['name']} blank={eventList[1]['blank']} date={eventList[1]['display_date']} color={eventList[1]['color']}/>
+                <MonthlyCalendarItem name={eventList[2]['name']} blank={eventList[2]['blank']} date={eventList[2]['display_date']} color={eventList[2]['color']}/>
             </div>
             <div className='expand-icon-up'>
                 <ExpandButton onPress={() => agrandir()}/>

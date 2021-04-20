@@ -10,7 +10,7 @@ export const MonthlyCalendar = (props) => {
     const [isExpanded, setisExpanded] = useState(false);
     
     
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400}]
+    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186'}]
     const stockageEvent = {}
 
     //attribution des event au jours

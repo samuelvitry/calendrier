@@ -5,8 +5,8 @@ export const MonthlyCalendarItem = (props) => {
 
     if (props.blank){
         return (
-            <div style={{padding: '8%'}}>
-                
+            <div className="monthly-item" style={{visibility: 'hidden', margin: '2px'}}>
+                <Typography variant="body2" style={{marginLeft: '5px'}}>You found me GG !</Typography>
             </div>
         )
     }

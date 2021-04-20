@@ -202,7 +202,6 @@ export const MonthlyCalendar = (props) => {
                 <div>
                 <LastLine isExpanded={isExpanded}/>
                 </div>
-                
             </div>
         </div>
     )

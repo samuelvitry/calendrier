@@ -8,7 +8,6 @@ export const Header = () => {
         <div>
             <header>
                 <AppLogo className="inline" />
-                <CalendarSelectContainer />
                 <ProfilButton className="inline" />
             </header>
         </div>

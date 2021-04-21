@@ -10,7 +10,7 @@ export const MonthlyCalendar = (props) => {
     const [isExpanded, setisExpanded] = useState(false);
     
     
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186'}]
+    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}]
     const stockageEvent = {}
 
     //attribution des event au jours
@@ -53,7 +53,6 @@ export const MonthlyCalendar = (props) => {
     }
     let  [,setState]=useState();
     function handleUpdate() {
-        //passing empty object will re-render the component
        setState({});
     }
 
@@ -185,25 +184,23 @@ export const MonthlyCalendar = (props) => {
     }
     
 
-
     return (
         <div className="monthly-calendar">
             <div className="monthly-topbar">
                 <Tooltip title="Previous month">
-                    <Button><NavigateBefore style={{color: '#E0EDF5'}}/></Button>
+                    <Button><NavigateBefore /></Button>
                 </Tooltip>
                 <Typography variant='h4'>{monthString(props.month)} {props.year}</Typography>
                 <Tooltip title="Next month">
-                    <Button><NavigateNext style={{color: '#E0EDF5'}}/></Button>
+                    <Button><NavigateNext /></Button>
                 </Tooltip>
             </div>
             <br />
             <div className="monthly-actual">
                 <Line />
                 <div>
-                <LastLine isExpanded={isExpanded}/>
+                    <LastLine isExpanded={isExpanded}/>
                 </div>
-                
             </div>
         </div>
     )

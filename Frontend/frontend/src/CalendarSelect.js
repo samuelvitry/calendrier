@@ -4,9 +4,9 @@ import { CalendarSelectItem } from './CalendarSelectItem'
 export const CalendarSelectContainer = () => {
     return (
         <div className="container-select-calendar">
-            <CalendarSelectItem selected={true} name="Perso" />
-            <CalendarSelectItem selected={false} name="Travail" />
-            <CalendarSelectItem selected={true} name="Famille" />
+            <CalendarSelectItem name="Perso" />
+            <CalendarSelectItem name="Travail" />
+            <CalendarSelectItem name="Famille" />
         </div>
     )
 }
@@ -15,11 +15,11 @@ export const CalendarSelectContainer = () => {
 export const CalendarSelect = () => {
     return (
         <section className="calendar-select">
-            <h3>Selection des calendriers</h3>
+            <h2>Selection des calendriers</h2>
             <div className="container-select-calendar">
-                <CalendarSelectItem selected={true} name="Perso" icon="HomeIcon" />
-                <CalendarSelectItem selected={false} name="Travail" />
-                <CalendarSelectItem selected={true} name="Famille" />
+                <CalendarSelectItem name="Perso" icon="HomeIcon" />
+                <CalendarSelectItem name="Travail" />
+                <CalendarSelectItem name="Famille" />
             </div>
         </section>
     )

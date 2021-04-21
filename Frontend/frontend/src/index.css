@@ -1,15 +1,15 @@
 :root {
     --main-color: #FF6B35;
-    --darker-main: #E03C00;
+    --darker-main: #D75628;
     --secondary-color: #3581B8;
-    --darker-secondary: #25597E;
-    --dark-color: #17293B;
-    --lighter-dark: #233D58;
-    --darker-dark: #121E2B;
-    --white-1: #F0F6FA;
-    --white-2: #E0EDF5;
-    --white-3: #D1E4F0;
-    --white-4: #8EABBE;
+    --darker-secondary: #2D6186;
+    --dark-color: #1B2228;
+    --lighter-dark: #292F33;
+    --darker-dark: #111B22;
+    --white-1: #F7FAFD;
+    --white-2: #ECF2F9;
+    --white-3: #DBE5F0;
+    --border-color: #667885;
 }
 
 * {
@@ -24,9 +24,9 @@ body {
     width: 100%;
     background-size: cover;
     font-family: sans-serif;
-    background-color: var(--dark-color);
+    background-color: var(--white-1);
     position: relative;
-    color: var(--white-2);
+    color: var(--dark-color);
 }
 #root {
     width: 100%;
@@ -51,7 +51,7 @@ header {
     align-items: center;
     position: relative;
     border-bottom: solid;
-    border-color: var(--white-3);
+    border-color: var(--border-color);
     border-width: 1px;
 }
 
@@ -59,25 +59,25 @@ header h1 {
     margin: 20px;
     margin-right: 75px;
 }
-
 .right-section{
-    width: 100%;
     height: 100%;
 }
 .left-section{
     width: 20%;
-    min-width: 20%;
     float: left;
     height: 100%;
     border-right: solid;
-    border-color: var(--white-3);
+    border-color: var(--border-color);
     border-width: 1px;
-    padding: 1%;
 }
 .main-section{
-    width: 100%;
+    width: 88%;
     display: flex;
     height: 85%;
+}
+.left-section h2{
+    padding-left: 5%;
+    margin-bottom: 4%;
 }
 
 .container {
@@ -93,9 +93,6 @@ header h1 {
     100% {opacity: 0%;}
 }
 .to-do-list-item {
-    background-color: var(--lighter-dark);
-    border-radius: 10px;
-    margin: 3%;
     padding: 5%;
     padding-top: 0;
     padding-bottom: 0;
@@ -105,13 +102,18 @@ header h1 {
     white-space: nowrap;
     overflow: hidden;
     /* animation: todoApear .5s 1; */
-    /*shadow*/
+}
+.to-do-list-item * {
+    max-width: 100%;
+}
+.to-do-list-item:hover {
+    background-color: var(--white-2);
 }
 .task-delete {
     animation: taskDel .5s 1;
 }
 .to-do-add {
-    background-color: var(--lighter-dark);
+    background-color: var(--white-3);
     border-radius: 10px;
     margin: 3%;
     padding: 5%;
@@ -127,27 +129,17 @@ hr {
     margin-top: 5%;
 }
 .next-event-item {
-    background-color: var(--lighter-dark);
-    border-radius: 10px;
-    margin-top: 5%;
-    margin-bottom: 5%;
     padding: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    /*shadow*/
 }
 .calendar-select-item {
-    border-radius: 20px;
-    margin: 3%;
     padding: 5%;
-    padding-top: 2%;
-    padding-bottom: 2%;
-    /*shadow*/
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.calendar-select-item:hover {
+    background-color: var(--white-2);
 }
 .container-select-calendar {
-    display: flex;
-    align-content: flex-start;
-    flex-wrap: nowrap;
     max-height: 100%;
     max-width: 100%;
 }
@@ -157,22 +149,16 @@ hr {
     justify-content: space-evenly;
 }
 .monthly-calendar {
-    border-radius: 20px;
     height: 100%;
-    background-color: var(--dark-color);
-    padding: 2%;
-    /*shadow*/
 }
-.monthly-line{
-    min-height: 100%;
-}
-
 .monthly-day-card {
-    margin: 8px;
-    border-radius: 7px;
     min-height: 100%;
     padding: 10px;
     width: 100%;
+    border: solid;
+    border-color: var(--border-color);
+    border-width: 1px;
+    border-collapse: collapse;
 }
 .monthly-item {
     display: flex;
@@ -312,4 +298,36 @@ hr {
 }
 .login-submit .button-full:hover {
     background-color: var(--darker-main);
+}
+.mini-calendar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.mini-line {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+.mini-jour {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 5px;
+    border-radius: 100%;
+    text-align: center;
+    width: 12%;
+    height: 12%;
+}
+.mini-jour * {
+    text-align: center;
+}
+.mini-jour:hover {
+    background-color: #DBE5F0;
+}
+.mini-selected {
+    background-color: #D75628;
 }

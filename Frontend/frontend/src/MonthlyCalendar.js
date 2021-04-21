@@ -184,7 +184,6 @@ export const MonthlyCalendar = (props) => {
     }
     
 
-
     return (
         <div className="monthly-calendar">
             <div className="monthly-topbar">
@@ -200,7 +199,7 @@ export const MonthlyCalendar = (props) => {
             <div className="monthly-actual">
                 <Line />
                 <div>
-                <LastLine isExpanded={isExpanded}/>
+                    <LastLine isExpanded={isExpanded}/>
                 </div>
             </div>
         </div>

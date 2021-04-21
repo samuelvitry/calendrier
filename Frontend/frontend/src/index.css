@@ -299,3 +299,35 @@ hr {
 .login-submit .button-full:hover {
     background-color: var(--darker-main);
 }
+.mini-calendar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.mini-line {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    text-align: center;
+}
+.mini-jour {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    padding: 5px;
+    border-radius: 100%;
+    text-align: center;
+    width: 12%;
+    height: 12%;
+}
+.mini-jour * {
+    text-align: center;
+}
+.mini-jour:hover {
+    background-color: #DBE5F0;
+}
+.mini-selected {
+    background-color: #D75628;
+}

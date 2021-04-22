@@ -2,7 +2,7 @@ import react from 'react'
 
 export const MiniCalendar = (props) => {
 
-    //definir les props year and month
+
     function getJour (nbr) {
         var offsetbeggin = new Date(props.year, props.month - 1, 0).getDay();
         var day = new Date(props.year, props.month-1, nbr - offsetbeggin)
@@ -10,7 +10,10 @@ export const MiniCalendar = (props) => {
     }
 
     const MiniJour = (props) => {
+
         var gris = false
+        const today = new Date
+        var selected = false
         if (props.premier){
             if (getJour(props.day).getDate() > 15){
                 gris = true
@@ -21,8 +24,15 @@ export const MiniCalendar = (props) => {
                 gris = true
             }
         }
+        var mois = today.getMonth()
+        mois = mois + 1
+        if (getJour(props.day).getDate() == today.getDate()){
+            if (props.month == mois){
+                selected = true
+            }
+        }
         return (
-            <div className={props.selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#495055' : '#111B22'}}>
+            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#495055' : '#111B22'}}>
                 
                 <p>{getJour(props.day).getDate()}</p>
             </div>
@@ -33,24 +43,39 @@ export const MiniCalendar = (props) => {
     const Line = (props) => {
         return (
             <div className='mini-line'>
-                <MiniJour day={1 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour day={2 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour day={3 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour day={4 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour day={5 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour day={6 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour day={7 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={1 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={2 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={3 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={4 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={5 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={6 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={7 + props.offset} premier={props.premier} dernier={props.dernier}/>
             </div>
         )
+    }
+    const monthConv = {
+        1: 'Janvier',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December',
     }
 
     return (
         <div className='mini-calendar'>
-            <Line offset={0} premier={true} dernier={false}/>
-            <Line offset={7} premier={false} dernier={false}/>
-            <Line offset={14}premier={false} dernier={false}/>
-            <Line offset={21}premier={false} dernier={false}/>
-            <Line offset={28}premier={false} dernier={true}/>
+            <h2>{monthConv[props.month]} {props.year} </h2>
+            <Line month={props.month} offset={0} premier={true} dernier={false}/>
+            <Line month={props.month} offset={7} premier={false} dernier={false}/>
+            <Line month={props.month} offset={14}premier={false} dernier={false}/>
+            <Line month={props.month} offset={21}premier={false} dernier={false}/>
+            <Line month={props.month} offset={28}premier={false} dernier={true}/>
         </div>
     )
 }

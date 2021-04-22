@@ -9,9 +9,10 @@ export const Main = () => {
     return (
         <section className="main-section">
             <div className="left-section">
+                <MiniCalendar month={4} year={2021}/>
                 <CalendarSelect />
                 <TodoList />
-                <MiniCalendar month={4} year={2021}/>
+                
             </div>
             <div class="right-section">
                 <MonthlyCalendar month={4} year={2021}/>

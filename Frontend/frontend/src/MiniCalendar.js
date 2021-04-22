@@ -32,7 +32,7 @@ export const MiniCalendar = (props) => {
             }
         }
         return (
-            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#495055' : '#111B22'}}>
+            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#49505500' : '#111B22'}}>
                 
                 <p>{getJour(props.day).getDate()}</p>
             </div>

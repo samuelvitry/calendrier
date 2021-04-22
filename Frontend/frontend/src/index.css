@@ -153,12 +153,27 @@ hr {
 }
 .monthly-day-card {
     min-height: 100%;
-    padding: 10px;
     width: 100%;
     border: solid;
     border-color: var(--border-color);
     border-width: 1px;
     border-collapse: collapse;
+    padding-bottom: .8%; 
+}
+.monthly-number{
+    border-radius: 100%;
+    padding: 5%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+.monthly-day-card:hover{
+    background-color: #3581b82a;
+}
+.monthly-number-container {
+    display: flex;
+    flex-direction: row-reverse;
+    text-align: center;
+    margin: 5px;
 }
 .monthly-item {
     display: flex;
@@ -167,6 +182,19 @@ hr {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    cursor: pointer;
+    margin: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+@keyframes monthlyHover {
+    0% {transform: translateX(0);}
+    50% {transform: translateX(8px);}
+    100% {transform: translateX(10px);}
+}
+.monthly-item:hover{
+    animation: monthlyHover .2s 1;
+    transform: translateX(10px);
 }
 .monthly-line {
     display: flex;
@@ -320,7 +348,7 @@ hr {
     padding: 5px;
     border-radius: 100%;
     text-align: center;
-    width: 12%;
+    width: 13%;
     height: 12%;
 }
 .mini-jour * {
@@ -330,5 +358,8 @@ hr {
     background-color: #3581b825;
 }
 .mini-selected {
+    background-color: #3581b873;
+}
+.mini-selected:hover{
     background-color: #3581b873;
 }

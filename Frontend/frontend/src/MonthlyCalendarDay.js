@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { Typography } from '@material-ui/core'
 import {MonthlyCalendarItem} from './MonthlyCalendarItem'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { Widgets } from '@material-ui/icons';
 
 
 
@@ -62,7 +63,7 @@ export const MonthlyCalendarDay = (props) => {
 
     return (
         <div className="monthly-day-card">
-            <Typography variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography>
+            <div className='monthly-number-container'><Typography className='monthly-number' variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography></div>
             <div className="events-list">
                 <MonthlyCalendarItem name={eventList[0]['name']} blank={eventList[0]['blank']} date={eventList[0]['display_date']} color={eventList[0]['color']}/>
                 <MonthlyCalendarItem name={eventList[1]['name']} blank={eventList[1]['blank']} date={eventList[1]['display_date']} color={eventList[1]['color']}/>

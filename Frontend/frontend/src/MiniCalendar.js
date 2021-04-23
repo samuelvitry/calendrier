@@ -70,7 +70,13 @@ export const MiniCalendar = (props) => {
 
     return (
         <div className='mini-calendar'>
-            <h2>{monthConv[props.month]} {props.year} </h2>
+            <div className='mini-top'>
+                <h2>{monthConv[props.month]} {props.year} </h2>
+                <div className='mini-nav'>
+                    <h2 className='mini-nav-prev'>&#60;</h2>
+                    <h2 className='mini-nav-next'>&#62;</h2>
+                </div>
+            </div>
             <Line month={props.month} offset={0} premier={true} dernier={false}/>
             <Line month={props.month} offset={7} premier={false} dernier={false}/>
             <Line month={props.month} offset={14}premier={false} dernier={false}/>

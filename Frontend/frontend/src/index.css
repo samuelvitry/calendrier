@@ -9,13 +9,17 @@
     --white-1: #F7FAFD;
     --white-2: #ECF2F9;
     --white-3: #DBE5F0;
+    --white-4: #C4CED9;
     --border-color: #667885;
 }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;700&display=swap');
 
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 10px;
 }
 
 body {
@@ -24,7 +28,7 @@ body {
     width: 100%;
     background-size: cover;
     font-family: sans-serif;
-    background-color: var(--white-1);
+    background-color: var(--white-4);
     position: relative;
     color: var(--dark-color);
 }
@@ -50,9 +54,10 @@ header {
     display: flex;
     align-items: center;
     position: relative;
-    border-bottom: solid;
+    /*border-bottom: solid;*/
     border-color: var(--border-color);
     border-width: 1px;
+    background-color: var(--white-1);
 }
 
 header h1 {
@@ -61,28 +66,31 @@ header h1 {
 }
 .right-section{
     height: 100%;
+    flex-grow: 3;
+    margin: 2vw;
+    margin-top: 4vh;
+    width: 60%;
 }
 .left-section{
-    width: 20%;
-    float: left;
+    min-width: 20%;
+    flex-grow: 1;
     height: 100%;
-    border-right: solid;
-    border-color: var(--border-color);
-    border-width: 1px;
+    font-size: 18px;
+    margin: 2vw;
+    margin-top: 4vh;
 }
 .main-section{
-    width: 88%;
     display: flex;
-    height: 85%;
+    width: 100vw;
 }
 .left-section h2{
-    padding-left: 5%;
     margin-bottom: 4%;
+    font-size: 18px;
+    font-weight: 500;
 }
-
 .container {
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
 }
 @keyframes todoApear {
     0% {opacity: 0%;}
@@ -92,22 +100,34 @@ header h1 {
     0% {opacity: 100%;}
     100% {opacity: 0%;}
 }
-.to-do-list-item {
+.to-do-list {
+    background-color: var(--white-1);
+    margin-top: 4vh;
+    margin-bottom: 4vh;
     padding: 5%;
-    padding-top: 0;
-    padding-bottom: 0;
-    display: inline-block;
+    border-radius: 15px;
+}.to-do-list h2 {
+    margin-bottom: 5%;
+}
+.to-do-list-item {
     width: 94%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-top: 3%;
+    border-radius: 10px;
     /* animation: todoApear .5s 1; */
+}
+.to-do-list-item p {
+    font-size: 14px;
+    font-weight: 400;
 }
 .to-do-list-item * {
     max-width: 100%;
 }
 .to-do-list-item:hover {
-    background-color: var(--white-2);
+    background-color: var(--white-3);
 }
 .task-delete {
     animation: taskDel .5s 1;
@@ -124,20 +144,25 @@ header h1 {
 #standard-basic {
     color: var(--white-2);
 }
-hr {
-    margin-bottom: 5%;
-    margin-top: 5%;
-}
-.next-event-item {
+.calendar-select {
+    background-color: var(--white-1);
+    margin-top: 4vh;
+    margin-bottom: 4vh;
     padding: 5%;
+    border-radius: 15px;
 }
 .calendar-select-item {
-    padding: 5%;
-    padding-top: 0;
-    padding-bottom: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-radius: 10px;
+}
+.calendar-select-item p {
+    font-size: 14px;
+    font-weight: 400;
 }
 .calendar-select-item:hover {
-    background-color: var(--white-2);
+    background-color: var(--white-3);
 }
 .container-select-calendar {
     max-height: 100%;
@@ -146,18 +171,57 @@ hr {
 .monthly-topbar {
     display: flex;
     flex-wrap: nowrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2vh;
+}
+.monthly-topbar .button-full, .plus-add{
+    color: var(--white-1);
+    font-size: 18px;
+}
+.monthly-top-button {
+    margin-top: 1vh;
+}
+.plus-add {
+    margin-right: 1vw;
+}
+.monthly-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-end;
+    background-color: var(--white-1);
+    border-radius: 15px;
+    width: fit-content;
+}
+.monthly-nav h2 {
+    margin-right: 3vw;
+    font-weight: 500;
+}
+.monthly-nav * {
+    font-size: 28px;
+}
+.monthly-next {
+    margin-left: 1vw;
 }
 .monthly-calendar {
     height: 100%;
+    background-color: var(--white-1);
+    margin-bottom: 4vh;
+    border-radius: 15px;
+    padding: 5%;
+    padding-top: 2vh;
 }
-.monthly-day-card {
-    min-height: 100%;
-    width: 100%;
+.monthly-actual {
     border: solid;
     border-color: var(--border-color);
     border-width: 1px;
-    border-collapse: collapse;
+}
+.monthly-day-card {
+    width: 100%;
+    height: 100%;
+    border: solid;
+    border-color: var(--border-color);
+    border-width: 1px;
     padding-bottom: .8%; 
 }
 .monthly-number{
@@ -186,6 +250,7 @@ hr {
     margin: 2px;
     margin-left: 10px;
     margin-right: 10px;
+    padding: 1px;
 }
 @keyframes monthlyHover {
     0% {transform: translateX(0);}
@@ -328,10 +393,13 @@ hr {
     background-color: var(--darker-main);
 }
 .mini-calendar {
+    background-color: var(--white-1);
+    margin-bottom: 4vh;
+    padding: 5%;
+    border-radius: 15px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    padding: 3%;
 }
 .mini-line {
     display: flex;
@@ -348,8 +416,8 @@ hr {
     padding: 5px;
     border-radius: 100%;
     text-align: center;
-    width: 13%;
-    height: 12%;
+    width: 12%;
+    height: 13%;
 }
 .mini-jour * {
     text-align: center;
@@ -362,4 +430,47 @@ hr {
 }
 .mini-selected:hover{
     background-color: #3581b873;
+}
+.mini-top {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+.mini-nav {
+    display: flex;
+    flex-wrap: nowrap;
+}
+.mini-nav-prev {
+    margin-right: 1vw;
+}
+.event-detail {
+    background-color: var(--dark-color);
+    color: var(--white-2);
+    border-radius: 30px;
+    position: fixed;
+    top: 20%;
+    left: 35%;
+    width: 30%;
+    padding: 2%;
+}
+.detail-first-line {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-bottom: 7%;
+}
+.detail-line {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    margin-bottom: 3%;
+}
+.detail-icon {
+    margin-right: 5%;
+}
+.detail-container {
+    background-color: #1b22282a;
+    width: 100%;
+    height: 100%;
+    position: fixed;
 }

@@ -2,20 +2,36 @@ import React, { useState } from 'react'
 import { Button, Tooltip, Typography } from '@material-ui/core'
 import { NavigateBefore, NavigateNext } from '@material-ui/icons'
 import {MonthlyCalendarDay} from './MonthlyCalendarDay'
+import { EventDetail } from './MonthlyCalendarItem'
+import { MonthlyTopbar } from './MonthlyTopbar'
 
 
 
 export const MonthlyCalendar = (props) => {
 
     const [isExpanded, setisExpanded] = useState(false);
+
+    const [detail, setdetail] = useState(0);
+    const [isDetail, setisDetail] = useState(false);
+
+    function setPopup(nbr) {
+        setdetail(nbr);
+        setisDetail(true);
+    }
+    function closePopup() {
+        //todo add annimation
+        setisDetail(false)
+    }
     
-    
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628'}]
+    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}]
     const stockageEvent = {}
+
+    
 
     //attribution des event au jours
     for (let i = 0; i < eventList.length; i++) {
         var event = eventList[i]
+        event["key"] = i
         var date_debut = new Date(event['start_date'] * 1000)
         var date_fin = new Date(event['end_date'] * 1000)
         var isLong = date_fin.getTime() - date_debut.getTime()
@@ -91,12 +107,6 @@ export const MonthlyCalendar = (props) => {
             return true;
         }
     }
-    function monthString (nbr) {
-        var months = new Array(['January', 'February', 'March',
-                     'April', 'May', 'June', 'July', 'August',
-                     'September', 'October', 'November', 'December']);
-        return months[nbr-1];
-    }
     function getMoinsJour (date) {
         var day = new Date(props.year, props.month, 0).getDay();
         if (day === 0) {
@@ -122,13 +132,13 @@ export const MonthlyCalendar = (props) => {
         else {
             return (
                 <div className="monthly-line">
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[29]} day={getJour(29)} disabled={offsetFin(1)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[30]} day={getJour(30)} disabled={offsetFin(2)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[31]} day={getJour(31)} disabled={offsetFin(3)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[32]} day={getJour(32)} disabled={offsetFin(4)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[33]} day={getJour(33)} disabled={offsetFin(5)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[34]} day={getJour(34)} disabled={offsetFin(6)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[35]} day={getJour(35)} disabled={offsetFin(7)} numColor={offsetFin(7) ? "#cc3600" : "#FF6B35"}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[29]} day={getJour(29)} disabled={offsetFin(1)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[30]} day={getJour(30)} disabled={offsetFin(2)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[31]} day={getJour(31)} disabled={offsetFin(3)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[32]} day={getJour(32)} disabled={offsetFin(4)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[33]} day={getJour(33)} disabled={offsetFin(5)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[34]} day={getJour(34)} disabled={offsetFin(6)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={stockageEvent[35]} day={getJour(35)} disabled={offsetFin(7)} numColor={offsetFin(7) ? "#cc3600" : "#FF6B35"}/>
                 </div>
             );
         }
@@ -144,40 +154,40 @@ export const MonthlyCalendar = (props) => {
         return (
             <div>
                 <div className="monthly-line">
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[1]} day={getJour(1)} disabled={offsetDebut(1)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[2]} day={getJour(2)} disabled={offsetDebut(2)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[3]} day={getJour(3)} disabled={offsetDebut(3)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[4]} day={getJour(4)} disabled={offsetDebut(4)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[5]} day={getJour(5)} disabled={offsetDebut(5)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[6]} day={getJour(6)} disabled={offsetDebut(6)}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[7]} day={getJour(7)} disabled={offsetDebut(7)} numColor="#FF6B35"/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[1]} day={getJour(1)} disabled={offsetDebut(1)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[2]} day={getJour(2)} disabled={offsetDebut(2)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[3]} day={getJour(3)} disabled={offsetDebut(3)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[4]} day={getJour(4)} disabled={offsetDebut(4)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[5]} day={getJour(5)} disabled={offsetDebut(5)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[6]} day={getJour(6)} disabled={offsetDebut(6)}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[7]} day={getJour(7)} disabled={offsetDebut(7)} numColor="#FF6B35"/>
                 </div>
                 <div className="monthly-line">
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[8]} day={getJour(8)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[9]} day={getJour(9)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[10]} day={getJour(10)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[11]} day={getJour(11)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[12]} day={getJour(12)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[13]} day={getJour(13)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[14]} day={getJour(14)} disabled={false} numColor="#FF6B35"/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[8]} day={getJour(8)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[9]} day={getJour(9)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[10]} day={getJour(10)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[11]} day={getJour(11)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[12]} day={getJour(12)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[13]} day={getJour(13)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[14]} day={getJour(14)} disabled={false} numColor="#FF6B35"/>
                 </div>
                 <div className="monthly-line">
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[15]} day={getJour(15)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[16]} day={getJour(16)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[17]} day={getJour(17)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[18]} day={getJour(18)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[19]} day={getJour(19)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[20]} day={getJour(20)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[21]} day={getJour(21)} disabled={false} numColor="#FF6B35"/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[15]} day={getJour(15)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[16]} day={getJour(16)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[17]} day={getJour(17)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[18]} day={getJour(18)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[19]} day={getJour(19)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[20]} day={getJour(20)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[21]} day={getJour(21)} disabled={false} numColor="#FF6B35"/>
                 </div>
                 <div className="monthly-line">
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[22]} day={getJour(22)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[23]} day={getJour(23)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[24]} day={getJour(24)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[25]} day={getJour(25)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[26]} day={getJour(26)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[27]} day={getJour(27)} disabled={false}/>
-                    <MonthlyCalendarDay etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[28]} day={getJour(28)} disabled={false} numColor="#FF6B35"/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[22]} day={getJour(22)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[23]} day={getJour(23)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[24]} day={getJour(24)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[25]} day={getJour(25)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[26]} day={getJour(26)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[27]} day={getJour(27)} disabled={false}/>
+                    <MonthlyCalendarDay open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={stockageEvent[28]} day={getJour(28)} disabled={false} numColor="#FF6B35"/>
                 </div>
             </div>
         );
@@ -186,16 +196,8 @@ export const MonthlyCalendar = (props) => {
 
     return (
         <div className="monthly-calendar">
-            <div className="monthly-topbar">
-                <Tooltip title="Previous month">
-                    <Button><NavigateBefore /></Button>
-                </Tooltip>
-                <Typography variant='h4'>{monthString(props.month)} {props.year}</Typography>
-                <Tooltip title="Next month">
-                    <Button><NavigateNext /></Button>
-                </Tooltip>
-            </div>
-            <br />
+            {isDetail ? <EventDetail closeDetail={() => closePopup()}/> : null}
+            <MonthlyTopbar month={4} year={2021}/>
             <div className="monthly-actual">
                 <Line />
                 <div>

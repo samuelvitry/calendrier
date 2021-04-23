@@ -1,16 +1,8 @@
 import React from 'react'
+import { MonthlyWeeklySwitch } from './MonthlyWeeklySwitch'
 
 export const MonthlyTopbar = (props) => {
-
-    const MonthlyWeeklySwitch = () => {
-        return (
-            <div className='monthly-weekly-switch'>
-                
-            </div>
-        )
-    }
     
-
     function monthString (nbr) {
         var months = ['January', 'February', 'March',
                      'April', 'May', 'June', 'July', 'August',

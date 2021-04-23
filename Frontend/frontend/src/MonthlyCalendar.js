@@ -14,6 +14,8 @@ export const MonthlyCalendar = (props) => {
     const [detail, setdetail] = useState(0);
     const [isDetail, setisDetail] = useState(false);
 
+    var stockageEvent = props.stockageEvent
+
     function setPopup(nbr) {
         setdetail(nbr);
         setisDetail(true);
@@ -22,56 +24,11 @@ export const MonthlyCalendar = (props) => {
         //todo add annimation
         setisDetail(false)
     }
-    
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}]
-    const stockageEvent = {}
 
-    
-
-    //attribution des event au jours
-    for (let i = 0; i < eventList.length; i++) {
-        var event = eventList[i]
-        event["key"] = i
-        var date_debut = new Date(event['start_date'] * 1000)
-        var date_fin = new Date(event['end_date'] * 1000)
-        var isLong = date_fin.getTime() - date_debut.getTime()
-        isLong = isLong / 86400000
-        isLong = Math.floor(isLong);
-        if (date_debut >= getJour(1) && date_fin <= getJour(35)){
-            if (isLong >= 1){
-                if (getMoinsJour(date_debut) in stockageEvent){
-                    stockageEvent[getMoinsJour(date_debut)] = []
-                }
-                for (let i = 0; i < isLong; i++) {
-                    stockageEvent[getMoinsJour(date_debut) + i] = [event]
-                }
-            }
-            else {
-                if (getMoinsJour(date_debut) in stockageEvent) {
-                    stockageEvent[getMoinsJour(date_debut)].push(event);
-                }
-                else {
-                    stockageEvent[getMoinsJour(date_debut)] = [event]
-                }
-            }
-        }
-        else{
-            break
-        }
-    }
-    for (let i = 0; i < 36; i++) {
-        if (i in stockageEvent){
-            
-        }
-        else {
-            stockageEvent[i] = []
-        }
-    }
     let  [,setState]=useState();
     function handleUpdate() {
        setState({});
     }
-
     function expand () {
         if (isExpanded === false){
             setisExpanded(true);
@@ -82,7 +39,6 @@ export const MonthlyCalendar = (props) => {
             handleUpdate();
         }
     }
-
     function offsetDebut (dayNbr){
         var day = new Date(props.year, props.month - 1, 1).getDay();
         if (day === 0) {

@@ -588,3 +588,22 @@ header h1 {
 .weekly-first-line * {
     border: none;
 }
+.weekly-event{
+    width: 100%;
+    background-color: #ff6b357e;
+    border-left: solid;
+    border-color: #FF6B35;
+    border-width: 3px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.weekly-event * {
+    color: var(--dark-color);
+    font-size: 14px;
+    font-weight: 500;
+}
+.weekly-event-hour {
+    font-size: 12px;
+    font-weight: 400;
+}

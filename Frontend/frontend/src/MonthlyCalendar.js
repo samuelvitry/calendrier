@@ -15,6 +15,7 @@ export const MonthlyCalendar = (props) => {
     const [isDetail, setisDetail] = useState(false);
 
     var stockageEvent = props.stockageEvent
+    console.log(stockageEvent)
 
     function setPopup(nbr) {
         setdetail(nbr);

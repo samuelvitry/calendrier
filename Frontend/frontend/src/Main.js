@@ -8,14 +8,22 @@ import { WeeklyCalendar } from './WeeklyCalendar'
 
 export const Main = (props) => {
 
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}]
-    const stockageEvent = {}
-
-    const [year, setyear] = useState(2021)
-    const [month, setmonth] = useState(4)
-    const [week, setweek] = useState(16)
+    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}]
+    var stockageEvent = {}
 
     const [isWeekly, setisWeekly] = useState(true);
+
+    
+
+    const [year, setyear] = useState(2021)
+    const [week, setweek] = useState(16)
+    let tempMonth = rowToJour().getMonth() + 1
+    const [month, setmonth] = useState(tempMonth)
+    
+    function rowToJour() {
+        var d = (1 + (week - 1) * 7) + 3;
+        return new Date(year, 0, d);
+    }
 
     //attribution des event au jours
     for (let i = 0; i < eventList.length; i++) {
@@ -45,7 +53,7 @@ export const Main = (props) => {
             }
         }
         else{
-            break
+            
         }
     }
     for (let i = 0; i < 36; i++) {
@@ -81,7 +89,7 @@ export const Main = (props) => {
                 
             </div>
             <div class="right-section">
-                {isWeekly ? <WeeklyCalendar year={year} week={week} stockageEvent={stockageEvent}/> : <MonthlyCalendar month={4} year={2021} stockageEvent={stockageEvent}/>}
+                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} stockageEvent={stockageEvent}/> : <MonthlyCalendar month={4} year={2021} stockageEvent={stockageEvent}/>}
             </div>
       </section>
     )

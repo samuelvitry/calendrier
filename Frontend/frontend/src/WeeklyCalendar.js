@@ -32,6 +32,74 @@ export const WeeklyCalendar = (props) => {
 
     const DayRow = (props) => {
 
+        if(props.date in props.eventList){
+            for (let i = 0; i < countProps(props.eventList); i++){
+                var event = props.eventList[props.date][i]
+                var durationT = event['end_date'] - event['start_date']
+                var durationS = ''
+                var positionS = ''
+                var positionT
+                if (durationT >= 86399){
+                    durationS = '6vh'
+                    positionS = '150vh'
+                }
+                else {
+                    durationS = Math.floor(durationT / 600) + 'vh'
+                    positionT = ((props.date.getTime() / 1000) - 86400) - event['start_date']
+                    positionT = positionT - 3600
+                    /*if (positionT < 0){
+                        positionT = Math.sqrt(positionT * positionT)
+                    }*/
+                    
+                    positionS = Math.floor(positionT / 600) + 'vh'
+                }
+                event['duration'] = durationS
+                event['position'] = positionS
+            }
+            var positionList = []
+            for (let i = 0; i < countProps(props.eventList); i++){
+                var event = props.eventList[i]
+                if (positionList.indexOf(event['position']) != -1){
+                    event['double'] = true
+                }
+                else{
+                    positionList.push(event['position'])
+                    event['double'] = false
+                }
+            }
+        }
+        else {
+            return(
+                <div className='day-row'>
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+                <div className='weekly-cell' />
+            </div>
+            )
+        }
+
         function countProps(obj) {
             var count = 0;
             for (var p in obj) {
@@ -40,35 +108,6 @@ export const WeeklyCalendar = (props) => {
             return count; 
         }
 
-        for (let i = 0; i < countProps(props.eventList); i++){
-            var event = props.eventList[i]
-            var durationT = event['end_date'] - event['start_date']
-            var durationS = ''
-            var positionS = ''
-            var positionT
-            if (durationT >= 86399){
-                durationS = '6vh'
-                positionS = '150vh'
-            }
-            else {
-                durationS = Math.floor(durationT / 600) + 'vh'
-                positionT = ((props.date.getTime() / 1000) + 86400) - event['start_date']
-                positionS = Math.floor(positionT / 600) + 'vh'
-            }
-            event['duration'] = durationS
-            event['position'] = positionS
-        }
-        var positionList = []
-        for (let i = 0; i < countProps(props.eventList); i++){
-            var event = props.eventList[i]
-            if (positionList.indexOf(event['position']) != -1){
-                event['double'] = true
-            }
-            else{
-                positionList.push(event['position'])
-                event['double'] = false
-            }
-        }
         return (
             <div className='day-row'>
                 <div className='weekly-cell' />
@@ -140,57 +179,57 @@ export const WeeklyCalendar = (props) => {
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(0).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(0).getDate()}</h3>
                             <p>Monday</p>
                         </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(1).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(1).getDate()}</h3>
                             <p>Tuesday</p>
                         </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(2).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(2).getDate()}</h3>
                             <p>Wednesday</p>
                         </div>
 
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(3).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(3).getDate()}</h3>
                             <p>Thursday</p>
                         </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(4).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(4).getDate()}</h3>
                             <p>Friday</p>
                         </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(5).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(5).getDate()}</h3>
                             <p>Saturday</p>
                         </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
-                            <h3>{rowToJour(6).getDate() + offsetDebut()}</h3>
+                            <h3>{rowToJour(6).getDate()}</h3>
                             <p>Sunday</p>
                         </div>
                     </div>
                 </div>
                 <div className='weekly-other-line'>
                     <NumRow />
-                    <DayRow eventList={stockageEvent[rowToJour(0).getDate() + offsetDebut() + 1]} date={rowToJour(0)} dayName='Monday' />
-                    <DayRow eventList={stockageEvent[rowToJour(1).getDate() + offsetDebut() + 1]} date={rowToJour(1)} dayName='Tuesday' />
-                    <DayRow eventList={stockageEvent[rowToJour(2).getDate() + offsetDebut() + 1]} date={rowToJour(2)} dayName='Wednesday' />
-                    <DayRow eventList={stockageEvent[rowToJour(3).getDate() + offsetDebut() + 1]} date={rowToJour(3)} dayName='Thursday' />
-                    <DayRow eventList={stockageEvent[rowToJour(4).getDate() + offsetDebut() + 1]} date={rowToJour(4)} dayName='Friday' />
-                    <DayRow eventList={stockageEvent[rowToJour(5).getDate() + offsetDebut() + 1]} date={rowToJour(5)} dayName='Saturday' />
-                    <DayRow eventList={stockageEvent[rowToJour(6).getDate() + offsetDebut() + 1]} date={rowToJour(6)} dayName='Sunday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(0)} dayName='Monday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(1)} dayName='Tuesday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(2)} dayName='Wednesday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(3)} dayName='Thursday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(4)} dayName='Friday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(5)} dayName='Saturday' />
+                    <DayRow eventList={stockageEvent} date={rowToJour(6)} dayName='Sunday' />
                 </div>
             </div>
         </div>

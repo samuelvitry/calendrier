@@ -15,7 +15,6 @@ export const MonthlyCalendar = (props) => {
     const [isDetail, setisDetail] = useState(false);
 
     var stockageEvent = props.stockageEvent
-    console.log(stockageEvent)
 
     function setPopup(nbr) {
         setdetail(nbr);
@@ -154,7 +153,7 @@ export const MonthlyCalendar = (props) => {
     return (
         <div className="monthly-calendar">
             {isDetail ? <EventDetail closeDetail={() => closePopup()}/> : null}
-            <MonthlyTopbar month={4} year={2021}/>
+            <MonthlyTopbar month={props.month} year={props.year}/>
             <div className="monthly-actual">
                 <Line />
                 <div>

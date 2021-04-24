@@ -8,7 +8,7 @@ import { WeeklyCalendar } from './WeeklyCalendar'
 
 export const Main = (props) => {
 
-    const eventList = [{'name': 'Idk at this point', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école Idk', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1614247200, 'end_date': 1614254400, 'blank': false, 'color': '#D75628', 'full': true}]
+    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}]
     var stockageEvent = {}
 
     const [isWeekly, setisWeekly] = useState(false);
@@ -50,19 +50,19 @@ export const Main = (props) => {
         if (date_debut >= getJour(1) && date_fin <= getJour(35)){
             if (isLong >= 1){
                 if (getMoinsJour(date_debut) in stockageEvent){
-                    stockageEvent[day] = []
+                    stockageEvent[getMoinsJour(day)] = []
                 }
                 for (let i = 0; i < isLong; i++) {
                     var day2 = new Date(day.getFullYear(), day.getMonth(), day.getDate() + i)
-                    stockageEvent[day2] = [event]
+                    stockageEvent[getMoinsJour(day2)] = [event]
                 }
             }
             else {
                 if (getMoinsJour(date_debut) in stockageEvent) {
-                    stockageEvent[day].push(event);
+                    stockageEvent[getMoinsJour(day)].push(event);
                 }
                 else {
-                    stockageEvent[day] = [event]
+                    stockageEvent[getMoinsJour(day)] = [event]
                 }
             }
         }
@@ -82,7 +82,7 @@ export const Main = (props) => {
         var day = new Date(year, month-1, nbr - offsetbeggin)
         return (day);
     }
-
+    console.log(stockageEvent)
     return (
         <section className="main-section">
             <div className="left-section">

@@ -8,25 +8,36 @@ import { WeeklyCalendar } from './WeeklyCalendar'
 
 export const Main = (props) => {
 
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1614247200, 'end_date': 1614254400, 'blank': false, 'color': '#D75628', 'full': true}]
+    const eventList = [{'name': 'Idk at this point', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école Idk', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1614247200, 'end_date': 1614254400, 'blank': false, 'color': '#D75628', 'full': true}]
     var stockageEvent = {}
 
-    const [isWeekly, setisWeekly] = useState(true);
+    const [isWeekly, setisWeekly] = useState(false);
 
     
 
     const [year, setyear] = useState(2021)
-    const [week, setweek] = useState(12)
-    let tempMonth = rowToJour().getMonth() + 1
+    const [week, setweek] = useState(16)
+    let tempMonth = getDateOfISOWeek().getMonth() + 1
     const [month, setmonth] = useState(tempMonth)
     
-    function rowToJour() {
-        var d = (1 + (week - 1) * 7) + 3;
-        return new Date(year, 0, d);
+
+    function rowToJour(nbr) {
+        let mon =  getDateOfISOWeek()
+        return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr)
+    }
+    function getDateOfISOWeek() {
+        var simple = new Date(year, 0, 1 + (week - 1) * 7);
+        var dow = simple.getDay();
+        var ISOweekStart = simple;
+        if (dow <= 4)
+            ISOweekStart.setDate(simple.getDate() - simple.getDay() + 1);
+        else
+            ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
+        return ISOweekStart;
     }
     
 
-    //attribution des event au jours
+    //attribution des event au jours pour le monthly
     for (let i = 0; i < eventList.length; i++) {
         var event = eventList[i]
         event["key"] = i
@@ -42,7 +53,7 @@ export const Main = (props) => {
                     stockageEvent[day] = []
                 }
                 for (let i = 0; i < isLong; i++) {
-                    var day2 = new Date(day.getFullYear, day.getMonth, day.getDate + i)
+                    var day2 = new Date(day.getFullYear(), day.getMonth(), day.getDate() + i)
                     stockageEvent[day2] = [event]
                 }
             }
@@ -59,7 +70,6 @@ export const Main = (props) => {
             
         }
     }
-    console.log(stockageEvent)
     function getMoinsJour (date) {
         var day = new Date(year, month, 0).getDay();
         if (day === 0) {
@@ -82,7 +92,7 @@ export const Main = (props) => {
                 
             </div>
             <div class="right-section">
-                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} stockageEvent={stockageEvent}/> : <MonthlyCalendar month={month} year={year} stockageEvent={stockageEvent}/>}
+                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} eventList={eventList}/> : <MonthlyCalendar month={month} year={year} stockageEvent={stockageEvent}/>}
             </div>
       </section>
     )

@@ -48,6 +48,7 @@ export const MonthlyCalendar = (props) => {
             break
         }
     }
+    //remplire les espace blanc
     for (let i = 0; i < 36; i++) {
         if (i in stockageEvent){
 
@@ -56,6 +57,7 @@ export const MonthlyCalendar = (props) => {
             stockageEvent[i] = []
         }
     }
+    
 
     function setPopup(nbr) {
         setdetail(nbr);

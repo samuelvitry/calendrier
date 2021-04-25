@@ -35,7 +35,7 @@ export const Main = (props) => {
         }
     }
 
-    const [isWeekly, setisWeekly] = useState(true);
+    const [isWeekly, setisWeekly] = useState(false);
 
     
     var now = new Date()
@@ -95,42 +95,6 @@ export const Main = (props) => {
         return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr, 23, 59, 59)
     }
 
-
-    //attribution des event au jours pour le monthly
-    for (let i = 0; i < eventList.length; i++) {
-        var event = eventList[i]
-        event["key"] = i
-        var date_debut = new Date(event['start_date'] * 1000)
-        var date_fin = new Date(event['end_date'] * 1000)
-        var isLong = date_fin.getTime() - date_debut.getTime()
-        isLong = isLong / 86400000
-        isLong = Math.floor(isLong);
-        var day = new Date(date_debut.getFullYear(), date_debut.getMonth(), date_debut.getDate())    
-        if (date_debut >= getJour(1) && date_fin <= getJour(35)){
-            if (isLong >= 1){
-                if (getMoinsJour(date_debut) in stockageEvent){
-                    stockageEvent[getMoinsJour(day)] = []
-                }
-                for (let i = 0; i < isLong; i++) {
-                    var day2 = new Date(day.getFullYear(), day.getMonth(), day.getDate() + i)
-                    stockageEvent[getMoinsJour(day2)] = [event]
-                }
-            }
-            else {
-                if (getMoinsJour(date_debut) in stockageEvent) {
-                    stockageEvent[getMoinsJour(day)].push(event);
-                }
-                else {
-                    stockageEvent[getMoinsJour(day)] = [event]
-                }
-            }
-        }
-        else{
-            
-        }
-    }
-    
-
     function getMoinsJour (date) {
         var day = new Date(year, month, 0).getDay();
         if (day === 0) {
@@ -146,7 +110,7 @@ export const Main = (props) => {
     return (
         <section className="main-section">
             <div className="left-section">
-                <MiniCalendar month={month} year={year} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
+                <MiniCalendar eventList={eventList} month={month} year={year} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
                 <CalendarSelect />
                 
             </div>

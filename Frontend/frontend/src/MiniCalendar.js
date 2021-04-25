@@ -1,12 +1,62 @@
 import react from 'react'
 
 export const MiniCalendar = (props) => {
+    
+    var eventList = props.eventList
+    const stockageEvent = {}
 
+    for (let i = 0; i < eventList.length; i++) {
+        var event = eventList[i]
+        event["key"] = i
+        var date_debut = new Date(event['start_date'] * 1000)
+        var date_fin = new Date(event['end_date'] * 1000)
+        var isLong = date_fin.getTime() - date_debut.getTime()
+        isLong = isLong / 86400000
+        isLong = Math.floor(isLong);
+        if (date_debut >= getJour(1) && date_fin <= getJour(35)){
+            if (isLong >= 1){
+                if (getMoinsJour(date_debut) in stockageEvent){
+                    stockageEvent[getMoinsJour(date_debut)] = []
+                }
+                for (let i = 0; i < isLong; i++) {
+                    stockageEvent[getMoinsJour(date_debut) + i] = [event]
+                }
+            }
+            else {
+                if (getMoinsJour(date_debut) in stockageEvent) {
+                    stockageEvent[getMoinsJour(date_debut)].push(event);
+                }
+                else {
+                    stockageEvent[getMoinsJour(date_debut)] = [event]
+                }
+            }
+        }
+        else{
+            break
+        }
+    }
+    //remplire les espace blanc
+    for (let i = 0; i < 36; i++) {
+        if (i in stockageEvent){
 
+        }
+        else {
+            stockageEvent[i] = []
+        }
+    }
+    
     function getJour (nbr) {
         var offsetbeggin = new Date(props.year, props.month - 1, 0).getDay();
         var day = new Date(props.year, props.month-1, nbr - offsetbeggin)
         return (day);
+    }
+    function getMoinsJour (date) {
+        var day = new Date(props.year, props.month, 0).getDay();
+        if (day === 0) {
+            day = 7
+        }
+        day = day - 2
+        return date.getDate() + day
     }
 
     const MiniJour = (props) => {
@@ -31,10 +81,17 @@ export const MiniCalendar = (props) => {
                 selected = true
             }
         }
+
+        var events = stockageEvent[props.day]
+        var nbrDot = events.length
+
         return (
-            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#49505500' : '#111B22'}}>
-                
+            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#49505550' : '#111B22'}}>
                 <p>{getJour(props.day).getDate()}</p>
+                <div className='mini-dot'>
+                    {nbrDot > 0 ? <div className='mini-dot1' style={{backgroundColor: events[0]['color']}}></div> : null}
+                    {nbrDot > 1 ? <div className='mini-dot2' style={{backgroundColor: events[1]['color']}}></div> : null}
+                </div>
             </div>
         )
 

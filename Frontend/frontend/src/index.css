@@ -420,13 +420,28 @@ header h1 {
 }
 .mini-jour {
     display: flex;
-    flex-wrap: nowrap;
+    flex-direction: column;
     justify-content: space-evenly;
     padding: 5px;
     border-radius: 100%;
     text-align: center;
     width: 12%;
     min-height: 12%;
+}
+.mini-dot {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.mini-dot * {
+    min-height: 5px;
+    min-width: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    border-radius: 500px;
 }
 .mini-jour * {
     text-align: center;

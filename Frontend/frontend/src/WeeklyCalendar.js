@@ -86,7 +86,7 @@ export const WeeklyCalendar = (props) => {
         if(events[i]['dayNbr'] > 0){
             events[i]['height'] = '3vh'
             events[i]['longueur'] = events[i]['dayNbr'] + "00%"
-            let lmao = start_dateT.getDay()
+            let lmao = start_dateT.getDay() - 1
             topWeeklyStockage[lmao].push(events[i])
             isTop = true
         }
@@ -94,7 +94,6 @@ export const WeeklyCalendar = (props) => {
             events[i]['height'] = Math.floor(durationT / 600) + 'vh'
             events[i]['heightRaw'] = Math.floor(durationT / 600)
             events[i]['displayDate'] = getHourString(events[i]['start_date']) + " > " + getHourString(events[i]['end_date'])
-            console.log(events[i]['displayDate'])
         }
         events[i]['borderColor'] = events[i]['color']
         events[i]['fillColor'] = events[i]['color'] + '7e'
@@ -135,7 +134,6 @@ export const WeeklyCalendar = (props) => {
     const DayRow = (props) => {
 
         var evenements = props.evenements
-        console.log(evenements)
 
         return(
             <div className='day-row'>

@@ -112,7 +112,9 @@ export const WeeklyCalendar = (props) => {
         }
     }
 
-
+    function changement () {
+        props.switch()
+    }
 
     const WeeklyTopbar = (props) => {
 
@@ -123,6 +125,14 @@ export const WeeklyCalendar = (props) => {
                     <p className="weekly-prev" onClick={() => props.prevWeek()}>&#60;</p>
                     <p className="weekly-next" onClick={() => props.nextWeek()}>&#62;</p>
                 </div>
+                <div className='monthly-weekly-switch'>
+                <a className='monthly-weekly-switch1 switch-empty' onClick={() => changement()}>
+                    Monthly
+                </a>
+                <a className='monthly-weekly-switch2 switch-full'>
+                    Weekly
+                </a>
+            </div>
                 <div className='weekly-top-button'>
                     <a className="button-full">
                         <span className='plus-add'>+</span>New

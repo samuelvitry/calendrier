@@ -5,9 +5,9 @@ import { Checkbox } from './Checkbox'
 export const CalendarSelectContainer = () => {
     return (
         <div className="container-select-calendar">
-            <Checkbox txt="Perso" />
-            <Checkbox txt="Travail" />
-            <Checkbox txt="Famille" />
+            <Checkbox checked={true} txt="Perso" />
+            <Checkbox checked={true} txt="Travail" />
+            <Checkbox checked={true} txt="Famille" />
         </div>
     )
 }
@@ -18,9 +18,9 @@ export const CalendarSelect = () => {
         <section className="calendar-select">
             <h2>Selection des calendriers</h2>
             <div className="container-select-calendar">
-                <Checkbox txt="Perso" />
-                <Checkbox txt="Travail" />
-                <Checkbox txt="Famille" />
+                <Checkbox checked={true} txt="Perso" />
+                <Checkbox checked={true} txt="Travail" />
+                <Checkbox checked={true} txt="Famille" />
             </div>
         </section>
     )

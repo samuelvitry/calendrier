@@ -762,7 +762,6 @@ header h1 {
     display: flex;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 20px 0 rgba(0,0,0,.3);
 }
 .switch-empty:hover {
     background-color: #3581b854;
@@ -779,7 +778,6 @@ header h1 {
     align-items: center;
     cursor: default;
     transform: translateY(0);
-    box-shadow: 0 0 20px 0 rgba(0,0,0,.3);
 }
 .monthly-weekly-switch {
     display: flex;

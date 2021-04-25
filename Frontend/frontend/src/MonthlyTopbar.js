@@ -14,8 +14,8 @@ export const MonthlyTopbar = (props) => {
         <div className="monthly-topbar">
             <div className='monthly-nav'>
                 <h2>{monthString(props.month)} {props.year}</h2>
-                <p className="monthly-prev">&#60;</p>
-                <p className="monthly-next">&#62;</p>
+                <p className="monthly-prev" onClick={() => props.prevMonth()}>&#60;</p>
+                <p className="monthly-next" onClick={() => props.nextMonth()}>&#62;</p>
             </div>
             <div className='monthly-top-button'>
                 <a className="button-full" onClick={() => {props.onClick()}}>

@@ -194,7 +194,7 @@ export const MonthlyCalendar = (props) => {
     return (
         <div className="monthly-calendar">
             {isDetail ? <EventDetail closeDetail={() => closePopup()}/> : null}
-            <MonthlyTopbar month={props.month} year={props.year}/>
+            <MonthlyTopbar month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
             <div className="monthly-actual">
                 <Line />
                 <div>

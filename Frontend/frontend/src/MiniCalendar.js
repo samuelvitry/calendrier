@@ -54,7 +54,7 @@ export const MiniCalendar = (props) => {
         )
     }
     const monthConv = {
-        1: 'Janvier',
+        1: 'January',
         2: 'February',
         3: 'March',
         4: 'April',
@@ -73,8 +73,8 @@ export const MiniCalendar = (props) => {
             <div className='mini-top'>
                 <h2>{monthConv[props.month]} {props.year} </h2>
                 <div className='mini-nav'>
-                    <h2 className='mini-nav-prev'>&#60;</h2>
-                    <h2 className='mini-nav-next'>&#62;</h2>
+                    <h2 className='mini-nav-prev' onClick={() => props.prevMonth()}>&#60;</h2>
+                    <h2 className='mini-nav-next' onClick={() => props.nextMonth()}>&#62;</h2>
                 </div>
             </div>
             <Line month={props.month} offset={0} premier={true} dernier={false}/>

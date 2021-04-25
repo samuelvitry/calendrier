@@ -40,8 +40,9 @@ export const WeeklyCalendar = (props) => {
     //attribuer aux event une propriété duration et position
     //dabord filtrer les date extérieurs a la semaine puis les dates par jour et leurs donner une position x puis par heur et leur donner un posy
     var events = eventList.map((x) => x);
-    var weeklyStockage = new Array([])
-    weeklyStockage = [[], [], [], [], [], [], []]
+    var weeklyStockage = [[], [], [], [], [], [], []]
+    var topWeeklyStockage = [[], [], [], [], [], [], []]
+    var isTop = false
     
     for(let i = 0; i < events.length; i++){
         if (events[i]['start_date'] < getDateOfISOWeek() && events[i]['end_date'] < getDateOfISOWeek()){
@@ -59,14 +60,14 @@ export const WeeklyCalendar = (props) => {
         let start_dateT = new Date(events[i]['start_date'] * 1000)
         events[i]['dayNbr'] = Math.floor(durationT / 86400)
         if(events[i]['dayNbr'] > 0){
-            events[i]['posY'] = '150vh'
-            events[i]['height'] = '6vh'
+            events[i]['height'] = '3vh'
             for (let k = 0; k < events[i]['dayNbr']; k++){
                 let tempDay = new Date(start_dateT.getFullYear(), start_dateT.getMonth(), start_dateT.getDate() + k)
                 if(start_dateT.getDate() + k > 7){
                     let lmao = start_dateT.getDay() + k
                     if(lmao < 7){
-                        weeklyStockage[lmao].push(events[i])
+                        topWeeklyStockage[lmao].push(events[i])
+                        isTop = true
                     }
                 }
             }
@@ -74,6 +75,8 @@ export const WeeklyCalendar = (props) => {
         else {
             events[i]['height'] = Math.floor(durationT / 600) + 'vh'
         }
+        events[i]['borderColor'] = events[i]['color']
+        events[i]['fillColor'] = events[i]['color'] + '7e'
     }
     //attribuer les jour (les event sont dispaché dans l'array weekly stockage)
     for (let i = 0; i < dayOfWeek.length; i ++){
@@ -85,7 +88,6 @@ export const WeeklyCalendar = (props) => {
                 let position = fin - event['start_date'] + 1
                 event['posY'] = Math.floor(position / 600) + 'vh'
                 weeklyStockage[i].push(event)
-                console.log()
             }
         }
     }
@@ -112,7 +114,6 @@ export const WeeklyCalendar = (props) => {
     const DayRow = (props) => {
 
         var evenements = props.evenements
-        console.log(evenements)
 
         return(
             <div className='day-row'>
@@ -140,8 +141,7 @@ export const WeeklyCalendar = (props) => {
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
-                <div className='weekly-cell' />
-                {evenements.map((x) => (<WeeklyEvent name={x['name']} hour='12h' position={x['posY']} duration={x['height']} padding/>))}
+                {evenements.map((x) => (<WeeklyEvent name={x['name']} hour='12h' position={x['posY']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
                 
             </div>
         )
@@ -151,7 +151,7 @@ export const WeeklyCalendar = (props) => {
             return null
         }
         return(
-            <div className='weekly-event' style={{position: 'relative',bottom: props.position, minHeight: props.duration, padding: props.padding ?  '5px' : '0px'}}>
+            <div className='weekly-event' style={{position: 'relative',bottom: props.position, minHeight: props.duration, padding: props.padding ?  '5px' : '0px', backgroundColor: props.backColor, borderColor: props.borderColor}}>
                 <p className='weekly-event-name'>{props.name}</p>
                 <p className='weekly-event-hour'>{props.hour}</p>
             </div>
@@ -159,7 +159,7 @@ export const WeeklyCalendar = (props) => {
     }
     const NumRow = (props) => {
 
-        var hours = ['Entire day' ,'0h00', '1h00', '2h00', '3h00', '4h00', '5h00', 
+        var hours = ['0h00', '1h00', '2h00', '3h00', '4h00', '5h00', 
         '6h00', '7h00', '8h00', '9h00', '10h00', '11h00', '12h00', '13h00', 
         '14h00', '15h00', '16h00', '17h00', '18h00', '19h00', '20h00', '21h00', 
         '22h00', '23h00']
@@ -176,14 +176,20 @@ export const WeeklyCalendar = (props) => {
         <div className='weekly-calendar'>
             <WeeklyTopbar week={props.week} year={props.year}/>
             <div className='weekly-actual'>
-                <div className='weekly-first-line'>
+                {isTop ? <div className='weekly-first-line'>
                     <div className='number-row'>
                         <div className='number-cell'><p className='hidden'>69h00</p></div>
+                        <div className='entire-day-cell'>
+                            
+                        </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
                             <h3>{rowToJour(0).getDate()}</h3>
                             <p>Monday</p>
+                        </div>
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[0].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -191,18 +197,26 @@ export const WeeklyCalendar = (props) => {
                             <h3>{rowToJour(1).getDate()}</h3>
                             <p>Tuesday</p>
                         </div>
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[1].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
+                        </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
                             <h3>{rowToJour(2).getDate()}</h3>
                             <p>Wednesday</p>
                         </div>
-
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[2].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
+                        </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
                             <h3>{rowToJour(3).getDate()}</h3>
                             <p>Thursday</p>
+                        </div>
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[3].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -210,11 +224,17 @@ export const WeeklyCalendar = (props) => {
                             <h3>{rowToJour(4).getDate()}</h3>
                             <p>Friday</p>
                         </div>
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[4].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
+                        </div>
                     </div>
                     <div className='day-row'>
                         <div className='weekly-cell'>
                             <h3>{rowToJour(5).getDate()}</h3>
                             <p>Saturday</p>
+                        </div>
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[5].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -222,8 +242,58 @@ export const WeeklyCalendar = (props) => {
                             <h3>{rowToJour(6).getDate()}</h3>
                             <p>Sunday</p>
                         </div>
+                        <div className='entire-day-cell'>
+                            {topWeeklyStockage[6].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
+                        </div>
+                    </div>
+                </div> :
+                <div className='weekly-first-line'>
+                <div className='number-row'>
+                    <div className='number-cell'><p className='hidden'>69h00</p></div>
+                </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(0).getDate()}</h3>
+                        <p>Monday</p>
                     </div>
                 </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(1).getDate()}</h3>
+                        <p>Tuesday</p>
+                    </div>
+                </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(2).getDate()}</h3>
+                        <p>Wednesday</p>
+                    </div>
+                </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(3).getDate()}</h3>
+                        <p>Thursday</p>
+                    </div>
+                </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(4).getDate()}</h3>
+                        <p>Friday</p>
+                    </div>
+                </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(5).getDate()}</h3>
+                        <p>Saturday</p>
+                    </div>
+                </div>
+                <div className='day-row'>
+                    <div className='weekly-cell'>
+                        <h3>{rowToJour(6).getDate()}</h3>
+                        <p>Sunday</p>
+                    </div>
+                </div>
+            </div>}
                 <div className='weekly-other-line'>
                     <NumRow />
                     <DayRow evenements={weeklyStockage[0]} date={rowToJour(0)} dayName='Monday' />

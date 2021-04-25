@@ -11,7 +11,19 @@ export const Main = (props) => {
     const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}]
     var stockageEvent = {}
 
-    const [isWeekly, setisWeekly] = useState(true);
+    function isFromWeek(event){
+        if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000){
+            return true;
+        }
+        if(event['end_date'] > getDateOfISOWeek().getTime() / 1000 && event['end_date'] < lastOfDay(6).getTime() / 1000){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    const [isWeekly, setisWeekly] = useState(false);
 
     
 
@@ -19,6 +31,11 @@ export const Main = (props) => {
     const [week, setweek] = useState(16)
     let tempMonth = getDateOfISOWeek().getMonth() + 1
     const [month, setmonth] = useState(tempMonth)
+
+    var weeklyEventList = eventList.filter(valeur => {
+        if( valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
+        if( valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
+    })
     
 
     function rowToJour(nbr) {
@@ -35,8 +52,10 @@ export const Main = (props) => {
             ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
         return ISOweekStart;
     }
-    
-    //nouvelle attibution des jours
+    function lastOfDay(nbr){
+        let mon =  getDateOfISOWeek()
+        return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr, 23, 59, 59)
+    }
 
 
     //attribution des event au jours pour le monthly
@@ -72,6 +91,8 @@ export const Main = (props) => {
             
         }
     }
+    
+
     function getMoinsJour (date) {
         var day = new Date(year, month, 0).getDay();
         if (day === 0) {
@@ -89,11 +110,10 @@ export const Main = (props) => {
             <div className="left-section">
                 <MiniCalendar month={month} year={year}/>
                 <CalendarSelect />
-                <TodoList />
                 
             </div>
             <div class="right-section">
-                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} eventList={eventList}/> : <MonthlyCalendar month={month} year={year} eventList={eventList}/>}
+                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} eventList={weeklyEventList}/> : <MonthlyCalendar month={month} year={year} eventList={eventList}/>}
             </div>
       </section>
     )

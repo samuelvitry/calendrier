@@ -11,7 +11,7 @@ export const Main = (props) => {
     const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': false}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}]
     var stockageEvent = {}
 
-    const [isWeekly, setisWeekly] = useState(false);
+    const [isWeekly, setisWeekly] = useState(true);
 
     
 
@@ -36,6 +36,8 @@ export const Main = (props) => {
         return ISOweekStart;
     }
     
+    //nouvelle attibution des jours
+
 
     //attribution des event au jours pour le monthly
     for (let i = 0; i < eventList.length; i++) {
@@ -82,7 +84,6 @@ export const Main = (props) => {
         var day = new Date(year, month-1, nbr - offsetbeggin)
         return (day);
     }
-    console.log(stockageEvent)
     return (
         <section className="main-section">
             <div className="left-section">
@@ -92,7 +93,7 @@ export const Main = (props) => {
                 
             </div>
             <div class="right-section">
-                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} eventList={eventList}/> : <MonthlyCalendar month={month} year={year} stockageEvent={stockageEvent}/>}
+                {isWeekly ? <WeeklyCalendar year={year} week={week} month={month} eventList={eventList}/> : <MonthlyCalendar month={month} year={year} eventList={eventList}/>}
             </div>
       </section>
     )

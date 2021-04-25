@@ -14,7 +14,48 @@ export const MonthlyCalendar = (props) => {
     const [detail, setdetail] = useState(0);
     const [isDetail, setisDetail] = useState(false);
 
-    var stockageEvent = props.stockageEvent
+    var eventList = props.eventList
+    const stockageEvent = {}
+
+    //attibution des event au jours
+    for (let i = 0; i < eventList.length; i++) {
+        var event = eventList[i]
+        event["key"] = i
+        var date_debut = new Date(event['start_date'] * 1000)
+        var date_fin = new Date(event['end_date'] * 1000)
+        var isLong = date_fin.getTime() - date_debut.getTime()
+        isLong = isLong / 86400000
+        isLong = Math.floor(isLong);
+        if (date_debut >= getJour(1) && date_fin <= getJour(35)){
+            if (isLong >= 1){
+                if (getMoinsJour(date_debut) in stockageEvent){
+                    stockageEvent[getMoinsJour(date_debut)] = []
+                }
+                for (let i = 0; i < isLong; i++) {
+                    stockageEvent[getMoinsJour(date_debut) + i] = [event]
+                }
+            }
+            else {
+                if (getMoinsJour(date_debut) in stockageEvent) {
+                    stockageEvent[getMoinsJour(date_debut)].push(event);
+                }
+                else {
+                    stockageEvent[getMoinsJour(date_debut)] = [event]
+                }
+            }
+        }
+        else{
+            break
+        }
+    }
+    for (let i = 0; i < 36; i++) {
+        if (i in stockageEvent){
+
+        }
+        else {
+            stockageEvent[i] = []
+        }
+    }
 
     function setPopup(nbr) {
         setdetail(nbr);

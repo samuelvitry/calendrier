@@ -69,7 +69,6 @@ export const WeeklyCalendar = (props) => {
                         weeklyStockage[lmao].push(events[i])
                     }
                 }
-                //placer direct l'event dans la bonne case
             }
         }
         else {
@@ -84,8 +83,9 @@ export const WeeklyCalendar = (props) => {
             let event = events[j]
             if (event['dayNbr'] == 0 && event['start_date'] > debut && event['end_date'] < fin){
                 let position = fin - event['start_date'] + 1
-                event['posY'] = Math.floor(position / 600) + 'vh'*
+                event['posY'] = Math.floor(position / 600) + 'vh'
                 weeklyStockage[i].push(event)
+                console.log()
             }
         }
     }
@@ -109,10 +109,10 @@ export const WeeklyCalendar = (props) => {
             </div>
         )
     }
-    const DayRow = () => {
+    const DayRow = (props) => {
 
-        //{evenements.map((x) => (<WeeklyEvent name={x['name']} hour='12h' position={x['posY']} duration={['height']} padding/>))}
-        console.log(props.evenements)
+        var evenements = props.evenements
+        console.log(evenements)
 
         return(
             <div className='day-row'>
@@ -141,6 +141,7 @@ export const WeeklyCalendar = (props) => {
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
+                {evenements.map((x) => (<WeeklyEvent name={x['name']} hour='12h' position={x['posY']} duration={x['height']} padding/>))}
                 
             </div>
         )
@@ -170,15 +171,6 @@ export const WeeklyCalendar = (props) => {
         )
     }
 
-    var lunEvents = weeklyStockage[0]
-    var marEvents = weeklyStockage[1]
-    var merEvents = weeklyStockage[2]
-    var jeuEvents = weeklyStockage[3]
-    var venEvents = weeklyStockage[4]
-    var samEvents = weeklyStockage[5]
-    var dimEvents = weeklyStockage[6]
-
-    //todo, j'essaie de passer weeklyStockage aux dayrow mais il se transforme en undefined
 
     return (
         <div className='weekly-calendar'>
@@ -234,13 +226,13 @@ export const WeeklyCalendar = (props) => {
                 </div>
                 <div className='weekly-other-line'>
                     <NumRow />
-                    <DayRow evenements={lunEvents} date={rowToJour(0)} dayName='Monday' />
-                    <DayRow evenements={marEvents} date={rowToJour(1)} dayName='Tuesday' />
-                    <DayRow evenements={merEvents} date={rowToJour(2)} dayName='Wednesday' />
-                    <DayRow evenements={jeuEvents} date={rowToJour(3)} dayName='Thursday' />
-                    <DayRow evenements={venEvents} date={rowToJour(4)} dayName='Friday' />
-                    <DayRow evenements={samEvents} date={rowToJour(5)} dayName='Saturday' />
-                    <DayRow evenements={dimEvents} date={rowToJour(6)} dayName='Sunday' />
+                    <DayRow evenements={weeklyStockage[0]} date={rowToJour(0)} dayName='Monday' />
+                    <DayRow evenements={weeklyStockage[1]} date={rowToJour(1)} dayName='Tuesday' />
+                    <DayRow evenements={weeklyStockage[2]} date={rowToJour(2)} dayName='Wednesday' />
+                    <DayRow evenements={weeklyStockage[3]} date={rowToJour(3)} dayName='Thursday' />
+                    <DayRow evenements={weeklyStockage[4]} date={rowToJour(4)} dayName='Friday' />
+                    <DayRow evenements={weeklyStockage[5]} date={rowToJour(5)} dayName='Saturday' />
+                    <DayRow evenements={weeklyStockage[6]} date={rowToJour(6)} dayName='Sunday' />
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@ import { Button, Tooltip, Typography } from '@material-ui/core'
 import { NavigateBefore, NavigateNext } from '@material-ui/icons'
 import {MonthlyCalendarDay} from './MonthlyCalendarDay'
 import { MonthlyTopbar } from './MonthlyTopbar'
+import { Checkbox } from './Checkbox'
 
 
 
@@ -26,6 +27,7 @@ export const MonthlyCalendar = (props) => {
     }
 
     const [isDetail, setisDetail] = useState(-1);
+    const [isAdd, setisAdd] = useState(false)
 
     var eventList = props.eventList
     const stockageEvent = {}
@@ -277,16 +279,54 @@ export const MonthlyCalendar = (props) => {
         )
     }
 
+    //todo add calendar selector
+
+    const AddPopup = (props) => {
+        return (
+            <div className='add-container'>
+                <div className='add-popup'>
+                    <div className='add-first-line'>
+                        <i class="fas fa-times" onClick={() => setisAdd(false)}></i>
+                        <h2>New Event</h2>
+                        <div></div>
+                    </div>
+                    <div className='add-line'>
+                        <input placeholder='Event name' className='input-open'></input>
+                    </div>
+                    <div className='add-half-line'>
+                        <p className='add-p-half'>Start Date</p>
+                        <p className='add-p-half'>End Date</p>
+                    </div>
+                    <div className='add-line'>
+                        <input type="datetime-local" placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                        <input type="datetime-local" placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                    </div>
+                    <div className='add-under-line'>
+                        <Checkbox txt='All day' />
+                    </div>
+                    <div className='add-half-line'>
+                        <p>Calendars</p>
+                    </div>
+                    <div className='add-calendar-select add-line'>
+                        <Checkbox txt='Perso' />
+                        <Checkbox txt='Travail' />
+                        <Checkbox txt='Famille' />
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="monthly-calendar">
-            <MonthlyTopbar switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
+            <MonthlyTopbar add={() => setisAdd(true)} switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
             <div className="monthly-actual">
                 <Line />
                 <div>
                     <LastLine isExpanded={isExpanded}/>
                 </div>
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : null}
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup /> : null}
         </div>
     )
 }

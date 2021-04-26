@@ -262,6 +262,9 @@ header h1 {
     margin-right: 10px;
     padding: 1px;
 }
+.monthly-item p {
+    font-size: 10px;
+}
 @keyframes monthlyHover {
     0% {transform: translateX(0);}
     50% {transform: translateX(8px);}
@@ -529,6 +532,9 @@ header h1 {
     font-size: 18px;
     padding: 5px;
 }
+.detail-line p {
+    font-size: 14px;
+}
 .detail-first-line i:hover {
     cursor: pointer;
     transform: scale(1.3);
@@ -536,9 +542,6 @@ header h1 {
     background-color: var(--white-4);
     border-radius: 50px;
     aspect-ratio: 1 / 1;
-}
-.detail-line p {
-    font-size: 14px;
 }
 .detail-dropdown {
     background-color: var(--white-3);
@@ -863,4 +866,132 @@ header h1 {
     -moz-border-radius-bottomright: 10px;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
+}
+.add-container {
+    background-color: #00000071;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.add-popup {
+    background-color: var(--white-2);
+    color: var(--dark-color);
+    border-radius: 30px;
+    position: fixed;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    padding: 2%;
+}
+.add-first-line {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+.add-first-line i {
+    font-size: 16px;
+    padding: 5px;
+}
+.add-popup h2 {
+    font-size: 18px;
+    text-align: center;
+}
+.add-first-line {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 7%;
+}
+.add-first-line i:hover {
+    cursor: pointer;
+    transform: scale(1.3);
+    animation: navButton .2 1;
+    background-color: var(--white-4);
+    border-radius: 50px;
+    aspect-ratio: 1 / 1;
+}
+.add-half-line {
+    margin-top: 3%;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.add-half-line p {
+    margin-left: 2px;
+}
+.add-p-half {
+    margin-top: 3%;
+    width: 50%;
+    margin-left: 2px;
+}
+.add-line {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 3%;
+}
+.add-line i {
+    margin-right: 1vw;
+    font-size: 14px;
+}
+.add-line input {
+    box-shadow: none;
+    font-size: 14px;
+    color: var(--dark-color);
+    font-weight: 500;
+    border-color: var(--secondary-color);
+}
+.add-line input:hover {
+    box-shadow: none;
+}
+.add-line input:active {
+    animation: none;
+    border-color: var(--main-color);
+}
+.add-line input:focus{
+    animation: none;
+    border-color: var(--main-color);
+}
+.input-add-half {
+    width: 50%;
+}
+.input-add-half-first {
+    margin-right: 7px;
+}
+.input-add-half-second {
+    margin-left: 7px;
+}
+.add-calendar-select .check-container {
+    margin-top: 1%;
+    margin-right: 20px;
+}
+.add-calendar-select {
+    flex-wrap: wrap;
+}
+.add-under-line .check-container {
+    font-size: 12px;
+    width: fit-content;
+    padding: 3px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-bottom: 0%;
+    height: 25px;
+    align-items: flex-end;
+}
+.add-under-line .checkmark {
+    top: 4.5px;
+    left: 5px;
+    height: 15px;
+    width: 15px;
+    border-radius: 3px;
+    border-width: 2px;
+}
+
+.container .checkmark:after {
+    left: 3.9px;
+    top: 1px;
+    width: 3px;
+    height: 6px;
+    border-width: 0 2px 2px 0;
 }

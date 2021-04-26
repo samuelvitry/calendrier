@@ -25,7 +25,7 @@ export const MonthlyTopbar = (props) => {
                 </a>
             </div>
             <div className='monthly-top-button'>
-                <a className="button-full" onClick={() => {props.onClick()}}>
+                <a className="button-full" onClick={() => {props.add()}}>
                     <span className='plus-add'>+</span>New
                 </a>
             </div>

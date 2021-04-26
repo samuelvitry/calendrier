@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const WeeklyCalendar = (props) => {
 
     var eventList = props.eventList
+
+    const [isDetail, setisDetail] = useState(-1);
 
     const monthConv = {
         1: 'January',
@@ -63,6 +65,14 @@ export const WeeklyCalendar = (props) => {
         return day
     }
 
+    function setPopup(test) {
+        setisDetail(test);
+    }
+    function closePopup() {
+        //todo add annimation
+        setisDetail(-1)
+    }
+
     const dayOfWeek = ['Monday', 'Thuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
 
     //attribuer aux event une propriété duration et position
@@ -112,6 +122,7 @@ export const WeeklyCalendar = (props) => {
         }
     }
 
+    //utilisé pour changer de mois a semaine
     function changement () {
         props.switch()
     }
@@ -171,17 +182,22 @@ export const WeeklyCalendar = (props) => {
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
-                {evenements.map((x) => (<WeeklyEvent name={x['name']} hour={x['displayDate']} position={x['posY']} duration={x['height']} durationRaw={x['heightRaw']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
+                {evenements.map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} hour={x['displayDate']} position={x['posY']} duration={x['height']} durationRaw={x['heightRaw']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
                 
             </div>
         )
     }
     const WeeklyEvent = (props) => {
+
+        function openPopup () {
+            props.open(props.nbr)
+        }
+
         if (props.double){
             return null
         }
         return(
-            <div className='weekly-event' style={{position: 'relative',bottom: props.position, minHeight: props.duration, padding: props.padding ?  '5px' : '0px', backgroundColor: props.backColor, borderColor: props.borderColor, width: props.width}}>
+            <div onClick={() => openPopup()} className='weekly-event' style={{position: 'relative',bottom: props.position, minHeight: props.duration, padding: props.padding ?  '5px' : '0px', backgroundColor: props.backColor, borderColor: props.borderColor, width: props.width}}>
                 <p className='weekly-event-name'>{props.name}</p>
                 <p className='weekly-event-hour' style={{position: 'relative', top: props.durationRaw >= 12 ? '2vh' : '0'}}>{props.hour}</p>
             </div>
@@ -198,6 +214,79 @@ export const WeeklyCalendar = (props) => {
             <div className='number-row'>
                 {hours.map((hours) => (<div className='number-cell'>{hours}</div>))}
             </div>
+        )
+    }
+
+    const EventDetail = (props) => {
+
+        var name = props.event['name']
+        var date_debut = ''
+        var duration = ''
+        var repetition = ''
+
+        var durationT = props.event['end_date'] - props.event['start_date']
+        var debut = new Date(props.event['start_date'] * 1000)
+
+        if (durationT >= 86400) {
+            var debutMo = monthConv[debut.getMonth() + 1]
+            var debutY = debut.getFullYear()
+            var debutD = debut.getDate()
+            date_debut = debutD + ', ' + debutMo + ', ' + debutY
+            duration = Math.floor(durationT/86400) + ' days'
+        }
+        else {
+            var durationH = Math.floor(durationT/3600)
+            var durationM = Math.floor((durationT- (3600 * durationH))/60)
+            if (durationM < 10){
+                durationM = '0' + durationM
+            }
+            duration = durationH + 'h' + durationM
+
+            var debutMo = monthConv[debut.getMonth() + 1]
+            var debutY = debut.getFullYear()
+            var debutD = debut.getDate()
+            var debutH = debut.getHours()
+            var debutM = debut.getMinutes()
+            if (debutM < 10){
+                debutM = '0' + debutM
+            }
+            date_debut = debutD + ', ' + debutMo + ', ' + debutY + ' at ' + debutH + 'h' + debutM
+        }
+        
+        //ajouter l'affichage du calendrier :
+        // <i class="far fa-calendar-alt"></i>
+
+        const [isDropdown, setisDropdown] = useState(false)
+        //faire une fonction qui gère l'appuie sur le bouton édit et delete
+    
+        return (
+            <div className='detail-container'>
+                <div className='event-detail'>
+                    <div className='detail-first-line'>
+                        <i class="fas fa-times" onClick={() => props.closeDetail()}></i>
+                        <h2 style={{color: props.event['color']}}>{name}</h2>
+                        <i class="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
+                    </div>
+                    {isDropdown ? <div className='detail-dropdown'>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i class="fas fa-pen"></i>Edit</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete'><i class="fas fa-trash"></i>Delete</div>
+                    </div> : null}
+                    <div className='detail-line'>
+                        <i class="far fa-clock"></i>
+                        <p>{date_debut}</p>
+                    </div>
+                    <div className='detail-line'>
+                        <i class="far fa-hourglass"></i>
+                        <p>{duration}</p>
+                    </div>
+                    {repetition !== '' ? 
+                    <div className='detail-line'>
+                        <i class="fas fa-redo"></i>
+                        <p>{repetition}</p>
+                    </div> : null}
+                </div>
+            </div>
+            
         )
     }
 
@@ -219,7 +308,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Monday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[0].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[0].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -228,7 +317,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Tuesday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[1].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[1].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -237,7 +326,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Wednesday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[2].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[2].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -246,7 +335,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Thursday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[3].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[3].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -255,7 +344,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Friday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[4].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[4].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -264,7 +353,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Saturday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[5].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[5].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                     <div className='day-row'>
@@ -273,7 +362,7 @@ export const WeeklyCalendar = (props) => {
                             <p>Sunday</p>
                         </div>
                         <div className='entire-day-cell'>
-                            {topWeeklyStockage[6].map((x) => (<WeeklyEvent name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
+                            {topWeeklyStockage[6].map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} duration={x['height']} padding backColor={x['fillColor']} borderColor={x['borderColor']} width={x['longueur']}/>))}
                         </div>
                     </div>
                 </div> :
@@ -335,6 +424,7 @@ export const WeeklyCalendar = (props) => {
                     <DayRow evenements={weeklyStockage[6]} date={rowToJour(6)} dayName='Sunday' />
                 </div>
             </div>
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : null}
         </div>
     )
 }

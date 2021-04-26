@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Tooltip, Typography } from '@material-ui/core'
 import { NavigateBefore, NavigateNext } from '@material-ui/icons'
 import {MonthlyCalendarDay} from './MonthlyCalendarDay'
-import { EventDetail } from './MonthlyCalendarItem'
 import { MonthlyTopbar } from './MonthlyTopbar'
 
 
@@ -11,8 +10,22 @@ export const MonthlyCalendar = (props) => {
 
     const [isExpanded, setisExpanded] = useState(false);
 
-    const [detail, setdetail] = useState(0);
-    const [isDetail, setisDetail] = useState(false);
+    const monthConv = {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December',
+    }
+
+    const [isDetail, setisDetail] = useState(-1);
 
     var eventList = props.eventList
     const stockageEvent = {}
@@ -59,13 +72,12 @@ export const MonthlyCalendar = (props) => {
     }
     
 
-    function setPopup(nbr) {
-        setdetail(nbr);
-        setisDetail(true);
+    function setPopup(test) {
+        setisDetail(test);
     }
     function closePopup() {
         //todo add annimation
-        setisDetail(false)
+        setisDetail(-1)
     }
 
     let  [,setState]=useState();
@@ -192,10 +204,81 @@ export const MonthlyCalendar = (props) => {
         );
     }
     
+    const EventDetail = (props) => {
+
+        var name = props.event['name']
+        var date_debut = ''
+        var duration = ''
+        var repetition = ''
+
+        var durationT = props.event['end_date'] - props.event['start_date']
+        var debut = new Date(props.event['start_date'] * 1000)
+
+        if (durationT >= 86400) {
+            var debutMo = monthConv[debut.getMonth() + 1]
+            var debutY = debut.getFullYear()
+            var debutD = debut.getDate()
+            date_debut = debutD + ', ' + debutMo + ', ' + debutY
+            duration = Math.floor(durationT/86400) + ' days'
+        }
+        else {
+            var durationH = Math.floor(durationT/3600)
+            var durationM = Math.floor((durationT- (3600 * durationH))/60)
+            if (durationM < 10){
+                durationM = '0' + durationM
+            }
+            duration = durationH + 'h' + durationM
+
+            var debutMo = monthConv[debut.getMonth() + 1]
+            var debutY = debut.getFullYear()
+            var debutD = debut.getDate()
+            var debutH = debut.getHours()
+            var debutM = debut.getMinutes()
+            if (debutM < 10){
+                debutM = '0' + debutM
+            }
+            date_debut = debutD + ', ' + debutMo + ', ' + debutY + ' at ' + debutH + 'h' + debutM
+        }
+        
+        //ajouter l'affichage du calendrier :
+        // <i class="far fa-calendar-alt"></i>
+
+        const [isDropdown, setisDropdown] = useState(false)
+        //faire une fonction qui gère l'appuie sur le bouton édit et delete
+    
+        return (
+            <div className='detail-container'>
+                <div className='event-detail'>
+                    <div className='detail-first-line'>
+                        <i class="fas fa-times" onClick={() => props.closeDetail()}></i>
+                        <h2 style={{color: props.event['color']}}>{name}</h2>
+                        <i class="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
+                    </div>
+                    {isDropdown ? <div className='detail-dropdown'>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i class="fas fa-pen"></i>Edit</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete'><i class="fas fa-trash"></i>Delete</div>
+                    </div> : null}
+                    <div className='detail-line'>
+                        <i class="far fa-clock"></i>
+                        <p>{date_debut}</p>
+                    </div>
+                    <div className='detail-line'>
+                        <i class="far fa-hourglass"></i>
+                        <p>{duration}</p>
+                    </div>
+                    {repetition !== '' ? 
+                    <div className='detail-line'>
+                        <i class="fas fa-redo"></i>
+                        <p>{repetition}</p>
+                    </div> : null}
+                </div>
+            </div>
+            
+        )
+    }
 
     return (
         <div className="monthly-calendar">
-            {isDetail ? <EventDetail closeDetail={() => closePopup()}/> : null}
             <MonthlyTopbar switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
             <div className="monthly-actual">
                 <Line />
@@ -203,6 +286,7 @@ export const MonthlyCalendar = (props) => {
                     <LastLine isExpanded={isExpanded}/>
                 </div>
             </div>
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : null}
         </div>
     )
 }

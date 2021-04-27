@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { AddPopup } from './AddPopup'
 
 export const WeeklyCalendar = (props) => {
 
     var eventList = props.eventList
 
     const [isDetail, setisDetail] = useState(-1);
+    const [isAdd, setisAdd] = useState(false)
 
     const monthConv = {
         1: 'January',
@@ -145,7 +147,7 @@ export const WeeklyCalendar = (props) => {
                 </a>
             </div>
                 <div className='weekly-top-button'>
-                    <a className="button-full">
+                    <a className="button-full" onClick={() => props.add()}>
                         <span className='plus-add'>+</span>New
                     </a>
                 </div>
@@ -291,9 +293,10 @@ export const WeeklyCalendar = (props) => {
     }
 
 
+
     return (
         <div className='weekly-calendar'>
-            <WeeklyTopbar nextWeek={() => props.nextWeek()} prevWeek={() => props.prevWeek()} week={props.week} month={props.month} year={props.year}/>
+            <WeeklyTopbar add={() => setisAdd(true)} nextWeek={() => props.nextWeek()} prevWeek={() => props.prevWeek()} week={props.week} month={props.month} year={props.year}/>
             <div className='weekly-actual'>
                 {isTop ? <div className='weekly-first-line'>
                     <div className='number-row'>
@@ -424,7 +427,7 @@ export const WeeklyCalendar = (props) => {
                     <DayRow evenements={weeklyStockage[6]} date={rowToJour(6)} dayName='Sunday' />
                 </div>
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : null}
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup setisAdd={() => setisAdd(false)}/> : null}
         </div>
     )
 }

@@ -1,0 +1,77 @@
+import react, { useState } from 'react'
+import { Checkbox } from './Checkbox'
+
+export const AddPopup = (props) => {
+
+    const [isColor, setisColor] = useState(false)
+    const [color, setcolor] = useState(0)
+
+    const colorConv = ['Blue', 'Green', 'Yellow', 'Orange', 'Red']
+    const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
+
+    return (
+        <div className='add-container'>
+            <div className='add-popup'>
+                <div className='add-first-line'>
+                    <i class="fas fa-times" onClick={() => props.setisAdd(false)}></i>
+                    <h2>New Event</h2>
+                    <div></div>
+                </div>
+                <div className='add-line'>
+                    <input style={{borderColor: colorCodeConv[color]}} placeholder='Event name' className='input-open'></input>
+                </div>
+                <div className='add-half-line'>
+                    <p className='add-p-half'>Start Date</p>
+                    <p className='add-p-half'>End Date</p>
+                </div>
+                <div className='add-line'>
+                    <input style={{borderColor: colorCodeConv[color]}} type="datetime-local" placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                    <input style={{borderColor: colorCodeConv[color]}} type="datetime-local" placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                </div>
+                <div className='add-under-line'>
+                    <Checkbox color={colorCodeConv[color]} txt='All day' />
+                </div>
+                <div className='add-half-line'>
+                    <p>Calendars</p>
+                </div>
+                <div className='add-calendar-select add-line'>
+                    <Checkbox color={colorCodeConv[color]} txt='Perso' />
+                    <Checkbox color={colorCodeConv[color]} txt='Travail' />
+                    <Checkbox color={colorCodeConv[color]} txt='Famille' />
+                </div>
+                <div className='add-half-line'>
+                    <p>Color</p>
+                </div>
+                <div className='color-add-line add-line'>
+                    <div  style={{borderColor: colorCodeConv[color]}} onClick={() => isColor ? setisColor(false) : setisColor(true)} className='add-color-selector'>
+                        <i class="fas fa-tag" style={{color: colorCodeConv[color]}}></i>
+                        <p>{colorConv[color]}</p>
+                        <i class="fas fa-caret-down"></i>
+                    </div>
+                    {isColor ? <div className='add-color-drop'>
+                        <div onClick={() => {setcolor(0); setisColor(false)}} className='add-color-drop-element'>
+                            <i class="fas fa-tag" style={{color: '#3581B8'}}></i>
+                            <p>Blue</p>
+                        </div>
+                        <div onClick={() => {setcolor(1); setisColor(false)}} className='add-color-drop-element'>
+                            <i class="fas fa-tag" style={{color: '#5BA94C'}}></i>
+                            <p>Green</p>
+                        </div>
+                        <div onClick={() => {setcolor(2); setisColor(false)}} className='add-color-drop-element'>
+                            <i class="fas fa-tag" style={{color: '#E4C111'}}></i>
+                            <p>Yellow</p>
+                        </div>
+                        <div onClick={() => {setcolor(3); setisColor(false)}} className='add-color-drop-element'>
+                            <i class="fas fa-tag" style={{color: '#FF6B35'}}></i>
+                            <p>Orange</p>
+                        </div>
+                        <div onClick={() => {setcolor(4); setisColor(false)}} className='add-color-drop-element'>
+                            <i class="fas fa-tag" style={{color: '#A72A2A'}}></i>
+                            <p>Red</p>
+                        </div>
+                    </div> : null}
+                </div>
+            </div>
+        </div>
+    )
+}

@@ -951,6 +951,7 @@ header h1 {
 }
 .add-line input:focus{
     animation: none;
+    border-width: 2px;
     border-color: var(--main-color);
 }
 .input-add-half {
@@ -987,7 +988,7 @@ header h1 {
     border-radius: 3px;
     border-width: 2px;
 }
-.container .checkmark:after {
+.add-under-line .checkmark:after {
     left: 3.9px;
     top: 1px;
     width: 3px;

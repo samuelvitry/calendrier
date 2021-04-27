@@ -298,32 +298,32 @@ export const MonthlyCalendar = (props) => {
                         <div></div>
                     </div>
                     <div className='add-line'>
-                        <input placeholder='Event name' className='input-open'></input>
+                        <input style={{borderColor: colorCodeConv[color]}} placeholder='Event name' className='input-open'></input>
                     </div>
                     <div className='add-half-line'>
                         <p className='add-p-half'>Start Date</p>
                         <p className='add-p-half'>End Date</p>
                     </div>
                     <div className='add-line'>
-                        <input type="datetime-local" placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
-                        <input type="datetime-local" placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                        <input style={{borderColor: colorCodeConv[color]}} type="datetime-local" placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                        <input style={{borderColor: colorCodeConv[color]}} type="datetime-local" placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
                     </div>
                     <div className='add-under-line'>
-                        <Checkbox txt='All day' />
+                        <Checkbox color={colorCodeConv[color]} txt='All day' />
                     </div>
                     <div className='add-half-line'>
                         <p>Calendars</p>
                     </div>
                     <div className='add-calendar-select add-line'>
-                        <Checkbox txt='Perso' />
-                        <Checkbox txt='Travail' />
-                        <Checkbox txt='Famille' />
+                        <Checkbox color={colorCodeConv[color]} txt='Perso' />
+                        <Checkbox color={colorCodeConv[color]} txt='Travail' />
+                        <Checkbox color={colorCodeConv[color]} txt='Famille' />
                     </div>
                     <div className='add-half-line'>
                         <p>Color</p>
                     </div>
                     <div className='color-add-line add-line'>
-                        <div onClick={() => isColor ? setisColor(false) : setisColor(true)} className='add-color-selector'>
+                        <div  style={{borderColor: colorCodeConv[color]}} onClick={() => isColor ? setisColor(false) : setisColor(true)} className='add-color-selector'>
                             <i class="fas fa-tag" style={{color: colorCodeConv[color]}}></i>
                             <p>{colorConv[color]}</p>
                             <i class="fas fa-caret-down"></i>

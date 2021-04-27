@@ -84,11 +84,7 @@ export const WeeklyCalendar = (props) => {
     var topWeeklyStockage = [[], [], [], [], [], [], []]
     var isTop = false
     
-    for(let i = 0; i < events.length; i++){
-        if (events[i]['start_date'] < getDateOfISOWeek() && events[i]['end_date'] < getDateOfISOWeek()){
-            events.splice(i, 1);
-        }
-    }
+    
     for(let i = 0; i < events.length; i++){
 
         //tri des event trop long et attribution de la longueur + posistion pour les long
@@ -117,9 +113,24 @@ export const WeeklyCalendar = (props) => {
         for (let j = 0; j <  events.length; j++){
             let event = events[j]
             if (event['dayNbr'] == 0 && event['start_date'] > debut && event['end_date'] < fin){
-                let position = fin - event['start_date'] + 1
+                let position = event['start_date'] - debut
                 event['posY'] = Math.floor(position / 600) + 'vh'
                 weeklyStockage[i].push(event)
+            }
+        }
+    }
+    
+    
+    for (let i = 0; i < weeklyStockage.length; i ++){
+        var positionList = []
+        for (let j = 0; j < weeklyStockage[i].length; j ++){
+            let event = weeklyStockage[i][j]
+            if (positionList.indexOf(event['posY']) != -1){
+                event['double'] = true
+            }
+            else{
+                positionList.push(event['posY'])
+                event['double'] = false
             }
         }
     }
@@ -184,8 +195,7 @@ export const WeeklyCalendar = (props) => {
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
                 <div className='weekly-cell' />
-                {evenements.map((x) => (<WeeklyEvent open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} hour={x['displayDate']} position={x['posY']} duration={x['height']} durationRaw={x['heightRaw']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
-                
+                {evenements.map((x) => (<WeeklyEvent absolute double={x['double']} open={(nbr) => setPopup(nbr)} nbr={x['key']} name={x['name']} hour={x['displayDate']} position={x['posY']} duration={x['height']} durationRaw={x['heightRaw']} padding backColor={x['fillColor']} borderColor={x['borderColor']}/>))}
             </div>
         )
     }
@@ -199,7 +209,7 @@ export const WeeklyCalendar = (props) => {
             return null
         }
         return(
-            <div onClick={() => openPopup()} className='weekly-event' style={{position: 'relative',bottom: props.position, minHeight: props.duration, padding: props.padding ?  '5px' : '0px', backgroundColor: props.backColor, borderColor: props.borderColor, width: props.width}}>
+            <div onClick={() => openPopup()} className='weekly-event' style={{position: props.absolute ?'absolute' : false,top: props.absolute ? props.position : null, bottom: props.absolute ? null : props.position, minHeight: props.duration, padding: props.padding ?  '5px' : '0px', backgroundColor: props.backColor, borderColor: props.borderColor, width: props.width}}>
                 <p className='weekly-event-name'>{props.name}</p>
                 <p className='weekly-event-hour' style={{position: 'relative', top: props.durationRaw >= 12 ? '2vh' : '0'}}>{props.hour}</p>
             </div>
@@ -291,8 +301,6 @@ export const WeeklyCalendar = (props) => {
             
         )
     }
-
-
 
     return (
         <div className='weekly-calendar'>

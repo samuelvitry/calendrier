@@ -578,9 +578,13 @@ header h1 {
     align-items: flex-end;
     margin-bottom: 2vh;
 }
+.monthly-top-button a {
+    font-weight: 500;
+}
 .weekly-topbar .button-full, .plus-add{
     color: var(--white-1);
     font-size: 18px;
+    font-weight: 500;
 }
 .weekly-top-button {
     margin-top: 1vh;
@@ -633,6 +637,7 @@ header h1 {
 }
 
 .day-row {
+    position: relative;
     display: flex;
     flex-direction: column;
     width: 100%;

@@ -6,25 +6,42 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 from .models import Evenement, User
 from .serializers import eventSerializer, userSerializer, loginSerializer
+import hashlib
 
-class eventList(generics.ListAPIView):
-    queryset = Evenement.objects.all()
-    serializer_class = eventSerializer
+class eventList(APIView):
+    def get(self, request, format=None):
+        if request.session['isLog'] == True:
+            queryset = Evenement.objects.all()
+            serializer_class = eventSerializer
+        else:
+            queryset = None
+            serializer_class = eventSerializer
+    
 
 class logIn(APIView):
     serializer_class = loginSerializer
-    serializer = self.serializer_class(data=request.data)
-
-    if not self.request.session.exists(self.request.session.session_key):
-        self.request.session.create()
     
     def post(self, request, format=None):
-        mail = serializer.data.get('email')
-        mdp = serializer.data.get('password')
 
-        if User.objects.filter(email=mail, password=mdp).exists():
-            request.session['isLog'] = True
-            #requet.session[proprio] = proprio
+        if not self.request.session.exists(self.request.session.session_key):
+            self.request.session.create()
+
+        serializer = self.serializer_class(data=request.data)
+
+        if serializer.is_valid():
+            mail = serializer.data.get('email')
+            mdp = serializer.data.get('password')
+
+            if User.objects.filter(email=mail, password=mdp).exists():
+                request.session['isLog'] = True
+                utilisateur = User.objects.filter(email=mail, password=mdp)[0]
+                code = utilisateur['code']
+                string = mail + 'sel' + code + 'bonjour je suis du sel'
+                #requet.session[proprio] = proprio
+
+       
+
+#class logOut
 
 #class logIn(APIView):
 #appeler isValid du model user avec les argument mail et mdp reçu et si true alors session.islog = true et determiner les valeurs de sessions
@@ -33,3 +50,5 @@ class logIn(APIView):
 #la clée est stocké coté db et transféré sous form chiffré a l'aide d'un code (numérique ou alpha numérique) inchangable qui est demandé a l'utilisateur au moment de se co, on vérif aussi si le code est vrai car sa version hash est stocké sur la database. la clée est stocké sur le client en version non crypté
 
 #quand on crée proprio, avoir un code qui vérif si il est unique
+
+

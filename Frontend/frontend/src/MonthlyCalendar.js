@@ -44,11 +44,13 @@ export const MonthlyCalendar = (props) => {
         isLong = Math.floor(isLong);
         if (date_debut >= getJour(1) && date_fin <= getJour(35)){
             if (isLong >= 1){
-                if (getMoinsJour(date_debut) in stockageEvent){
-                    stockageEvent[getMoinsJour(date_debut)] = []
-                }
                 for (let i = 0; i < isLong; i++) {
-                    stockageEvent[getMoinsJour(date_debut) + i] = [event]
+                    if (getMoinsJour(date_debut) + i in stockageEvent){
+                        stockageEvent[getMoinsJour(date_debut) + i].push(event)
+                    }
+                    else {
+                        stockageEvent[getMoinsJour(date_debut) + i] = [event]
+                    }
                 }
             }
             else {

@@ -126,7 +126,7 @@ export const Main = (props) => {
                 <CalendarSelect />
                 
             </div>
-            <div class="right-section">
+            <div className="right-section">
                 {isWeekly ? <WeeklyCalendar switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={weeklyEventList}/> : <MonthlyCalendar switch={() => switchMonWee()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={eventList}/>}
             </div>
       </section>

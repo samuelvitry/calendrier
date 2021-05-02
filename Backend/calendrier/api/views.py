@@ -7,12 +7,16 @@ from rest_framework.response import Response
 
 class ListEvent(APIView):
     def get(self, request):
-        if request.session['isLog'] == True:
-            events = Evenement.objects.filter(proprio=request.session['proprio'])
-            serializer = eventSerializer(events, many=True)
-            return Response({"event": serializer.data})
+        if 'isLog' in request.session:
+            if request.session['isLog'] == True:
+                events = Evenement.objects.filter(proprio=request.session['proprio'])
+                serializer = eventSerializer(events, many=True)
+                return Response({"event": serializer.data})
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:
-            return Response(status=HTTP_401_UNAUTHORIZED)
+            print('fuck you')
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
     
 
 class LoginView(APIView):

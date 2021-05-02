@@ -12,13 +12,16 @@ def getCode():
     
     return code
 
+
+
 class User(models.Model):
     email = models.EmailField(max_length=512, unique=True)
     password = models.CharField(max_length=1024)
     username = models.CharField(max_length=512, unique=True)
     account_creation_date = models.DateTimeField(auto_now_add=True)
-    cle = models.CharField(max_length=1024)
-    code = models.CharField(max_length=32, default=getCode)
+    cle = models.CharField(max_length=64)
+    cle2 = models.CharField(max_length=64)
+    code = models.CharField(max_length=32, default=getCode)    #code = proprio
     def __str__(self):
         return self.username
 
@@ -32,4 +35,3 @@ class Evenement(models.Model):
     color = models.IntegerField(default=5)
     def __str__(self):
         return self.event_name
-

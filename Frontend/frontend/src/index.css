@@ -199,6 +199,8 @@ header h1 {
     background-color: var(--white-1);
     border-radius: 15px;
     width: fit-content;
+    opacity: 100%;
+    animation: opacityApear .5s 1;
 }
 .monthly-nav h2 {
     margin-right: 3vw;
@@ -209,6 +211,10 @@ header h1 {
 }
 .monthly-next {
     margin-left: 1vw;
+}
+@keyframes opacityApear {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
 }
 .monthly-calendar {
     height: 100%;
@@ -225,6 +231,10 @@ header h1 {
     border: solid;
     border-color: var(--border-color);
     border-width: 1px;
+    opacity: 100%;
+    opacity: 100%;
+    animation: opacityApear .5s 1;
+    overflow: hidden;
 }
 .monthly-day-card {
     width: 100%;
@@ -279,6 +289,9 @@ header h1 {
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-content: space-between;
+    animation: leftAppear .1s 1;
+    opacity: 100%;
+    transform: translateX(0);
 }
 .button-empty {
     color: var(--dark-color);
@@ -340,24 +353,33 @@ header h1 {
     height: 100%;
     min-height: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 10%;
+    padding: 20vh;
 }
 .login-card {
-    background-color: var(--lighter-dark);
+    background-color: var(--white-1);
     border-radius: 20px;
-    padding: 2%;
-    width: 25%;
+    padding: 3em;
+    max-width: 25em;
+    min-width: 300px;
+    box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
 }
 .login-card * {
     margin-top: 4%;
     margin-bottom: 4%;
+    font-weight: 500;
 }
 .login-head {
     min-height: 20%;
     min-width: 100%;
+}
+.login-card h1 {
+    font-size: 22px;
+    font-weight: 700;
 }
 .input-contained {
     border: solid;
@@ -365,14 +387,15 @@ header h1 {
     padding: 10px;
     border-radius: 10px;
     width: 100%;
-    border-width: 2px;
+    border-width: 1px;
     background-color: var(--white-3);
-    box-shadow: 0px 0px 10px 1px var(--secondary-color);
+    box-shadow: 0px 0px 5px 1px var(--secondary-color);
     outline: none;
+    font-size: 14px;
 }
 .input-contained:hover {
     border-color: var(--main-color);
-    box-shadow: 2px 2px 20px 3px var(--main-color);
+    box-shadow: 2px 2px 7px 2px var(--main-color);
 }
 .input-contained:active {
     border-color: var(--main-color);
@@ -416,9 +439,23 @@ header h1 {
 }
 .login-submit .button-full {
     background-color: var(--main-color);
+    font-size: 16px;
+    color: var(--white-2);
+    justify-content: center;
+    font-weight: 500;
+}
+.login-cancel .button-full {
+    font-size: 16px;
+    color: var(--white-2);
+    justify-content: center;
+    font-weight: 500;
 }
 .login-submit .button-full:hover {
     background-color: var(--darker-main);
+}
+@keyframes leftAppear {
+    0% {opacity: 0%; transform: translateX(-100%);}
+    100% {opacity: 100%; transform: translateX(0);}
 }
 .mini-calendar {
     background-color: var(--white-1);
@@ -431,6 +468,7 @@ header h1 {
     box-shadow: 5px 10px 32px 15px var(--shadow-color);
     -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
     -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    overflow-x: hidden;
 }
 .mini-line {
     display: flex;
@@ -439,6 +477,9 @@ header h1 {
     margin-top: 3%;
     margin-bottom: 3%;
     text-align: center;
+    animation: leftAppear .1s 1;
+    opacity: 100%;
+    transform: translateX(0);
 }
 .mini-jour {
     display: flex;
@@ -599,6 +640,8 @@ header h1 {
     background-color: var(--white-1);
     border-radius: 15px;
     width: fit-content;
+    opacity: 100%;
+    animation: opacityApear .5s 1;
 }
 .weekly-nav h2 {
     margin-right: 3vw;
@@ -625,6 +668,8 @@ header h1 {
     display: flex;
     flex-direction: column;
     height: 90%;
+    opacity: 100%;
+    animation: opacityApear .5s 1;
 }
 .weekly-other-line {
     display: flex;

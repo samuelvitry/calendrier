@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from './Button'
+import { sha256 } from 'js-sha256';
+import { BrowserRouter as Router,Route,Redirect,Switch } from 'react-router-dom';
 
 export const Login = () => {
 
-    function submitData () {
+    const [login, setLogin] = useState('')
+    const [password, setPassword] = useState('')
 
+    function submitData () {
+        var mdp = login + 'sel' + password
+        mdp = sha256(mdp)
+        console.log(mdp)
+        fetch("http://127.0.0.1:8000/api/login" + "?mdp=" + mdp).then((response) => {console.log(response.status);if(response.status == 200) {window.location.href = "./calendar"}})
     }
     function redirectHome () {
 
@@ -14,8 +22,8 @@ export const Login = () => {
         <div className='login-container'>
             <div className='login-card'>
                 <h1>Log-in</h1>
-                <input type='email' autoComplete='off' autoCapitalize='off' className='login-email input-contained' autoFocus='autofocus' placeholder='Email' required='required' />
-                <input type='password' autoComplete='off' autoCapitalize='off' className='login-password input-contained' placeholder='Password' required='required' />
+                <input onChange={(event) => setLogin(event.target.value)} type='email' autoComplete='off' autoCapitalize='off' className='login-email input-contained' autoFocus='autofocus' placeholder='Email' required='required' />
+                <input onChange={(event) => setPassword(event.target.value)} type='password' autoComplete='off' autoCapitalize='off' className='login-password input-contained' placeholder='Password' required='required' />
                 <div className='login-btn-container'>
                     <div className='login-cancel'>
                         <Button className='login-cancel' full txt='Cancel' onClick={() => {redirectHome()}}/>

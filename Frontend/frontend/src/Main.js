@@ -27,9 +27,11 @@ export const Main = (props) => {
                               - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
-    api.get("/").then((response) => console.log(response))
+    const eventList = []
 
-    const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344200, 'end_date': 1619352000, 'blank': false, 'color': '#A72A2A', 'full': true}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1618999200, 'end_date': 1619258400, 'blank': false, 'color': '#5BA94C', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#E4C111', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}]
+    api.get("/").then((response) => eventList = response.data.event).then()
+    //reload dans le then
+
     var stockageEvent = {}
 
     function isFromWeek(event){

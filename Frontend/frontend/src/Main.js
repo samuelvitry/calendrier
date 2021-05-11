@@ -5,6 +5,13 @@ import { MonthlyCalendar } from './MonthlyCalendar'
 import { CalendarSelect } from './CalendarSelect'
 import { MiniCalendar } from './MiniCalendar'
 import { WeeklyCalendar } from './WeeklyCalendar'
+import axios from 'axios'
+
+axios.defaults.withCredentials = true;
+
+export const api = axios.create({
+    baseURL: 'http://127.0.0.1:8000/api/'
+})
 
 export const Main = (props) => {
 
@@ -20,7 +27,7 @@ export const Main = (props) => {
                               - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
-    fetch("http://127.0.0.1:8000/api/").then((response) => console.log(response))
+    api.get("/").then((response) => console.log(response))
 
     const eventList = [{'name': 'Tournage BFM', 'start_date': 1619344200, 'end_date': 1619352000, 'blank': false, 'color': '#A72A2A', 'full': true}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Auto école', 'start_date': 1618920000, 'end_date': 1619186400 , 'blank': false, 'color': '#2D6186', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1618999200, 'end_date': 1619258400, 'blank': false, 'color': '#5BA94C', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#E4C111', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1619344800, 'end_date': 1619352000, 'blank': false, 'color': '#D75628', 'full': true}, {'name': 'Tournage BFM', 'start_date': 1616666400, 'end_date': 1616673600, 'blank': false, 'color': '#D75628', 'full': true}]
     var stockageEvent = {}

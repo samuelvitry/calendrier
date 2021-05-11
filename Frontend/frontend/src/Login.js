@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import { Button } from './Button'
 import { sha256 } from 'js-sha256';
 import { BrowserRouter as Router,Route,Redirect,Switch } from 'react-router-dom';
+import axios from 'axios'
+import { api } from './Main'
+
+axios.defaults.withCredentials = true;
 
 export const Login = () => {
 
@@ -12,7 +16,7 @@ export const Login = () => {
         var mdp = login + 'sel' + password
         mdp = sha256(mdp)
         console.log(mdp)
-        fetch("http://127.0.0.1:8000/api/login" + "?mdp=" + mdp).then((response) => {console.log(response.status);if(response.status == 200) {window.location.href = "./calendar"}})
+        api.get("/login" + "?mdp=" + mdp).then((response) => {console.log(response.status);if(response.status == 200) {window.location.href = "./calendar"}})
     }
     function redirectHome () {
 

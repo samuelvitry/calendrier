@@ -6,6 +6,7 @@ export const Checkbox = (props) => {
 
     function handleClick() {
         setisChecked(isChecked ? false : true)
+        props.changement(isChecked)
     }
 
     return (

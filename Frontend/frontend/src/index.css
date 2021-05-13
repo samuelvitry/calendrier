@@ -12,6 +12,7 @@
     --white-4: #D3D8DE;
     --border-color: #667885;
     --border-faded: #6678859a;
+    --gris-trans: #6678853b;
     --shadow-color: #3b3b3b27;
     --shadow-color-2: #3b3b3b3d;
     --error-color: #A72A2A;
@@ -47,12 +48,6 @@ body {
     margin: 0;
 }
 
-.profil-button{
-    margin: 20px;
-    position: absolute;
-    right: 0;
-}
-
 ::-webkit-scrollbar {
     width: 13px;
     margin: 1px;
@@ -83,11 +78,12 @@ header {
     box-shadow: 5px 10px 32px 15px var(--shadow-color);
     -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
     -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    justify-content: space-between;
+    padding: 1.6em;
 }
-
 header h1 {
-    margin: 20px;
-    margin-right: 75px;
+    font-size: 18px;
+    font-weight: 500;
 }
 .right-section{
     height: 100%;
@@ -296,14 +292,14 @@ header h1 {
 .button-empty {
     color: var(--dark-color);
     padding: 12px;
-    background-color: rgba(0,0,0,0.07);
+    background-color: rgba(0,0,0,0.03);
     border: solid;
-    border-color: var(--secondary-color);
+    border-width: 1px;
+    border-color: var(--border-color);
     border-radius: 10px;
     display: flex;
     align-items: center;
     cursor: pointer;
-    box-shadow: 0 0 20px 0 rgba(0,0,0,.3);
 }
 .button-empty:hover {
     background-color: #3581b854;
@@ -330,6 +326,9 @@ header h1 {
 }
 .button-full:hover {
     background-color: var(--darker-secondary);
+}
+.button-gray {
+    background-color: var(--border-color);
 }
 @keyframes expandIconUp {
     0% {transform: rotate(180deg);}
@@ -480,6 +479,10 @@ header h1 {
     animation: leftAppear .1s 1;
     opacity: 100%;
     transform: translateX(0);
+}
+.mini-line-sele {
+    background-color: var(--gris-trans);
+    border-radius: 2em;
 }
 .mini-jour {
     display: flex;
@@ -952,7 +955,7 @@ header h1 {
     display: flex;
     flex-wrap: nowrap;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 7%;
 }
 .add-first-line i:hover {
@@ -1091,4 +1094,11 @@ header h1 {
 .add-color-selector .fa-caret-down:hover {
     transform: scale(1.5);
     transition: ease-out transform;
+}
+.add-button-line {
+    justify-content: space-between;
+}
+.add-button-line * {
+    font-size: 16px;
+    font-weight: 500;
 }

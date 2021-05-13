@@ -5,44 +5,31 @@ export const MiniCalendar = (props) => {
     var eventList = props.eventList
     const stockageEvent = {}
 
-    for (let i = 0; i < eventList.length; i++) {
-        var event = eventList[i]
-        event["key"] = i
-        var date_debut = new Date(event['start_date'] * 1000)
-        var date_fin = new Date(event['end_date'] * 1000)
-        var isLong = date_fin.getTime() - date_debut.getTime()
-        isLong = isLong / 86400000
-        isLong = Math.floor(isLong);
-        if (date_debut >= getJour(1) && date_fin <= getJour(35)){
-            if (isLong >= 1){
-                if (getMoinsJour(date_debut) in stockageEvent){
-                    stockageEvent[getMoinsJour(date_debut)] = []
-                }
-                for (let i = 0; i < isLong; i++) {
-                    stockageEvent[getMoinsJour(date_debut) + i] = [event]
-                }
+    function dispatchEvent (nbr) {
+        // récup le nbr du jour réel
+        let offset = new Date(props.year, props.month - 1, 1).getDay()
+        if (offset == 0) {
+            offset = 7
+        }
+        offset = offset - 1
+        let start_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
+        let end_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
+        let tempStockage = []
+        for (let i = 0; i < props.eventList.length; i++){
+            let event = props.eventList[i]
+            event['blank'] = false
+            console.log(event)
+            if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
+                tempStockage.push(event)
             }
-            else {
-                if (getMoinsJour(date_debut) in stockageEvent) {
-                    stockageEvent[getMoinsJour(date_debut)].push(event);
-                }
-                else {
-                    stockageEvent[getMoinsJour(date_debut)] = [event]
-                }
+            else if (event['end_date'] >= start_date && event['end_date'] <= end_date) {
+                tempStockage.push(event)
+            }
+            else if (event['start_date'] <= start_date && event['end_date'] >= end_date) {
+                tempStockage.push(event)
             }
         }
-        else{
-            break
-        }
-    }
-    //remplire les espace blanc
-    for (let i = 0; i < 36; i++) {
-        if (i in stockageEvent){
-
-        }
-        else {
-            stockageEvent[i] = []
-        }
+        return tempStockage
     }
     
     function getJour (nbr) {
@@ -82,7 +69,7 @@ export const MiniCalendar = (props) => {
             }
         }
 
-        var events = stockageEvent[props.day]
+        var events = dispatchEvent(props.day)
         var nbrDot = events.length
 
         return (
@@ -98,8 +85,23 @@ export const MiniCalendar = (props) => {
     }
 
     const Line = (props) => {
+
+        Date.prototype.getWeek = function() {
+            var date = new Date(this.getTime());
+            date.setHours(0, 0, 0, 0);
+            // Thursday in current week decides the year.
+            date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+            // January 4 is always in week 1.
+            var week1 = new Date(date.getFullYear(), 0, 4);
+            // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+            return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+                                  - 3 + (week1.getDay() + 6) % 7) / 7);
+        }
+
+        var thisW = new Date(props.year, props.month - 1, props.offset + 1).getWeek()
+
         return (
-            <div className='mini-line'>
+            <div className={thisW == props.nowWeek && props.sele ? 'mini-line mini-line-sele' : 'mini-line'}>
                 <MiniJour month={props.month} day={1 + props.offset} premier={props.premier} dernier={props.dernier}/>
                 <MiniJour month={props.month} day={2 + props.offset} premier={props.premier} dernier={props.dernier}/>
                 <MiniJour month={props.month} day={3 + props.offset} premier={props.premier} dernier={props.dernier}/>
@@ -134,11 +136,11 @@ export const MiniCalendar = (props) => {
                     <h2 className='mini-nav-next' onClick={() => props.nextMonth()}>&#62;</h2>
                 </div>
             </div>
-            <Line month={props.month} offset={0} premier={true} dernier={false}/>
-            <Line month={props.month} offset={7} premier={false} dernier={false}/>
-            <Line month={props.month} offset={14}premier={false} dernier={false}/>
-            <Line month={props.month} offset={21}premier={false} dernier={false}/>
-            <Line month={props.month} offset={28}premier={false} dernier={true}/>
+            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={0} premier={true} dernier={false}/>
+            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={7} premier={false} dernier={false}/>
+            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={14} premier={false} dernier={false}/>
+            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={21} premier={false} dernier={false}/>
+            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={28} premier={false} dernier={true}/>
         </div>
     )
 }

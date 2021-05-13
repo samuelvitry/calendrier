@@ -11,8 +11,7 @@ class ListEvent(APIView):
             if request.session['isLog'] == True:
                 events = Evenement.objects.filter(proprio=request.session['proprio'])
                 serializer = eventSerializer(events, many=True)
-                print(request.session['proprio'])
-                return Response({"event": serializer.data})
+                return Response({"event": serializer.data}, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:

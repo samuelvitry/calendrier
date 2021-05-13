@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {NextEvents} from './NextEvents'
 import {TodoList} from './TodoList'
 import { MonthlyCalendar } from './MonthlyCalendar'
@@ -15,6 +15,8 @@ export const api = axios.create({
 
 export const Main = (props) => {
 
+    const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
+
     Date.prototype.getWeek = function() {
         var date = new Date(this.getTime());
         date.setHours(0, 0, 0, 0);
@@ -27,12 +29,22 @@ export const Main = (props) => {
                               - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
-    const eventList = []
+    useEffect(() => {
+        api.get("/").then((response) => traiterEvent(response.data.event))
+    }, [])
 
-    api.get("/").then((response) => eventList = response.data.event).then()
-    //reload dans le then
+    const [eventList, seteventList] = useState([])
 
-    var stockageEvent = {}
+    function traiterEvent (tempList) {
+        let tempEvents = []
+        for (let i = 0; i < tempList.length; i ++){
+            let code = parseInt(tempList[i]['color'])
+            tempEvents.push(tempList[i])
+            tempEvents[i]['color'] = colorCodeConv[code]
+        }
+        seteventList(tempEvents)
+    }
+
 
     function isFromWeek(event){
         if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000){
@@ -128,10 +140,11 @@ export const Main = (props) => {
         var day = new Date(year, month-1, nbr - offsetbeggin)
         return (day);
     }
+
     return (
         <section className="main-section">
             <div className="left-section">
-                <MiniCalendar eventList={eventList} month={month} year={year} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
+                <MiniCalendar eventList={eventList} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
                 <CalendarSelect />
                 
             </div>

@@ -70,9 +70,7 @@ export const AddPopup = (props) => {
                     <p>Calendars</p>
                 </div>
                 <div className='add-calendar-select add-line'>
-                    <Checkbox color={colorCodeConv[color]} txt='Perso' />
-                    <Checkbox color={colorCodeConv[color]} txt='Travail' />
-                    <Checkbox color={colorCodeConv[color]} txt='Famille' />
+                    {props.calendarList.map((x) => (<Checkbox color={colorCodeConv[color]} txt={x} />))}
                 </div>
                 <div className='add-half-line'>
                     <p>Color</p>

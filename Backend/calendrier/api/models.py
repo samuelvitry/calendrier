@@ -33,5 +33,6 @@ class Evenement(models.Model):
     proprio = models.CharField(max_length=512)
     creation_date = models.DateTimeField(auto_now_add=True)
     color = models.IntegerField(default=5)
+    calendar = models.CharField(max_length=1024)
     def __str__(self):
         return self.event_name

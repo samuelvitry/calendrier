@@ -45,6 +45,19 @@ export const Main = (props) => {
         seteventList(tempEvents)
     }
 
+    function generateCalendarTable () {
+        let calendarList = []
+        for (let i = 0; i < eventList.length; i++) {
+            if (calendarList.includes(eventList[i]['calendar'])) {
+                
+            }
+            else {
+                calendarList.push(eventList[i]['calendar'])
+            }
+        }
+        return calendarList
+    }
+
 
     function isFromWeek(event){
         if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000){
@@ -145,11 +158,11 @@ export const Main = (props) => {
         <section className="main-section">
             <div className="left-section">
                 <MiniCalendar eventList={eventList} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
-                <CalendarSelect />
+                <CalendarSelect calendarList={generateCalendarTable()} />
                 
             </div>
             <div className="right-section">
-                {isWeekly ? <WeeklyCalendar switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={weeklyEventList}/> : <MonthlyCalendar switch={() => switchMonWee()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={eventList}/>}
+                {isWeekly ? <WeeklyCalendar calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={weeklyEventList}/> : <MonthlyCalendar switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={eventList}/>}
             </div>
       </section>
     )

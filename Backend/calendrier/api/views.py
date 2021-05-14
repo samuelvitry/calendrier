@@ -59,8 +59,9 @@ class CreateEvent(APIView):
                 end_date = serializer.data.get('end_date')
                 color = serializer.data.get('color')
                 full = serializer.data.get('full')
+                calendar = serializer.data.get('calendar')
                 proprio = self.request.session['proprio']
-                q = Evenement(event_name=event_name, start_date=start_date, end_date=end_date, color=color, full=full, proprio=proprio)
+                q = Evenement(event_name=event_name, start_date=start_date, end_date=end_date, color=color, full=full, proprio=proprio, calendar=calendar)
                 q.save()
                 return Response(status=status.HTTP_201_CREATED)
 

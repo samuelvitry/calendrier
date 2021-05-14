@@ -10,6 +10,7 @@ class eventSerializer(serializers.ModelSerializer):
             'end_date',
             'color',
             'full',
+            'calendar',
         )
 
 class loginSerializer(serializers.ModelSerializer):

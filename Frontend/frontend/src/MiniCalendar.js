@@ -18,7 +18,6 @@ export const MiniCalendar = (props) => {
         for (let i = 0; i < props.eventList.length; i++){
             let event = props.eventList[i]
             event['blank'] = false
-            console.log(event)
             if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
                 tempStockage.push(event)
             }

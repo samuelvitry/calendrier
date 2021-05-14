@@ -436,7 +436,7 @@ export const WeeklyCalendar = (props) => {
                     <DayRow evenements={weeklyStockage[6]} date={rowToJour(6)} dayName='Sunday' />
                 </div>
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup setisAdd={() => setisAdd(false)}/> : null}
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup calendarList={() => props.generateCalendarTable()} setisAdd={() => setisAdd(false)}/> : null}
         </div>
     )
 }

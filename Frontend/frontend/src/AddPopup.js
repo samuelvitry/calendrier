@@ -37,6 +37,7 @@ export const AddPopup = (props) => {
                 "end_date": end / 1000,
                 "color": color,
                 "full": true,
+                "calendar": "Test calendar",
             }
             console.log(data)
             api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err))
@@ -70,7 +71,7 @@ export const AddPopup = (props) => {
                     <p>Calendars</p>
                 </div>
                 <div className='add-calendar-select add-line'>
-                    {props.calendarList.map((x) => (<Checkbox color={colorCodeConv[color]} txt={x} />))}
+                    {props.calendarList().map((x) => (<Checkbox color={colorCodeConv[color]} txt={x} />))}
                 </div>
                 <div className='add-half-line'>
                     <p>Color</p>

@@ -268,7 +268,7 @@ export const MonthlyCalendar = (props) => {
                     <LastLine isExpanded={isExpanded}/>
                 </div>
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup calendarList={(x) => props.generateCalendarTable()} setisAdd={() => setisAdd(false)}/> : null}
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
         </div>
     )
 }

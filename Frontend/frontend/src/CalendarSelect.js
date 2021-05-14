@@ -6,7 +6,7 @@ export const CalendarSelect = (props) => {
         <section className="calendar-select">
             <h2>Selection des calendriers</h2>
             <div className="container-select-calendar">
-                {props.calendarList.map((x) => (<Checkbox checked={true} txt={x} changement={(x) => console.log(x)} />))}
+                {props.calendarList.map((x) => (<Checkbox checked={true} txt={x} changement={() => props.calendarSelecSwitch(x)} />))}
             </div>
         </section>
     )

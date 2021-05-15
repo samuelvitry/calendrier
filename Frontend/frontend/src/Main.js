@@ -121,12 +121,17 @@ export const Main = (props) => {
             setisWeekly(true)
         }
     }
+    
+    function ajouterEvent(event) {
+        api.get("/").then((response) => traiterEvent(response.data.event))
+    }
 
     
     var now = new Date()
     const [year, setyear] = useState(now.getFullYear())
     const [week, setweek] = useState(now.getWeek())
     const [month, setmonth] = useState(now.getMonth() + 1)
+    const [annim, setAnnim] = useState("")
 
     var weeklyEventList = eventList.filter(valeur => {
         if( valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
@@ -139,6 +144,7 @@ export const Main = (props) => {
         setweek(temp.getWeek())
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
+        setAnnim("right-appear")
     }
     function prevWeek(){
         let tempMonth = month - 1
@@ -146,18 +152,21 @@ export const Main = (props) => {
         setweek(temp.getWeek())
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
+        setAnnim("left-appear")
     }
     function nextMonth(){
         let temp = new Date(year, month , 1)
         setweek(temp.getWeek())
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
+        setAnnim("right-appear")
     }
     function prevMonth(){
         let temp = new Date(year, month - 2, 1)
         setweek(temp.getWeek())
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
+        setAnnim("left-appear")
     }
     
 
@@ -196,11 +205,11 @@ export const Main = (props) => {
     return (
         <section className="main-section">
             <div className="left-section">
-                <MiniCalendar eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
+                <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
                 <CalendarSelect calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
             </div>
             <div className="right-section">
-                {isWeekly ? <WeeklyCalendar calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
+                {isWeekly ? <WeeklyCalendar ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
             </div>
       </section>
     )

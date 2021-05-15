@@ -267,6 +267,8 @@ header h1 {
     margin-left: 10px;
     margin-right: 10px;
     padding: 1px;
+    opacity: 100%;
+    animation: eventAppear .3s 1;
 }
 .monthly-item p {
     font-size: 10px;
@@ -285,7 +287,7 @@ header h1 {
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-content: space-between;
-    animation: leftAppear .1s 1;
+    /*animation: leftAppear .1s 1;*/
     opacity: 100%;
     transform: translateX(0);
 }
@@ -456,6 +458,18 @@ header h1 {
     0% {opacity: 0%; transform: translateX(-100%);}
     100% {opacity: 100%; transform: translateX(0);}
 }
+@keyframes rightAppear {
+    0% {opacity: 0%; transform: translateX(100%);}
+    100% {opacity: 100%; transform: translateX(0);}
+}
+.right-appear {
+    transform: translateX(0);
+    animation: rightAppear .1s 1;
+}
+.left-appear {
+    transform: translateX(0);
+    animation: leftAppear .1s 1;
+}
 .mini-calendar {
     background-color: var(--white-1);
     margin-bottom: 4vh;
@@ -476,7 +490,7 @@ header h1 {
     margin-top: 3%;
     margin-bottom: 3%;
     text-align: center;
-    animation: leftAppear .1s 1;
+    /*animation: leftAppear .1s 1;*/
     opacity: 100%;
     transform: translateX(0);
 }
@@ -740,6 +754,10 @@ header h1 {
     min-height: 3vh;
     width: 100%;
 }
+@keyframes eventAppear {
+    0% {opacity: 0%;}
+    100% {opacity: 100%;}
+}
 .weekly-event{
     width: 100%;
     border-left: solid;
@@ -754,6 +772,8 @@ header h1 {
     -moz-border-radius-bottomright: 20px;
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
+    opacity: 100%;
+    animation: eventAppear .3s 1;
 }
 .weekly-event * {
     color: var(--dark-color);
@@ -1109,7 +1129,4 @@ header h1 {
 .add-button-line * {
     font-size: 16px;
     font-weight: 500;
-}
-.add-half-drop {
-
 }

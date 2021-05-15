@@ -42,7 +42,7 @@ export const AddPopup = (props) => {
                 "calendar": props.calendarList()[calendarNbr],
             }
             console.log(data)
-            api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err)).then(res => props.setisAdd(false))
+            api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err)).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else {
             //afficher une erreur

@@ -99,8 +99,14 @@ export const MiniCalendar = (props) => {
 
         var thisW = new Date(props.year, props.month - 1, props.offset + 1).getWeek()
 
+        var classNom = props.annim + ' ' + 'mini-line'
+        if (thisW == props.week && props.sele) {
+            classNom = classNom.concat('mini-line-sele')
+        }
+        console.log(classNom)
+
         return (
-            <div className={thisW == props.nowWeek && props.sele ? 'mini-line mini-line-sele' : 'mini-line'}>
+            <div className={classNom}>
                 <MiniJour month={props.month} day={1 + props.offset} premier={props.premier} dernier={props.dernier}/>
                 <MiniJour month={props.month} day={2 + props.offset} premier={props.premier} dernier={props.dernier}/>
                 <MiniJour month={props.month} day={3 + props.offset} premier={props.premier} dernier={props.dernier}/>
@@ -135,11 +141,11 @@ export const MiniCalendar = (props) => {
                     <h2 className='mini-nav-next' onClick={() => props.nextMonth()}>&#62;</h2>
                 </div>
             </div>
-            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={0} premier={true} dernier={false}/>
-            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={7} premier={false} dernier={false}/>
-            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={14} premier={false} dernier={false}/>
-            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={21} premier={false} dernier={false}/>
-            <Line month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={28} premier={false} dernier={true}/>
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={0} premier={true} dernier={false}/>
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={7} premier={false} dernier={false}/>
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={14} premier={false} dernier={false}/>
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={21} premier={false} dernier={false}/>
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={28} premier={false} dernier={true}/>
         </div>
     )
 }

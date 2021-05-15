@@ -188,6 +188,7 @@ export const MonthlyCalendar = (props) => {
     
     const EventDetail = (props) => {
 
+        console.log(props.event)
         var name = props.event['event_name']
         var date_debut = ''
         var duration = ''
@@ -260,6 +261,7 @@ export const MonthlyCalendar = (props) => {
     }
 
     //todo add calendar selector
+    console.log(eventList)
 
     return (
         <div className="monthly-calendar">

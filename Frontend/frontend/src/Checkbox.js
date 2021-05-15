@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 export const Checkbox = (props) => {
 
-    const [isChecked, setisChecked] = useState(false)
+    const [isChecked, setisChecked] = useState(props.checked)
 
     function handleClick() {
         setisChecked(isChecked ? false : true)

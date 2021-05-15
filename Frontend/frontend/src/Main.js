@@ -48,12 +48,13 @@ export const Main = (props) => {
             let code = parseInt(tempList[i]['color'])
             tempEvents.push(tempList[i])
             tempEvents[i]['color'] = colorCodeConv[code]
+            tempEvents[i]['key'] = i
             var objCalName = tempEvents[i]['calendar']
             if (tempSto[objCalName]) {
                 tempSto[objCalName].push(tempEvents[i])
             }
             else {
-                tempSto[objCalName] = [false, tempEvents[i]]
+                tempSto[objCalName] = [true, tempEvents[i]]
             }
         }
         setStockageCalendar(tempSto)
@@ -113,6 +114,7 @@ export const Main = (props) => {
     const [isWeekly, setisWeekly] = useState(false);
 
     function switchMonWee() {
+        setAnnim("")
         let temp = isWeekly
         if(temp){
             setisWeekly(false)
@@ -123,6 +125,7 @@ export const Main = (props) => {
     }
     
     function ajouterEvent(event) {
+        setAnnim("")
         api.get("/").then((response) => traiterEvent(response.data.event))
     }
 
@@ -206,7 +209,7 @@ export const Main = (props) => {
         <section className="main-section">
             <div className="left-section">
                 <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
-                <CalendarSelect calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
+                <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
             </div>
             <div className="right-section">
                 {isWeekly ? <WeeklyCalendar ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}

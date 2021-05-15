@@ -268,7 +268,6 @@ header h1 {
     margin-right: 10px;
     padding: 1px;
     opacity: 100%;
-    animation: eventAppear .3s 1;
 }
 .monthly-item p {
     font-size: 10px;

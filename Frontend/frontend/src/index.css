@@ -1070,17 +1070,25 @@ header h1 {
     font-size: 14px;
 }
 .color-add-line {
-    flex-direction: column;
+    flex-direction: row;
+    width: 100%;
 }
 .add-color-drop {
     background-color: var(--white-3);
-    width: 50%;
+}
+.add-half-drop {
+    width: 100%;
+    margin-right: 1em;
+}
+.add-color-selector {
+    width: 100%;
 }
 .add-color-drop-element {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     padding: 7px;
+    width: 100%;
 }
 .add-color-drop-element:hover {
     background-color: var(--white-4);
@@ -1101,4 +1109,7 @@ header h1 {
 .add-button-line * {
     font-size: 16px;
     font-weight: 500;
+}
+.add-half-drop {
+
 }

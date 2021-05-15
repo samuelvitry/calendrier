@@ -12,6 +12,8 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 export const AddPopup = (props) => {
 
     const [isColor, setisColor] = useState(false)
+    const [isCalendar, setIsCalendar] = useState(false)
+    const [calendarNbr, setCalendarNbr] = useState(0)
     const [color, setcolor] = useState(0)
 
     const colorConv = ['Blue', 'Green', 'Yellow', 'Orange', 'Red']
@@ -37,10 +39,10 @@ export const AddPopup = (props) => {
                 "end_date": end / 1000,
                 "color": color,
                 "full": true,
-                "calendar": "Test calendar",
+                "calendar": props.calendarList()[calendarNbr],
             }
             console.log(data)
-            api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err))
+            api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err)).then(res => props.setisAdd(false))
         }
         else {
             //afficher une erreur
@@ -68,42 +70,53 @@ export const AddPopup = (props) => {
                     <Checkbox changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />
                 </div>
                 <div className='add-half-line'>
-                    <p>Calendars</p>
-                </div>
-                <div className='add-calendar-select add-line'>
-                    {props.calendarList().map((x) => (<Checkbox color={colorCodeConv[color]} txt={x} />))}
-                </div>
-                <div className='add-half-line'>
-                    <p>Color</p>
+                    <p className='add-p-half'>Color</p>
+                    <p className='add-p-half'>Calendar</p>
                 </div>
                 <div className='color-add-line add-line'>
-                    <div  style={{borderColor: colorCodeConv[color]}} onClick={() => isColor ? setisColor(false) : setisColor(true)} className='add-color-selector'>
-                        <i className="fas fa-tag" style={{color: colorCodeConv[color]}}></i>
-                        <p>{colorConv[color]}</p>
-                        <i className="fas fa-caret-down"></i>
+                    <div className='add-half-drop'>
+                        <div style={{borderColor: colorCodeConv[color]}} onClick={() => {isCalendar ? setIsCalendar(false) : setIsCalendar(true); setisColor(false)}} className='add-color-selector'>
+                            <i className="fas fa-calendar-alt" style={{color: colorCodeConv[color]}}></i>
+                            <p>{props.calendarList()[calendarNbr]}</p>
+                            <i className="fas fa-caret-down" style={{right: '2em'}}></i>
+                        </div>
+                        {isCalendar ? <div className='add-color-drop'>
+                            {props.calendarList().map((x) => (
+                            <div onClick={() => {setCalendarNbr(props.calendarList().indexOf(x)); setIsCalendar(false)}} className='add-color-drop-element'>
+                                <i className="fas fa-calendar-alt" style={{color: colorCodeConv[color]}}></i>
+                                <p>{x}</p>
+                            </div>))}
+                        </div> : null}
                     </div>
-                    {isColor ? <div className='add-color-drop'>
-                        <div onClick={() => {setcolor(0); setisColor(false)}} className='add-color-drop-element'>
-                            <i className="fas fa-tag" style={{color: '#3581B8'}}></i>
-                            <p>Blue</p>
+                    <div className='add-half-drop'>
+                        <div  style={{borderColor: colorCodeConv[color]}} onClick={() => {isColor ? setisColor(false) : setisColor(true); setIsCalendar(false)}} className='add-color-selector'>
+                            <i className="fas fa-tag" style={{color: colorCodeConv[color]}}></i>
+                            <p>{colorConv[color]}</p>
+                            <i className="fas fa-caret-down"></i>
                         </div>
-                        <div onClick={() => {setcolor(1); setisColor(false)}} className='add-color-drop-element'>
-                            <i className="fas fa-tag" style={{color: '#5BA94C'}}></i>
-                            <p>Green</p>
-                        </div>
-                        <div onClick={() => {setcolor(2); setisColor(false)}} className='add-color-drop-element'>
-                            <i className="fas fa-tag" style={{color: '#E4C111'}}></i>
-                            <p>Yellow</p>
-                        </div>
-                        <div onClick={() => {setcolor(3); setisColor(false)}} className='add-color-drop-element'>
-                            <i className="fas fa-tag" style={{color: '#FF6B35'}}></i>
-                            <p>Orange</p>
-                        </div>
-                        <div onClick={() => {setcolor(4); setisColor(false)}} className='add-color-drop-element'>
-                            <i className="fas fa-tag" style={{color: '#A72A2A'}}></i>
-                            <p>Red</p>
-                        </div>
-                    </div> : null}
+                        {isColor ? <div className='add-color-drop'>
+                            <div onClick={() => {setcolor(0); setisColor(false)}} className='add-color-drop-element'>
+                                <i className="fas fa-tag" style={{color: '#3581B8'}}></i>
+                                <p>Blue</p>
+                            </div>
+                            <div onClick={() => {setcolor(1); setisColor(false)}} className='add-color-drop-element'>
+                                <i className="fas fa-tag" style={{color: '#5BA94C'}}></i>
+                                <p>Green</p>
+                            </div>
+                            <div onClick={() => {setcolor(2); setisColor(false)}} className='add-color-drop-element'>
+                                <i className="fas fa-tag" style={{color: '#E4C111'}}></i>
+                                <p>Yellow</p>
+                            </div>
+                            <div onClick={() => {setcolor(3); setisColor(false)}} className='add-color-drop-element'>
+                                <i className="fas fa-tag" style={{color: '#FF6B35'}}></i>
+                                <p>Orange</p>
+                            </div>
+                            <div onClick={() => {setcolor(4); setisColor(false)}} className='add-color-drop-element'>
+                                <i className="fas fa-tag" style={{color: '#A72A2A'}}></i>
+                                <p>Red</p>
+                            </div>
+                        </div> : null}
+                    </div>
                 </div>
                 <div className='add-button-line add-line'>
                     <Button onClick={() => props.setisAdd(false)} txt='Cancel'/>

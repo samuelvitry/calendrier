@@ -35,6 +35,11 @@ export const Main = (props) => {
 
     const [eventList, seteventList] = useState([])
     const [stockageCalendar, setStockageCalendar] = useState({})
+    const [reload, setReload] = useState(0)
+
+    function forceReload () {
+        setReload(reload + 1)
+    }
 
     function traiterEvent (tempList) {
         let tempEvents = []
@@ -59,7 +64,7 @@ export const Main = (props) => {
         let temp = stockageCalendar
         stockageCalendar[name][0] = stockageCalendar[name][0] ? false : true
         setStockageCalendar(temp)
-        //reload
+        forceReload()
     }
 
     function generateEventList () {

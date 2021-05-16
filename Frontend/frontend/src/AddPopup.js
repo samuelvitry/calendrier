@@ -4,6 +4,7 @@ import { Button } from './Button'
 import { api } from './Main'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import AES from 'crypto-js'
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -23,7 +24,10 @@ export const AddPopup = (props) => {
     const [start, setStart] = useState(new Date().getTime())
     const [end, setEnd] = useState(new Date().getTime() + 3600)
     const [fullDay, setFullDay] = useState(false)
-    //calendar select
+
+    function encrypt(msg) {
+        
+    }
 
     function submitData () {
         if (fullDay) {

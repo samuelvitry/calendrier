@@ -63,6 +63,7 @@ export const MonthlyCalendar = (props) => {
     
 
     function setPopup(test) {
+        props.setAnnim("")
         setisDetail(test);
     }
     function closePopup() {
@@ -265,7 +266,7 @@ export const MonthlyCalendar = (props) => {
 
     return (
         <div className="monthly-calendar">
-            <MonthlyTopbar add={() => setisAdd(true)} switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
+            <MonthlyTopbar add={() => {setisAdd(true); props.setAnnim("")}} switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
             <div className="monthly-actual">
                 <Line annim={props.annim} />
                 <div>

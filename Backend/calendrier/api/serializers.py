@@ -29,7 +29,15 @@ class CreateUserSerializer(serializers.ModelSerializer):
             'password',
             'username',
             'cle',
-            'cle2'
+            'cle2',
+            'key'
+        )
+
+class CodeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'key',
         )
 
 #create user serializer

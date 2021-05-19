@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import eventSerializer, loginSerializer, CreateUserSerializer
+from .serializers import eventSerializer, loginSerializer, CreateUserSerializer, CodeSerializer
 from .models import User, Evenement
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -10,8 +10,10 @@ class ListEvent(APIView):
         if 'isLog' in request.session:
             if request.session['isLog'] == True:
                 events = Evenement.objects.filter(proprio=request.session['proprio'])
+                utilisateur = User.objects.filter(code=request.session['proprio'])
                 serializer = eventSerializer(events, many=True)
-                return Response({"event": serializer.data}, status=status.HTTP_200_OK)
+                serializer2 = CodeSerializer(utilisateur, many=True)
+                return Response({"event": serializer.data, "code": serializer2.data}, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:

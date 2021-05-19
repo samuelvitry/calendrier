@@ -6,7 +6,10 @@ import { CalendarSelect } from './CalendarSelect'
 import { MiniCalendar } from './MiniCalendar'
 import { WeeklyCalendar } from './WeeklyCalendar'
 import axios from 'axios'
-import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie"
+import { Button } from './Button'
+import { sha256 } from 'js-sha256'
+import AES from 'crypto-js'
 
 axios.defaults.withCredentials = true;
 
@@ -16,7 +19,13 @@ export const api = axios.create({
 
 export const Main = (props) => {
 
+    const [cookies, setCookie] = useCookies();
+
     const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
+
+    const [isCode, setIsCode] = useState(false)
+    const [code, setCode] = useState('')
+    const [codeHash, setCodeHash] = useState('')
 
     Date.prototype.getWeek = function() {
         var date = new Date(this.getTime());
@@ -30,8 +39,15 @@ export const Main = (props) => {
                               - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
+    if (cookies.code == null && isCode == false) {
+        setIsCode(true)
+    }
+    if (sha256(cookies.code) !== codeHash && isCode == false) {
+        setIsCode(true)
+    }
+
     useEffect(() => {
-        api.get("/").then((response) => traiterEvent(response.data.event))
+        api.get("/").then((response) => {traiterEvent(response.data.event); setCodeHash(response.data.code[0]['key'])})
     }, [])
 
     const [eventList, seteventList] = useState([])
@@ -42,6 +58,16 @@ export const Main = (props) => {
         setReload(reload + 1)
     }
 
+    function submitCode () {
+        if (code !== '') {
+            if (codeHash === sha256(code)) {
+                setCookie("code", code, { path: '/' })
+                setIsCode(false)
+            }
+            //todo afficher une erreur
+        }
+    }
+
     function traiterEvent (tempList) {
         let tempEvents = []
         let tempSto = {}
@@ -50,6 +76,10 @@ export const Main = (props) => {
             tempEvents.push(tempList[i])
             tempEvents[i]['color'] = colorCodeConv[code]
             tempEvents[i]['key'] = i
+            let fullCode = cookies.code
+            fullCode = fullCode.concat(' ceci est du sel')
+            var bytes = AES.AES.decrypt(tempEvents[i]['event_name'], fullCode)
+            tempEvents[i]['event_name'] = bytes.toString(AES.enc.Utf8)
             var objCalName = tempEvents[i]['calendar']
             if (tempSto[objCalName]) {
                 tempSto[objCalName].push(tempEvents[i])
@@ -215,6 +245,16 @@ export const Main = (props) => {
             <div className="right-section">
                 {isWeekly ? <WeeklyCalendar setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar  setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
             </div>
+            {isCode ? <div className='code-popup-container'>
+                <div className='code-popup'>
+                    <h1>There is a problem !</h1>
+                    <p>We need your code to access the events !</p>
+                    <div className='code-in-line'>
+                        <input className='input-contained' type='password'bbb onChange={(e) => setCode(e.target.value)}/>
+                        <Button onClick={() => submitCode()} full txt='Submit' />
+                    </div>
+                </div>
+            </div> : null}
       </section>
     )
 }

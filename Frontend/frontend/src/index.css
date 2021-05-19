@@ -292,7 +292,12 @@ header h1 {
 }
 .button-empty {
     color: var(--dark-color);
-    padding: 12px;
+    padding-right: 1.8em;
+    padding-left: 1.8em;
+    padding-top: .4em;
+    padding-bottom: .4em;
+    height: fit-content;
+    width: 100%;
     background-color: rgba(0,0,0,0.03);
     border: solid;
     border-width: 1px;
@@ -300,6 +305,7 @@ header h1 {
     border-radius: 10px;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
 }
 .button-empty:hover {
@@ -312,15 +318,20 @@ header h1 {
     font-size: 18px;
 }
 .button-full {
-    padding: 12px;
+    padding-right: 1.8em;
+    padding-left: 1.8em;
+    padding-top: .4em;
+    padding-bottom: .4em;
+    height: fit-content;
+    width: 100%;
     background: var(--secondary-color);
     border: none;
-    border-radius: 10px;
+    border-radius: .5em;
     display: flex;
     align-items: center;
+    justify-content: center;
     cursor: pointer;
     transform: translateY(0);
-    box-shadow: 0 0 20px 0 rgba(0,0,0,.3);
 }
 .button-full:active {
     box-shadow: 0px 0px 15px var(--darker-secondary);
@@ -553,14 +564,14 @@ header h1 {
     position: fixed;
     top: 0;
     left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .event-detail {
     background-color: var(--white-2);
     color: var(--dark-color);
     border-radius: 30px;
-    position: fixed;
-    top: 30%;
-    left: 35%;
     width: 30%;
     padding: 2%;
 }
@@ -636,7 +647,9 @@ header h1 {
     margin-bottom: 2vh;
 }
 .monthly-top-button a {
+    padding: 12px;
     font-weight: 500;
+    border-radius: 14px;
 }
 .weekly-topbar .button-full, .plus-add{
     color: var(--white-1);
@@ -914,6 +927,9 @@ header h1 {
     flex-wrap: nowrap;
     position: relative;
 }
+.monthly-weekly-switch a {
+    padding: 12px;
+}
 .monthly-weekly-switch * {
     font-size: 18px;
 }
@@ -1124,8 +1140,66 @@ header h1 {
 }
 .add-button-line {
     justify-content: space-between;
+    margin-bottom: 0;
+    margin-top: 3em;
 }
 .add-button-line * {
     font-size: 16px;
+    font-weight: 500;
+}
+.first-button {
+    margin-right: .4em;
+}
+.last-button {
+    margin-left: .4em;
+}
+.code-popup-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000071;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.code-popup {
+    background-color: var(--white-2);
+    color: var(--dark-color);
+    border-radius: 3em;
+    width: 30%;
+    padding: 2%;
+}
+.code-popup h1 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: .7em;
+}
+.code-popup p {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: .5em;
+}
+.code-popup input {
+    font-size: 12px;
+    padding: .5em;
+    box-shadow: none;
+}
+.code-popup input:hover {
+    box-shadow: none;
+}
+.code-in-line {
+    display: flex;
+    flex-wrap: nowrap;
+
+}
+.code-in-line a {
+    width: fit-content;
+    padding-left: .8em;
+    padding-right: .8em;
+    margin-left: .4em;
+    border-radius: .5em;
+    font-size: 14px;
     font-weight: 500;
 }

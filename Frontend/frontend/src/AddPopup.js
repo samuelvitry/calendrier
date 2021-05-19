@@ -3,8 +3,8 @@ import { Checkbox } from './Checkbox'
 import { Button } from './Button'
 import { api } from './Main'
 import axios from 'axios'
-import Cookies from 'js-cookie'
 import AES from 'crypto-js'
+import { useCookies } from "react-cookie";
 
 axios.defaults.withCredentials = true;
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -16,6 +16,8 @@ export const AddPopup = (props) => {
     const [isCalendar, setIsCalendar] = useState(false)
     const [calendarNbr, setCalendarNbr] = useState(0)
     const [color, setcolor] = useState(0)
+
+    const [cookies, setCookie] = useCookies();
 
     const colorConv = ['Blue', 'Green', 'Yellow', 'Orange', 'Red']
     const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
@@ -37,13 +39,23 @@ export const AddPopup = (props) => {
             setEnd(new Date(tempEnd.getFullYear(), tempEnd.getMonth(), tempEnd.getDate(), 23, 59, 59).getTime())
         }
         if (end > start && name !== ''){
+            let code = cookies.code
+            code = code.concat(' ceci est du sel')
+            if (props.calendarList()[calendarNbr]) {
+                var tempCalendar = props.calendarList()[calendarNbr]
+            }
+            else {
+                var tempCalendar = "Default Calendar"
+            }
+            console.log(AES.AES.encrypt(name, code).toString())
+            var encrypted = AES.AES.encrypt(name, code).toString()
             let data = {
-                "event_name": name,
+                "event_name": encrypted,
                 "start_date": start / 1000,
                 "end_date": end / 1000,
                 "color": color,
                 "full": true,
-                "calendar": props.calendarList()[calendarNbr],
+                "calendar": tempCalendar,
             }
             console.log(data)
             api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err)).then(res => {props.setisAdd(false); props.ajouterEvent()})
@@ -123,8 +135,8 @@ export const AddPopup = (props) => {
                     </div>
                 </div>
                 <div className='add-button-line add-line'>
-                    <Button onClick={() => props.setisAdd(false)} txt='Cancel'/>
-                    <Button onClick={() => submitData()} full txt='Create Event'/>
+                    <Button onClick={() => props.setisAdd(false)} txt='Cancel' first/>
+                    <Button onClick={() => submitData()} full txt='Create Event' last/>
                 </div>
             </div>
         </div>

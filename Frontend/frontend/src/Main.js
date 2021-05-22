@@ -39,15 +39,8 @@ export const Main = (props) => {
                               - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
-    if (cookies.code == null && isCode == false) {
-        setIsCode(true)
-    }
-    if (sha256(cookies.code) !== codeHash && isCode == false) {
-        setIsCode(true)
-    }
-
     useEffect(() => {
-        api.get("/").then((response) => {traiterEvent(response.data.event); setCodeHash(response.data.code[0]['key'])})
+        api.get("/").then((response) => {setCodeHash(response.data.code[0]['key']); traiterEvent(response.data.event)})
     }, [])
 
     const [eventList, seteventList] = useState([])
@@ -63,6 +56,7 @@ export const Main = (props) => {
             if (codeHash === sha256(code)) {
                 setCookie("code", code, { path: '/' })
                 setIsCode(false)
+                api.get("/").then((response) => traiterEvent(response.data.event))
             }
             //todo afficher une erreur
         }
@@ -71,25 +65,36 @@ export const Main = (props) => {
     function traiterEvent (tempList) {
         let tempEvents = []
         let tempSto = {}
-        for (let i = 0; i < tempList.length; i ++){
-            let code = parseInt(tempList[i]['color'])
-            tempEvents.push(tempList[i])
-            tempEvents[i]['color'] = colorCodeConv[code]
-            tempEvents[i]['key'] = i
-            let fullCode = cookies.code
-            fullCode = fullCode.concat(' ceci est du sel')
-            var bytes = AES.AES.decrypt(tempEvents[i]['event_name'], fullCode)
-            tempEvents[i]['event_name'] = bytes.toString(AES.enc.Utf8)
-            var objCalName = tempEvents[i]['calendar']
-            if (tempSto[objCalName]) {
-                tempSto[objCalName].push(tempEvents[i])
+        if (cookies.code != null){
+            console.log(cookies.code)
+            if (sha256(cookies.code) !== codeHash) {
+                setIsCode(true)
             }
             else {
-                tempSto[objCalName] = [true, tempEvents[i]]
+                for (let i = 0; i < tempList.length; i ++){
+                    let code = parseInt(tempList[i]['color'])
+                    tempEvents.push(tempList[i])
+                    tempEvents[i]['color'] = colorCodeConv[code]
+                    tempEvents[i]['key'] = i
+                    let fullCode = cookies.code
+                    fullCode = fullCode.concat(' ceci est du sel')
+                    var bytes = AES.AES.decrypt(tempEvents[i]['event_name'], fullCode)
+                    tempEvents[i]['event_name'] = bytes.toString(AES.enc.Utf8)
+                    var objCalName = tempEvents[i]['calendar']
+                    if (tempSto[objCalName]) {
+                        tempSto[objCalName].push(tempEvents[i])
+                    }
+                    else {
+                        tempSto[objCalName] = [true, tempEvents[i]]
+                    }
+                }
+                setStockageCalendar(tempSto)
+                seteventList(tempEvents)
             }
         }
-        setStockageCalendar(tempSto)
-        seteventList(tempEvents)
+        else {
+            setIsCode(true)
+        }
     }
 
     function calendarSelecSwitch (name) {

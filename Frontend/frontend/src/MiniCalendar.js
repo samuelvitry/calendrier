@@ -103,7 +103,6 @@ export const MiniCalendar = (props) => {
         if (thisW == props.week && props.sele) {
             classNom = classNom.concat('mini-line-sele')
         }
-        console.log(classNom)
 
         return (
             <div className={classNom}>

@@ -261,9 +261,6 @@ export const MonthlyCalendar = (props) => {
         )
     }
 
-    //todo add calendar selector
-    console.log(eventList)
-
     return (
         <div className="monthly-calendar">
             <MonthlyTopbar add={() => {setisAdd(true); props.setAnnim("")}} switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>

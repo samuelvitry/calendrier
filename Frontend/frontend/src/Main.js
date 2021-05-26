@@ -56,6 +56,8 @@ export const Main = (props) => {
             if (codeHash === sha256(code)) {
                 setCookie("code", code, { path: '/' })
                 setIsCode(false)
+                console.log(cookies)
+                console.log(code)
                 api.get("/").then((response) => traiterEvent(response.data.event))
             }
             //todo afficher une erreur

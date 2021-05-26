@@ -47,6 +47,15 @@ export const Main = (props) => {
     const [stockageCalendar, setStockageCalendar] = useState({})
     const [reload, setReload] = useState(0)
 
+    if (isCode && cookies.code != undefined){
+        console.log(cookies.code)
+        console.log(codeHash)
+        if (codeHash === sha256(cookies.code)){
+            setIsCode(false)
+            api.get("/").then((response) => traiterEvent(response.data.event))
+        }
+    }
+
     function forceReload () {
         setReload(reload + 1)
     }

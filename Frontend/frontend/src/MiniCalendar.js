@@ -66,6 +66,12 @@ export const MiniCalendar = (props) => {
             if (props.month == mois){
                 selected = true
             }
+            if (props.premier && getJour(props.day).getDate() > 15){
+                selected = false
+            }
+            if (props.dernier && getJour(props.day).getDate() < 15) {
+                selected = false
+            }
         }
 
         var events = dispatchEvent(props.day)

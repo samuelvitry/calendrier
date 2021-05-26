@@ -12,6 +12,15 @@ def getCode():
     
     return code
 
+def getEventCode():
+    length = 256
+
+    while True:
+        key = ''.join(random.choices(string.ascii_letters, k=length))
+        if Evenement.objects.filter(key=key).count() == 0:
+            break
+    
+    return key
 
 
 class User(models.Model):
@@ -35,5 +44,6 @@ class Evenement(models.Model):
     creation_date = models.DateTimeField(auto_now_add=True)
     color = models.IntegerField(default=5)
     calendar = models.CharField(max_length=1024)
+    key = models.CharField(max_length=1024, default=getEventCode)
     def __str__(self):
         return self.event_name

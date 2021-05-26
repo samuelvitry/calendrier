@@ -5,10 +5,19 @@ import {MonthlyCalendarDay} from './MonthlyCalendarDay'
 import { MonthlyTopbar } from './MonthlyTopbar'
 import { Checkbox } from './Checkbox'
 import { AddPopup } from './AddPopup'
+import axios from 'axios'
+import { api } from './Main'
+import AES from 'crypto-js'
+import { useCookies } from "react-cookie"
+import { sha256 } from 'js-sha256'
 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 
 export const MonthlyCalendar = (props) => {
+
+    const [cookies, setCookie] = useCookies();
 
     const [isExpanded, setisExpanded] = useState(false);
 
@@ -189,14 +198,21 @@ export const MonthlyCalendar = (props) => {
     
     const EventDetail = (props) => {
 
-        console.log(props.event)
+        let code = cookies.code
+        code = code.concat(' ceci est du sel')
+
         var name = props.event['event_name']
         var date_debut = ''
         var duration = ''
         var repetition = ''
+        var nameChiffré = AES.AES.encrypt(name, code).toString()
 
         var durationT = props.event['end_date'] - props.event['start_date']
         var debut = new Date(props.event['start_date'] * 1000)
+
+        function deleteEvent() {
+            api.get('eventDelete' + '?key=' + props.event['key']).then((response) => {if(response.status == 200) {props.closeDetail()}})
+        }
 
         if (durationT >= 86400) {
             var debutMo = monthConv[debut.getMonth() + 1]
@@ -234,13 +250,13 @@ export const MonthlyCalendar = (props) => {
             <div className='detail-container'>
                 <div className='event-detail'>
                     <div className='detail-first-line'>
-                        <i class="fas fa-times" onClick={() => props.closeDetail()}></i>
+                        <i className="fas fa-times" onClick={() => props.closeDetail()}></i>
                         <h2 style={{color: props.event['color']}}>{name}</h2>
-                        <i class="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
+                        <i className="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
                     </div>
                     {isDropdown ? <div className='detail-dropdown'>
                         <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i class="fas fa-pen"></i>Edit</div>
-                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete'><i class="fas fa-trash"></i>Delete</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete' onClick={() => deleteEvent()}><i class="fas fa-trash"></i>Delete</div>
                     </div> : null}
                     <div className='detail-line'>
                         <i class="far fa-clock"></i>

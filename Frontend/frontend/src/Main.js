@@ -57,7 +57,7 @@ export const Main = (props) => {
     }
 
     function forceReload () {
-        setReload(reload + 1)
+        api.get("/").then((response) => {setCodeHash(response.data.code[0]['key']); traiterEvent(response.data.event); setReload(reload + 1)})
     }
 
     function submitCode () {
@@ -86,7 +86,7 @@ export const Main = (props) => {
                     let code = parseInt(tempList[i]['color'])
                     tempEvents.push(tempList[i])
                     tempEvents[i]['color'] = colorCodeConv[code]
-                    tempEvents[i]['key'] = i
+                    tempEvents[i]['nbr'] = i
                     let fullCode = cookies.code
                     fullCode = fullCode.concat(' ceci est du sel')
                     var bytes = AES.AES.decrypt(tempEvents[i]['event_name'], fullCode)
@@ -259,7 +259,7 @@ export const Main = (props) => {
                 <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
             </div>
             <div className="right-section">
-                {isWeekly ? <WeeklyCalendar setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar  setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
+                {isWeekly ? <WeeklyCalendar setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
             </div>
             {isCode ? <div className='code-popup-container'>
                 <div className='code-popup'>

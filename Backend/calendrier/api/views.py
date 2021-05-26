@@ -1,6 +1,8 @@
+from hashlib import sha256
+import hashlib
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import eventSerializer, loginSerializer, CreateUserSerializer, CodeSerializer
+from .serializers import eventSerializer, loginSerializer, CreateUserSerializer, CodeSerializer, createEventSerializer
 from .models import User, Evenement
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -22,7 +24,6 @@ class ListEvent(APIView):
 
 class LoginView(APIView):
 
-    serializer_class = loginSerializer
     lookup_url_kwarg = 'mdp'
 
     def get(self, request, format=None):
@@ -44,7 +45,7 @@ class LoginView(APIView):
 
 class CreateEvent(APIView):
 
-    serializer_class = eventSerializer
+    serializer_class = createEventSerializer
 
     def post(self, request, format=None):
 
@@ -86,3 +87,23 @@ class CreateUser(APIView):
                 q = User(email=email, password=password, username=username, cle=cle, cle2=cle2)
                 q.save()
                 return Response(status=status.HTTP_201_CREATED)
+
+class DeleteEvent(APIView):
+
+    lookup_url_kwarg = 'key'
+
+    def get(self, request, format=None):
+        if 'isLog' in request.session:
+            if request.session['isLog'] == True:
+                code = request.GET.get(self.lookup_url_kwarg)
+                q = Evenement.objects.filter(proprio=request.session['proprio'], key=code)
+                q.delete()
+                events = Evenement.objects.filter(proprio=request.session['proprio'])
+                utilisateur = User.objects.filter(code=request.session['proprio'])
+                serializer = eventSerializer(events, many=True)
+                serializer2 = CodeSerializer(utilisateur, many=True)
+                return Response({"event": serializer.data, "code": serializer2.data}, status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)

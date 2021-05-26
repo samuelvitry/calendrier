@@ -11,6 +11,19 @@ class eventSerializer(serializers.ModelSerializer):
             'color',
             'full',
             'calendar',
+            'key'
+        )
+
+class createEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evenement
+        fields = (
+            'event_name',
+            'start_date',
+            'end_date',
+            'color',
+            'full',
+            'calendar'
         )
 
 class loginSerializer(serializers.ModelSerializer):

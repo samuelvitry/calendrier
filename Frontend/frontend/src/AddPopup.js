@@ -47,7 +47,6 @@ export const AddPopup = (props) => {
             else {
                 var tempCalendar = "Default Calendar"
             }
-            console.log(AES.AES.encrypt(name, code).toString())
             var encrypted = AES.AES.encrypt(name, code).toString()
             let data = {
                 "event_name": encrypted,
@@ -57,8 +56,7 @@ export const AddPopup = (props) => {
                 "full": true,
                 "calendar": tempCalendar,
             }
-            console.log(data)
-            api.post("/create", data).then(res => console.log(res)).catch(err => console.log(err)).then(res => {props.setisAdd(false); props.ajouterEvent()})
+            api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else {
             //afficher une erreur

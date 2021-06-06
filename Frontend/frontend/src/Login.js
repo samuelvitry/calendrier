@@ -15,8 +15,7 @@ export const Login = () => {
     function submitData () {
         var mdp = login + 'sel' + password
         mdp = sha256(mdp)
-        console.log(mdp)
-        api.get("/login" + "?mdp=" + mdp).then((response) => {console.log(response.status);if(response.status == 200) {window.location.href = "./calendar"}})
+        api.get("/login" + "?mdp=" + mdp).then((response) => {if(response.status == 200) {window.location.href = "./calendar"}})
     }
     function redirectHome () {
 

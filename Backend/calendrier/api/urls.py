@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ListEvent, LoginView, CreateEvent, CreateUser, DeleteEvent
+from .views import ListEvent, LoginView, CreateEvent, CreateUser, DeleteEvent, Logout
 
 urlpatterns = [
     path('', ListEvent.as_view()),
@@ -7,4 +7,5 @@ urlpatterns = [
     path('create', CreateEvent.as_view()),
     path('userCreate', CreateUser.as_view()),
     path('eventDelete', DeleteEvent.as_view()),
+    path('logout', Logout.as_view()),
 ]

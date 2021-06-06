@@ -107,3 +107,10 @@ class DeleteEvent(APIView):
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+class Logout(APIView):
+
+    def get(self, request, format=None):
+        if 'isLog' in request.session:
+            request.session['isLog'] = False
+        return Response(status=status.HTTP_200_OK)

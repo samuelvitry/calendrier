@@ -41,7 +41,12 @@ export const Main = (props) => {
     }
 
     if (shldFetch) {
-        api.get("/").then((response) => {setCodeHash(response.data.code[0]['key']); traiterEvent(response.data.event)})
+        api.get("/").then((response) => {
+            if (response.status == 200){
+                setCodeHash(response.data.code[0]['key']);
+                traiterEvent(response.data.event);
+            }
+        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); window.location.href = "./login"})
         setShldFetch(false)
     }
 
@@ -50,8 +55,6 @@ export const Main = (props) => {
     const [reload, setReload] = useState(0)
 
     if (isCode && cookies.code != undefined){
-        console.log(cookies.code)
-        console.log(codeHash)
         if (codeHash === sha256(cookies.code)){
             setIsCode(false)
             forceReload()
@@ -59,7 +62,6 @@ export const Main = (props) => {
     }
 
     function forceReload () {
-        console.log('reload')
         setShldFetch(true)
     }
 
@@ -75,7 +77,6 @@ export const Main = (props) => {
     }
 
     function traiterEvent (tempList) {
-        console.log('traiter')
         let tempEvents = []
         let tempSto = {}
         if (cookies.code != null){
@@ -83,8 +84,6 @@ export const Main = (props) => {
                 let temp = {}
                 temp['Default Calendar'] = [true]
                 setStockageCalendar(temp)
-                console.log(stockageCalendar)
-                console.log(temp)
                 setIsCode(true)
             }
             else {
@@ -105,7 +104,6 @@ export const Main = (props) => {
                         tempSto[objCalName] = [true, tempEvents[i]]
                     }
                 }
-                console.log(tempSto)
                 if (tempSto.length < 1) {
                     tempSto['Default Calendar'] = [true]
                 }
@@ -155,7 +153,6 @@ export const Main = (props) => {
         if (calendarList.length < 1) {
             calendarList.push('Default Calendar')
         }
-        console.log(calendarList)
         return calendarList
     }
 

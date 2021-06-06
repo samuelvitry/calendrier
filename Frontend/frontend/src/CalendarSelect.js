@@ -2,8 +2,6 @@ import React from 'react'
 import { Checkbox } from './Checkbox'
 
 export const CalendarSelect = (props) => {
-
-    console.log(props.stockageCalendar)
     
     if(props.stockageCalendar.length >= 1){
         return (

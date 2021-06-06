@@ -41,6 +41,10 @@ export const MonthlyCalendar = (props) => {
 
     var eventList = props.eventList
 
+    function reload () {
+        props.reload()
+    }
+
     function dispatchEvent (nbr) {
         // récup le nbr du jour réel
         let offset = new Date(props.year, props.month - 1, 1).getDay()
@@ -211,7 +215,7 @@ export const MonthlyCalendar = (props) => {
         var debut = new Date(props.event['start_date'] * 1000)
 
         function deleteEvent() {
-            api.get('eventDelete' + '?key=' + props.event['key']).then((response) => {if(response.status == 200) {props.closeDetail()}})
+            api.get('eventDelete' + '?key=' + props.event['key']).then((response) => {if(response.status == 200) {props.closeDetail(); reload()}})
         }
 
         if (durationT >= 86400) {

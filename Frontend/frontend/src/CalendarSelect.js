@@ -3,6 +3,8 @@ import { Checkbox } from './Checkbox'
 
 export const CalendarSelect = (props) => {
 
+    console.log(props.stockageCalendar)
+
     return (
         <section className="calendar-select">
             <h2>Selection des calendriers</h2>

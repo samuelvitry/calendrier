@@ -26,6 +26,7 @@ export const Main = (props) => {
     const [isCode, setIsCode] = useState(false)
     const [code, setCode] = useState('')
     const [codeHash, setCodeHash] = useState('')
+    const [shldFetch, setShldFetch] = useState(true)
 
     Date.prototype.getWeek = function() {
         var date = new Date(this.getTime());
@@ -39,9 +40,10 @@ export const Main = (props) => {
                               - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
-    useEffect(() => {
+    if (shldFetch) {
         api.get("/").then((response) => {setCodeHash(response.data.code[0]['key']); traiterEvent(response.data.event)})
-    }, [])
+        setShldFetch(false)
+    }
 
     const [eventList, seteventList] = useState([])
     const [stockageCalendar, setStockageCalendar] = useState({})
@@ -52,12 +54,13 @@ export const Main = (props) => {
         console.log(codeHash)
         if (codeHash === sha256(cookies.code)){
             setIsCode(false)
-            api.get("/").then((response) => traiterEvent(response.data.event))
+            forceReload()
         }
     }
 
     function forceReload () {
-        api.get("/").then((response) => {setCodeHash(response.data.code[0]['key']); traiterEvent(response.data.event); setReload(reload + 1)})
+        console.log('reload')
+        setShldFetch(true)
     }
 
     function submitCode () {
@@ -65,20 +68,23 @@ export const Main = (props) => {
             if (codeHash === sha256(code)) {
                 setCookie("code", code, { path: '/' })
                 setIsCode(false)
-                console.log(cookies)
-                console.log(code)
-                api.get("/").then((response) => traiterEvent(response.data.event))
+                forceReload()
             }
             //todo afficher une erreur
         }
     }
 
     function traiterEvent (tempList) {
+        console.log('traiter')
         let tempEvents = []
         let tempSto = {}
         if (cookies.code != null){
-            console.log(cookies.code)
             if (sha256(cookies.code) !== codeHash) {
+                let temp = {}
+                temp['Default Calendar'] = [true]
+                setStockageCalendar(temp)
+                console.log(stockageCalendar)
+                console.log(temp)
                 setIsCode(true)
             }
             else {
@@ -99,6 +105,10 @@ export const Main = (props) => {
                         tempSto[objCalName] = [true, tempEvents[i]]
                     }
                 }
+                console.log(tempSto)
+                if (tempSto.length < 1) {
+                    tempSto['Default Calendar'] = [true]
+                }
                 setStockageCalendar(tempSto)
                 seteventList(tempEvents)
             }
@@ -112,7 +122,7 @@ export const Main = (props) => {
         let temp = stockageCalendar
         stockageCalendar[name][0] = stockageCalendar[name][0] ? false : true
         setStockageCalendar(temp)
-        forceReload()
+        setReload(reload + 1)
     }
 
     function generateEventList () {
@@ -142,6 +152,10 @@ export const Main = (props) => {
                 calendarList.push(eventList[i]['calendar'])
             }
         }
+        if (calendarList.length < 1) {
+            calendarList.push('Default Calendar')
+        }
+        console.log(calendarList)
         return calendarList
     }
 
@@ -173,7 +187,7 @@ export const Main = (props) => {
     
     function ajouterEvent(event) {
         setAnnim("")
-        api.get("/").then((response) => traiterEvent(response.data.event))
+        forceReload()
     }
 
     
@@ -259,14 +273,14 @@ export const Main = (props) => {
                 <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
             </div>
             <div className="right-section">
-                {isWeekly ? <WeeklyCalendar setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
+                {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
             </div>
             {isCode ? <div className='code-popup-container'>
                 <div className='code-popup'>
                     <h1>There is a problem !</h1>
                     <p>We need your code to access the events !</p>
                     <div className='code-in-line'>
-                        <input className='input-contained' type='password'bbb onChange={(e) => setCode(e.target.value)}/>
+                        <input className='input-contained' type='password' onChange={(e) => setCode(e.target.value)}/>
                         <Button onClick={() => submitCode()} full txt='Submit' />
                     </div>
                 </div>

@@ -50,17 +50,61 @@ export const AddPopup = (props) => {
             var encrypted = AES.AES.encrypt(name, code).toString()
             let data = {
                 "event_name": encrypted,
-                "start_date": start / 1000,
-                "end_date": end / 1000,
+                "start_date": new Date(start).getTime() / 1000,
+                "end_date": new Date(end).getTime() / 1000,
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
             }
+            console.log(data)
             api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else {
             //afficher une erreur
         }
+    }
+
+    function toHtmlDate(date, full) {
+        let tempM = date.getMonth()
+        if (tempM < 10){
+            tempM = '0' + tempM
+        }
+        let tempD = date.getDate()
+        if (tempD < 10){
+            tempD = '0' + tempD
+        }
+        let tempH = date.getHours()
+        if (tempH < 10){
+            tempH = '0' + tempH
+        }
+        let temp
+        if (full) {
+            temp = date.getFullYear() + '-' + tempM + '-' + tempD
+        }
+        else{
+            temp = date.getFullYear() + '-' + tempM + '-' + tempD + 'T' + tempH + ':00:00'
+        }
+        return temp
+    }
+
+    var now = new Date
+    var mtnH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours())
+    var mtnD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+    var oneH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours() + 1)
+    var oneD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() + 1)
+
+    mtnH = toHtmlDate(mtnH, false)
+    mtnD = toHtmlDate(mtnD, true)
+    oneH = toHtmlDate(oneH, false)
+    oneD = toHtmlDate(oneD, true)
+
+    if (fullDay && start != mtnD) {
+        setStart(mtnD)
+        setEnd(oneD)
+    }
+    else if(fullDay == false && start != mtnH){
+        setStart(mtnH)
+        setEnd(oneH)
     }
 
     return (
@@ -77,15 +121,15 @@ export const AddPopup = (props) => {
                     <p className='add-p-half'>End Date</p>
                 </div>
                 <div className='add-line'>
-                    <input onChange={(e) => setStart(new Date(e.target.value).getTime())} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
-                    <input onChange={(e) => setEnd(new Date(e.target.value).getTime())} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                    <input value={start} onChange={(e) => setStart(new Date(e.target.value).getTime())} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                    <input value={end} onChange={(e) => setEnd(new Date(e.target.value).getTime())} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
                 </div>
                 <div className='add-under-line'>
                     <Checkbox changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />
                 </div>
                 <div className='add-half-line'>
-                    <p className='add-p-half'>Color</p>
                     <p className='add-p-half'>Calendar</p>
+                    <p className='add-p-half'>Color</p>
                 </div>
                 <div className='color-add-line add-line'>
                     <div className='add-half-drop'>

@@ -26,6 +26,7 @@ export const AddPopup = (props) => {
     const [start, setStart] = useState(new Date().getTime())
     const [end, setEnd] = useState(new Date().getTime() + 3600)
     const [fullDay, setFullDay] = useState(false)
+    const [dateChanged, setDateChanged] = useState(false)
 
     function encrypt(msg) {
         
@@ -87,24 +88,26 @@ export const AddPopup = (props) => {
         return temp
     }
 
-    var now = new Date
-    var mtnH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours())
-    var mtnD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
-    var oneH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours() + 1)
-    var oneD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() + 1)
+    if(dateChanged == false){
+        var now = new Date
+        var mtnH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours())
+        var mtnD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+        var oneH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours() + 1)
+        var oneD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() + 1)
 
-    mtnH = toHtmlDate(mtnH, false)
-    mtnD = toHtmlDate(mtnD, true)
-    oneH = toHtmlDate(oneH, false)
-    oneD = toHtmlDate(oneD, true)
+        mtnH = toHtmlDate(mtnH, false)
+        mtnD = toHtmlDate(mtnD, true)
+        oneH = toHtmlDate(oneH, false)
+        oneD = toHtmlDate(oneD, true)
 
-    if (fullDay && start != mtnD) {
-        setStart(mtnD)
-        setEnd(oneD)
-    }
-    else if(fullDay == false && start != mtnH){
-        setStart(mtnH)
-        setEnd(oneH)
+        if (fullDay && start != mtnD) {
+            setStart(mtnD)
+            setEnd(oneD)
+        }
+        else if(fullDay == false && start != mtnH){
+            setStart(mtnH)
+            setEnd(oneH)
+        }
     }
 
     return (
@@ -121,8 +124,8 @@ export const AddPopup = (props) => {
                     <p className='add-p-half'>End Date</p>
                 </div>
                 <div className='add-line'>
-                    <input value={start} onChange={(e) => setStart(new Date(e.target.value).getTime())} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
-                    <input value={end} onChange={(e) => setEnd(new Date(e.target.value).getTime())} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                    <input value={start} onChange={(e) => {setDateChanged(true); setStart(e.target.value)}} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                    <input value={end} onChange={(e) => {setDateChanged(true); setEnd(e.target.value)}} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
                 </div>
                 <div className='add-under-line'>
                     <Checkbox changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />

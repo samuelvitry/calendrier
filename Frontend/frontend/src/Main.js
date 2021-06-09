@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie"
 import { Button } from './Button'
 import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
+import CryptoENC from 'crypto-js/enc-utf8'
 
 axios.defaults.withCredentials = true;
 
@@ -46,7 +47,7 @@ export const Main = (props) => {
                 setCodeHash(response.data.code[0]['key']);
                 traiterEvent(AESDecode(response.data.event[0]['events']));
             }
-        }).catch((err) => {alert(err); console.log('Failed ! Redirect !'); window.location.href = "./login"})
+        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); /*window.location.href = "./login"*/})
         setShldFetch(false)
     }
 
@@ -78,6 +79,7 @@ export const Main = (props) => {
     }
 
     function AESDecode(msg) {
+        console.log(msg)
         if (msg.length > 0){
             if (cookies.code != null){
                 if (sha256(cookies.code) !== codeHash) {
@@ -89,8 +91,11 @@ export const Main = (props) => {
                 else {
                     let fullCode = cookies.code
                     fullCode = fullCode.concat(' ceci est du sel')
-                    var bytes = AES.AES.decrypt(msg)
-                    return bytes.toString(AES.enc.Utf8)
+                    console.log(msg)
+                    var decrypted = AES.AES.decrypt(msg, code).toString(CryptoENC)
+                    console.log(decrypted.length)
+                    //decryption return nothing (it shouldn't)
+                    return decrypted
                 }
             }
             else {

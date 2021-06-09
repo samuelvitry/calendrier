@@ -112,6 +112,8 @@ export const Main = (props) => {
                 }
                 setStockageCalendar(tempSto)
                 seteventList(tempEvents)
+                console.log(tempEvents)
+                console.log(tempSto)
             }
         }
         else {

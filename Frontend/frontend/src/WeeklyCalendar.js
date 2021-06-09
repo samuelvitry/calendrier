@@ -89,7 +89,7 @@ export const WeeklyCalendar = (props) => {
     for(let i = 0; i < events.length; i++){
 
         //tri des event trop long et attribution de la longueur + posistion pour les long
-        let durationT = events[i]['end_date'] - events[i]['start_date']
+        let durationT = events[i]['end_date'] - events[i]['start_date'] + 1
         let start_dateT = new Date(events[i]['start_date'] * 1000)
         events[i]['dayNbr'] = Math.floor(durationT / 86400)
         if(events[i]['dayNbr'] > 0){

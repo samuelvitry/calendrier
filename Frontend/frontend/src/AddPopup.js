@@ -28,10 +28,6 @@ export const AddPopup = (props) => {
     const [fullDay, setFullDay] = useState(false)
     const [dateChanged, setDateChanged] = useState(false)
 
-    function encrypt(msg) {
-        
-    }
-
     function submitData () {
         if (fullDay) {
             let tempStart = new Date(start)
@@ -118,7 +114,7 @@ export const AddPopup = (props) => {
         var mtnH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours())
         var mtnD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
         var oneH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours() + 1)
-        var oneD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate() + 1)
+        var oneD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
 
         mtnH = toHtmlDate(mtnH, false)
         mtnD = toHtmlDate(mtnD, true)

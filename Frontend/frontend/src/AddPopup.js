@@ -35,9 +35,10 @@ export const AddPopup = (props) => {
     function submitData () {
         if (fullDay) {
             let tempStart = new Date(start)
-            setStart(new Date(tempStart.getFullYear(), tempStart.getMonth(), tempStart.getDate()).getTime())
+            setStart(toHtmlDate(new Date(tempStart.getFullYear(), tempStart.getMonth() + 1, tempStart.getDate()), true))
             let tempEnd = new Date(end)
-            setEnd(new Date(tempEnd.getFullYear(), tempEnd.getMonth(), tempEnd.getDate(), 23, 59, 59).getTime())
+            setEnd(toHtmlDate(new Date(tempEnd.getFullYear(), tempEnd.getMonth() + 1, tempEnd.getDate(), 23, 59, 59), true))
+            console.log(start,end)
         }
         if (end > start && name !== ''){
             let code = cookies.code
@@ -57,11 +58,35 @@ export const AddPopup = (props) => {
                 "full": true,
                 "calendar": tempCalendar,
             }
-            console.log(data)
+            api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
+        }
+        else if(fullDay && end == start && name !== '') {
+            let code = cookies.code
+            code = code.concat(' ceci est du sel')
+            if (props.calendarList()[calendarNbr]) {
+                var tempCalendar = props.calendarList()[calendarNbr]
+            }
+            else {
+                var tempCalendar = "Default Calendar"
+            }
+            let tempCustEnd = new Date(end)
+            tempCustEnd.setHours(tempCustEnd.getHours() + 23)
+            tempCustEnd.setMinutes(59)
+            tempCustEnd.setSeconds(59)
+            var encrypted = AES.AES.encrypt(name, code).toString()
+            let data = {
+                "event_name": encrypted,
+                "start_date": new Date(start).getTime() / 1000,
+                "end_date": new Date(tempCustEnd).getTime() / 1000,
+                "color": color,
+                "full": true,
+                "calendar": tempCalendar,
+            }
             api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else {
-            //afficher une erreur
+            //todo afficher une erreur
+            console.log('error')
         }
     }
 

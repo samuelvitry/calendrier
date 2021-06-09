@@ -53,7 +53,7 @@ export const MonthlyCalendar = (props) => {
         }
         offset = offset - 1
         let start_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
-        let end_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
+        let end_date = new Date(props.year, props.month - 1, nbr - offset, 23, 59, 59).getTime() / 1000
         let tempStockage = []
         for (let i = 0; i < props.eventList.length; i++){
             let event = props.eventList[i]

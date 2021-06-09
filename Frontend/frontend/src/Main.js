@@ -44,9 +44,9 @@ export const Main = (props) => {
         api.get("/").then((response) => {
             if (response.status == 200){
                 setCodeHash(response.data.code[0]['key']);
-                traiterEvent(response.data.event);
+                traiterEvent(AESDecode(response.data.event[0]['events']));
             }
-        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); window.location.href = "./login"})
+        }).catch((err) => {alert(err); console.log('Failed ! Redirect !'); window.location.href = "./login"})
         setShldFetch(false)
     }
 
@@ -71,14 +71,49 @@ export const Main = (props) => {
                 setCookie("code", code, { path: '/' })
                 setIsCode(false)
                 forceReload()
+                setShldFetch(true)
             }
             //todo afficher une erreur
         }
     }
 
+    function AESDecode(msg) {
+        if (msg.length > 0){
+            if (cookies.code != null){
+                if (sha256(cookies.code) !== codeHash) {
+                    let temp = {}
+                    temp['Default Calendar'] = [true]
+                    setStockageCalendar(temp)
+                    setIsCode(true)
+                }
+                else {
+                    let fullCode = cookies.code
+                    fullCode = fullCode.concat(' ceci est du sel')
+                    var bytes = AES.AES.decrypt(msg)
+                    return bytes.toString(AES.enc.Utf8)
+                }
+            }
+            else {
+                setIsCode(true)
+            }
+        }
+        else {
+            return ''
+        }
+    }
+
     function traiterEvent (tempList) {
+        console.log(tempList)
         let tempEvents = []
         let tempSto = {}
+        if (tempList.length > 0){
+            //transformer en array puis traiter
+        }
+        else {
+            tempSto['Default Calendar'] = [true]
+            setStockageCalendar(tempSto)
+            seteventList(tempEvents)
+        }
         if (cookies.code != null){
             if (sha256(cookies.code) !== codeHash) {
                 let temp = {}
@@ -112,12 +147,7 @@ export const Main = (props) => {
                 }
                 setStockageCalendar(tempSto)
                 seteventList(tempEvents)
-                console.log(tempEvents)
-                console.log(tempSto)
             }
-        }
-        else {
-            setIsCode(true)
         }
     }
 

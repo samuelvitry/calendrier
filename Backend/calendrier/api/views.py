@@ -11,16 +11,32 @@ class ListEvent(APIView):
     def get(self, request):
         if 'isLog' in request.session:
             if request.session['isLog'] == True:
-                events = Evenement.objects.filter(proprio=request.session['proprio'])
                 utilisateur = User.objects.filter(code=request.session['proprio'])
-                serializer = eventSerializer(events, many=True)
+                serializer = eventSerializer(utilisateur, many=True)
                 serializer2 = CodeSerializer(utilisateur, many=True)
                 return Response({"event": serializer.data, "code": serializer2.data}, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
-    
+
+class UpdateEvents(APIView):
+
+    serializer_class = eventSerializer
+
+    def post(self, request):
+        if not self.request.session.exists(self.request.session.session_key):
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        elif not self.request.session['isLog'] == True:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        else:
+            serializer = self.serializer_class(data=request.data)
+            if serializer.is_valid():
+                utilisateur = User.objects.filter(code=request.session['proprio'])
+                user = utilisateur[0]
+                user.events = serializer.data['events']
+                user.save(update_fields=['events',])
+                return Response(status=status.HTTP_200_OK)
 
 class LoginView(APIView):
 

@@ -46,6 +46,7 @@ export const Main = (props) => {
             if (response.status == 200){
                 setCodeHash(response.data.code[0]['key']);
                 traiterEvent(AESDecode(response.data.event[0]['events']));
+                //
             }
         }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); /*window.location.href = "./login"*/})
         setShldFetch(false)
@@ -79,7 +80,6 @@ export const Main = (props) => {
     }
 
     function AESDecode(msg) {
-        console.log(msg)
         if (msg.length > 0){
             if (cookies.code != null){
                 if (sha256(cookies.code) !== codeHash) {
@@ -91,11 +91,9 @@ export const Main = (props) => {
                 else {
                     let fullCode = cookies.code
                     fullCode = fullCode.concat(' ceci est du sel')
-                    console.log(msg)
-                    var decrypted = AES.AES.decrypt(msg, code).toString(CryptoENC)
-                    console.log(decrypted.length)
-                    //decryption return nothing (it shouldn't)
-                    return decrypted
+                    //var decrypted = AES.AES.decrypt(test, code).toString(AES.enc.Utf8)
+                    console.log(JSON.parse(msg))
+                    return JSON.parse(msg)
                 }
             }
             else {
@@ -108,7 +106,6 @@ export const Main = (props) => {
     }
 
     function traiterEvent (tempList) {
-        console.log(tempList)
         let tempEvents = []
         let tempSto = {}
         if (tempList.length > 0){

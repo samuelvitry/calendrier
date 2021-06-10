@@ -37,6 +37,8 @@ class UpdateEvents(APIView):
                 user.events = serializer.data['events']
                 user.save(update_fields=['events',])
                 return Response(status=status.HTTP_200_OK)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class LoginView(APIView):
 

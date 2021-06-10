@@ -10,7 +10,6 @@ import { useCookies } from "react-cookie"
 import { Button } from './Button'
 import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
-import CryptoENC from 'crypto-js/enc-utf8'
 
 axios.defaults.withCredentials = true;
 
@@ -45,10 +44,9 @@ export const Main = (props) => {
         api.get("/").then((response) => {
             if (response.status == 200){
                 setCodeHash(response.data.code[0]['key']);
-                traiterEvent(AESDecode(response.data.event[0]['events']));
-                //
+                traiterEvent(response.data.event);
             }
-        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); /*window.location.href = "./login"*/})
+        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); window.location.href = "./login"})
         setShldFetch(false)
     }
 
@@ -73,49 +71,14 @@ export const Main = (props) => {
                 setCookie("code", code, { path: '/' })
                 setIsCode(false)
                 forceReload()
-                setShldFetch(true)
             }
             //todo afficher une erreur
-        }
-    }
-
-    function AESDecode(msg) {
-        if (msg.length > 0){
-            if (cookies.code != null){
-                if (sha256(cookies.code) !== codeHash) {
-                    let temp = {}
-                    temp['Default Calendar'] = [true]
-                    setStockageCalendar(temp)
-                    setIsCode(true)
-                }
-                else {
-                    let fullCode = cookies.code
-                    fullCode = fullCode.concat(' ceci est du sel')
-                    //var decrypted = AES.AES.decrypt(test, code).toString(AES.enc.Utf8)
-                    console.log(JSON.parse(msg))
-                    return JSON.parse(msg)
-                }
-            }
-            else {
-                setIsCode(true)
-            }
-        }
-        else {
-            return ''
         }
     }
 
     function traiterEvent (tempList) {
         let tempEvents = []
         let tempSto = {}
-        if (tempList.length > 0){
-            //transformer en array puis traiter
-        }
-        else {
-            tempSto['Default Calendar'] = [true]
-            setStockageCalendar(tempSto)
-            seteventList(tempEvents)
-        }
         if (cookies.code != null){
             if (sha256(cookies.code) !== codeHash) {
                 let temp = {}
@@ -149,7 +112,12 @@ export const Main = (props) => {
                 }
                 setStockageCalendar(tempSto)
                 seteventList(tempEvents)
+                console.log(tempEvents)
+                console.log(tempSto)
             }
+        }
+        else {
+            setIsCode(true)
         }
     }
 
@@ -307,7 +275,7 @@ export const Main = (props) => {
                 <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
             </div>
             <div className="right-section">
-                {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} fullEventList={eventList} eventList={generateWeeklyList()}/> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
+                {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
             </div>
             {isCode ? <div className='code-popup-container'>
                 <div className='code-popup'>

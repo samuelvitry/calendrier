@@ -290,7 +290,7 @@ export const MonthlyCalendar = (props) => {
                     <LastLine annim={props.annim} isExpanded={isExpanded}/>
                 </div>
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup eventList={eventList} ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
         </div>
     )
 }

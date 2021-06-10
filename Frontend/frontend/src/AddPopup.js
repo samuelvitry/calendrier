@@ -34,6 +34,7 @@ export const AddPopup = (props) => {
             setStart(toHtmlDate(new Date(tempStart.getFullYear(), tempStart.getMonth() + 1, tempStart.getDate()), true))
             let tempEnd = new Date(end)
             setEnd(toHtmlDate(new Date(tempEnd.getFullYear(), tempEnd.getMonth() + 1, tempEnd.getDate(), 23, 59, 59), true))
+            console.log(start,end)
         }
         if (end > start && name !== ''){
             let code = cookies.code
@@ -44,19 +45,16 @@ export const AddPopup = (props) => {
             else {
                 var tempCalendar = "Default Calendar"
             }
-            let events = props.eventList.map((x) => x)
-            events.push({
-                "event_name": name,
+            var encrypted = AES.AES.encrypt(name, code).toString()
+            let data = {
+                "event_name": encrypted,
                 "start_date": new Date(start).getTime() / 1000,
                 "end_date": new Date(end).getTime() / 1000,
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
-            })
-            let eventString = JSON.stringify(events)
-            //var encrypted = AES.AES.encrypt(eventString, code)
-            console.log(eventString)
-            api.post("/update", {"events": eventString}).then(res => {props.setisAdd(false); props.ajouterEvent()})
+            }
+            api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else if(fullDay && end == start && name !== '') {
             let code = cookies.code
@@ -71,19 +69,16 @@ export const AddPopup = (props) => {
             tempCustEnd.setHours(tempCustEnd.getHours() + 23)
             tempCustEnd.setMinutes(59)
             tempCustEnd.setSeconds(59)
-            let events = props.eventList.map((x) => x)
-            events.push({
-                "event_name": name,
+            var encrypted = AES.AES.encrypt(name, code).toString()
+            let data = {
+                "event_name": encrypted,
                 "start_date": new Date(start).getTime() / 1000,
-                "end_date": new Date(end).getTime() / 1000,
+                "end_date": new Date(tempCustEnd).getTime() / 1000,
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
-            })
-            let eventString = JSON.stringify(events)
-            //var encrypted = AES.AES.encrypt(eventString, code)
-            console.log(eventString)
-            api.post("/update", {"events": eventString}).then(res => {props.setisAdd(false); props.ajouterEvent()})
+            }
+            api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else {
             //todo afficher une erreur

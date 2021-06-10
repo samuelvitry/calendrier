@@ -3,9 +3,15 @@ from .models import User, Evenement
 
 class eventSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Evenement
         fields = (
-            'events',
+            'event_name',
+            'start_date',
+            'end_date',
+            'color',
+            'full',
+            'calendar',
+            'key'
         )
 
 class createEventSerializer(serializers.ModelSerializer):

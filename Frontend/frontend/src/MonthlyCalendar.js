@@ -77,7 +77,7 @@ export const MonthlyCalendar = (props) => {
 
     function setPopup(test) {
         props.setAnnim("")
-        setisDetail(test);
+        setisDetail(test)
     }
     function closePopup() {
         setisDetail(-1)
@@ -211,7 +211,7 @@ export const MonthlyCalendar = (props) => {
         var repetition = ''
         var nameChiffré = AES.AES.encrypt(name, code).toString()
 
-        var durationT = props.event['end_date'] - props.event['start_date']
+        var durationT = props.event['end_date'] + 1 - props.event['start_date']
         var debut = new Date(props.event['start_date'] * 1000)
 
         function deleteEvent() {
@@ -245,7 +245,7 @@ export const MonthlyCalendar = (props) => {
         }
         
         //ajouter l'affichage du calendrier :
-        // <i class="far fa-calendar-alt"></i>
+        // <i className="far fa-calendar-alt"></i>
 
         const [isDropdown, setisDropdown] = useState(false)
         //faire une fonction qui gère l'appuie sur le bouton édit et delete
@@ -259,26 +259,34 @@ export const MonthlyCalendar = (props) => {
                         <i className="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
                     </div>
                     {isDropdown ? <div className='detail-dropdown'>
-                        <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i class="fas fa-pen"></i>Edit</div>
-                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete' onClick={() => deleteEvent()}><i class="fas fa-trash"></i>Delete</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i className="fas fa-pen"></i>Edit</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete' onClick={() => deleteEvent()}><i className="fas fa-trash"></i>Delete</div>
                     </div> : null}
                     <div className='detail-line'>
-                        <i class="far fa-clock"></i>
+                        <i className="far fa-clock"></i>
                         <p>{date_debut}</p>
                     </div>
                     <div className='detail-line'>
-                        <i class="far fa-hourglass"></i>
+                        <i className="far fa-hourglass"></i>
                         <p>{duration}</p>
                     </div>
                     {repetition !== '' ? 
                     <div className='detail-line'>
-                        <i class="fas fa-redo"></i>
+                        <i className="fas fa-redo"></i>
                         <p>{repetition}</p>
                     </div> : null}
                 </div>
             </div>
             
         )
+    }
+
+    function getEventByNbr(nbr) {
+        for (let i = 0; i < eventList.length; i++){
+            if (eventList[i]['nbr'] == nbr){
+                return eventList[i]
+            }
+        }
     }
 
     return (
@@ -290,7 +298,7 @@ export const MonthlyCalendar = (props) => {
                     <LastLine annim={props.annim} isExpanded={isExpanded}/>
                 </div>
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={eventList[isDetail]} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
+            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={getEventByNbr(isDetail)} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
         </div>
     )
 }

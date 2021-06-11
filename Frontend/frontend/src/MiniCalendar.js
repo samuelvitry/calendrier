@@ -20,15 +20,12 @@ export const MiniCalendar = (props) => {
             //event['blank'] = false   11/06/2021 don't know why this is here...
             if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
                 tempStockage.push(event)
-                console.log('1')
             }
             else if (event['end_date'] >= start_date && event['end_date'] <= end_date) {
                 tempStockage.push(event)
-                console.log('2')
             }
             else if (event['start_date'] <= start_date && event['end_date'] >= end_date) {
                 tempStockage.push(event)
-                console.log('3')
             }
         }
         return tempStockage

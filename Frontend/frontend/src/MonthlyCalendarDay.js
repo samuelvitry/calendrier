@@ -27,33 +27,6 @@ export const MonthlyCalendarDay = (props, { open }) => {
             event['display_date'] = screenDate(date)
         }
     }
-    const [isExpanded, setisExpanded] = useState(props.expand)
-
-
-    //passer cette variable en props (ou pas dependament de qui fait les requetes)
-
-    const ExpandButton = ({ onPress }) => {
-
-        if (Object.keys(eventList).length > 4) {
-            
-            return (
-                <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <a className="button-empty" onClick={() => onPress()}>
-                        <ExpandMoreIcon style={{color: props.disabled ? '#8EABBE' : '#E0EDF5'}}/>
-                    </a> 
-                </div>
-            ) 
-        }
-        else {
-            return null;
-        }
-    }
-
-    
-    function agrandir () {
-        props.etendre();
-        //remplacer par passage en vue week
-    }
 
     while (eventList.length < 4){
         const blankEvent = {'blank': true}

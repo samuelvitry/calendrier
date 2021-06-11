@@ -43,7 +43,7 @@ export const TodoList = () => {
     }
 
     return (
-        <section class="to-do-list">
+        <section className="to-do-list">
             <h2>To-do list</h2>
             <div>
                 {taskList.map(taskList => (

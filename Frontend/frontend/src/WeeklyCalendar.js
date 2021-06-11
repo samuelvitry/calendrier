@@ -267,7 +267,7 @@ export const WeeklyCalendar = (props) => {
         }
         
         //ajouter l'affichage du calendrier :
-        // <i class="far fa-calendar-alt"></i>
+        // <i className="far fa-calendar-alt"></i>
 
         const [isDropdown, setisDropdown] = useState(false)
         //faire une fonction qui gère l'appuie sur le bouton édit et delete
@@ -276,25 +276,25 @@ export const WeeklyCalendar = (props) => {
             <div className='detail-container'>
                 <div className='event-detail'>
                     <div className='detail-first-line'>
-                        <i class="fas fa-times" onClick={() => props.closeDetail()}></i>
+                        <i className="fas fa-times" onClick={() => props.closeDetail()}></i>
                         <h2 style={{color: props.event['color']}}>{name}</h2>
-                        <i class="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
+                        <i className="fas fa-ellipsis-h" onClick={() => setisDropdown(isDropdown ? false : true)}></i>
                     </div>
                     {isDropdown ? <div className='detail-dropdown'>
-                        <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i class="fas fa-pen"></i>Edit</div>
-                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete'><i class="fas fa-trash"></i>Delete</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i className="fas fa-pen"></i>Edit</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete'><i className="fas fa-trash"></i>Delete</div>
                     </div> : null}
                     <div className='detail-line'>
-                        <i class="far fa-clock"></i>
+                        <i className="far fa-clock"></i>
                         <p>{date_debut}</p>
                     </div>
                     <div className='detail-line'>
-                        <i class="far fa-hourglass"></i>
+                        <i className="far fa-hourglass"></i>
                         <p>{duration}</p>
                     </div>
                     {repetition !== '' ? 
                     <div className='detail-line'>
-                        <i class="fas fa-redo"></i>
+                        <i className="fas fa-redo"></i>
                         <p>{repetition}</p>
                     </div> : null}
                 </div>

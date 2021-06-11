@@ -3,7 +3,7 @@ import { Checkbox } from './Checkbox'
 
 export const CalendarSelect = (props) => {
     
-    if(props.stockageCalendar.length >= 1){
+    if(Object.keys(props.stockageCalendar).length > 0){
         return (
             <section className="calendar-select">
                 <h2>Selection des calendriers</h2>

@@ -646,7 +646,7 @@ header h1 {
     align-items: flex-end;
     margin-bottom: 2vh;
 }
-.monthly-top-button a {
+.monthly-top-button a, .weekly-top-button a {
     padding: 12px;
     font-weight: 500;
     border-radius: 14px;

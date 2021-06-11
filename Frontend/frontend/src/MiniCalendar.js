@@ -13,19 +13,22 @@ export const MiniCalendar = (props) => {
         }
         offset = offset - 1
         let start_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
-        let end_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
+        let end_date = new Date(props.year, props.month - 1, nbr - offset, 23, 59, 59).getTime() / 1000
         let tempStockage = []
-        for (let i = 0; i < props.eventList.length; i++){
-            let event = props.eventList[i]
-            event['blank'] = false
+        for (let i = 0; i < eventList.length; i++){
+            let event = eventList[i]
+            //event['blank'] = false   11/06/2021 don't know why this is here...
             if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
                 tempStockage.push(event)
+                console.log('1')
             }
             else if (event['end_date'] >= start_date && event['end_date'] <= end_date) {
                 tempStockage.push(event)
+                console.log('2')
             }
             else if (event['start_date'] <= start_date && event['end_date'] >= end_date) {
                 tempStockage.push(event)
+                console.log('3')
             }
         }
         return tempStockage

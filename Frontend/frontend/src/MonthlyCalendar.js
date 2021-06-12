@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Tooltip, Typography } from '@material-ui/core'
-import { NavigateBefore, NavigateNext } from '@material-ui/icons'
 import {MonthlyCalendarDay} from './MonthlyCalendarDay'
 import { MonthlyTopbar } from './MonthlyTopbar'
-import { Checkbox } from './Checkbox'
 import { AddPopup } from './AddPopup'
 import axios from 'axios'
 import { api } from './Main'
 import AES from 'crypto-js'
 import { useCookies } from "react-cookie"
-import { sha256 } from 'js-sha256'
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'

@@ -1,7 +1,15 @@
 import React, { useState } from 'react'
 import { AddPopup } from './AddPopup'
+import { api } from './Main'
+import AES from 'crypto-js'
+import { useCookies } from "react-cookie"
 
 export const WeeklyCalendar = (props) => {
+
+    const [cookies, setCookie] = useCookies();
+    function reload () {
+        props.reload()
+    }
 
     var eventList = props.eventList
 
@@ -232,13 +240,21 @@ export const WeeklyCalendar = (props) => {
 
     const EventDetail = (props) => {
 
+        let code = cookies.code
+        code = code.concat(' ceci est du sel')
+
         var name = props.event['event_name']
         var date_debut = ''
         var duration = ''
         var repetition = ''
+        var nameChiffré = AES.AES.encrypt(name, code).toString()
 
-        var durationT = props.event['end_date'] - props.event['start_date']
+        var durationT = props.event['end_date'] + 1 - props.event['start_date']
         var debut = new Date(props.event['start_date'] * 1000)
+
+        function deleteEvent() {
+            api.get('eventDelete' + '?key=' + props.event['key']).then((response) => {if(response.status == 200) {props.closeDetail(); reload()}})
+        }
 
         if (durationT >= 86400) {
             var debutMo = monthConv[debut.getMonth() + 1]
@@ -282,7 +298,7 @@ export const WeeklyCalendar = (props) => {
                     </div>
                     {isDropdown ? <div className='detail-dropdown'>
                         <div onClick={() => setisDropdown(false)} className='detail-drop-edit'><i className="fas fa-pen"></i>Edit</div>
-                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete'><i className="fas fa-trash"></i>Delete</div>
+                        <div onClick={() => setisDropdown(false)} className='detail-drop-delete' onClick={() => deleteEvent()}><i className="fas fa-trash"></i>Delete</div>
                     </div> : null}
                     <div className='detail-line'>
                         <i className="far fa-clock"></i>

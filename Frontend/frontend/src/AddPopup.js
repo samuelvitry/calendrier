@@ -27,8 +27,15 @@ export const AddPopup = (props) => {
     const [end, setEnd] = useState(new Date().getTime() + 3600)
     const [fullDay, setFullDay] = useState(false)
     const [dateChanged, setDateChanged] = useState(false)
+    const [nameError, setNameError] = useState(false)
+    const [dateError, setDateError] = useState(false)
+    const [startEndError, setStartEndError] = useState(false)
+
 
     function submitData () {
+        setNameError(false)
+        setStartEndError(false)
+        setDateError(false)
         if (fullDay) {
             let tempStart = new Date(start)
             setStart(toHtmlDate(new Date(tempStart.getFullYear(), tempStart.getMonth() + 1, tempStart.getDate()), true))
@@ -81,8 +88,13 @@ export const AddPopup = (props) => {
             api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
         }
         else {
-            //todo afficher une erreur
-            console.log('error')
+            if(name == '') {
+                setNameError(true)
+            }
+            if (start > end){
+                setStartEndError(true)
+            }
+            //treat date error
         }
     }
 
@@ -137,6 +149,7 @@ export const AddPopup = (props) => {
                 <div className='add-first-line'>
                     <h2>New Event</h2>
                 </div>
+                {nameError ? <p className='add-error-line'>Please provide a name</p> : null}
                 <div className='add-line'>
                     <input onChange={(e) => setName(e.target.value)} style={{borderColor: colorCodeConv[color]}} placeholder='Event name' className='input-open'></input>
                 </div>
@@ -144,6 +157,7 @@ export const AddPopup = (props) => {
                     <p className='add-p-half'>Start Date</p>
                     <p className='add-p-half'>End Date</p>
                 </div>
+                {dateError ? <p className='add-error-line'>Incorrect date</p> : startEndError ? <p className='add-error-line'>Event can't end before starting</p> : null}
                 <div className='add-line'>
                     <input value={start} onChange={(e) => {setDateChanged(true); setStart(e.target.value)}} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
                     <input value={end} onChange={(e) => {setDateChanged(true); setEnd(e.target.value)}} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>

@@ -1147,6 +1147,13 @@ header h1 {
     font-size: 16px;
     font-weight: 500;
 }
+.add-error-line {
+    color: var(--error-color);
+    font-size: 12px;
+    font-weight: 500;
+    position: relative;
+    bottom: -7px;
+}
 .first-button {
     margin-right: .4em;
 }

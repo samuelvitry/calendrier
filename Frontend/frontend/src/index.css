@@ -497,8 +497,8 @@ header h1 {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-evenly;
-    margin-top: 3%;
-    margin-bottom: 3%;
+    margin-top: .3em;
+    margin-bottom: .3em;
     text-align: center;
     /*animation: leftAppear .1s 1;*/
     opacity: 100%;
@@ -517,6 +517,7 @@ header h1 {
     text-align: center;
     width: 12%;
     min-height: 12%;
+    cursor: pointer;
 }
 .mini-dot {
     display: flex;

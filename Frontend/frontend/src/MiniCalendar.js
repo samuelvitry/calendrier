@@ -28,6 +28,11 @@ export const MiniCalendar = (props) => {
                 tempStockage.push(event)
             }
         }
+
+        while (tempStockage.length < 2) {
+            tempStockage.push({'blank': true})
+        }
+
         return tempStockage
     }
     
@@ -77,12 +82,14 @@ export const MiniCalendar = (props) => {
         var events = dispatchEvent(props.day)
         var nbrDot = events.length
 
+        
+
         return (
             <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#49505550' : '#111B22'}}>
                 <p>{getJour(props.day).getDate()}</p>
                 <div className='mini-dot'>
                     {nbrDot > 0 ? <div className='mini-dot1' style={{backgroundColor: events[0]['color']}}></div> : null}
-                    {nbrDot > 1 ? <div className='mini-dot2' style={{backgroundColor: events[1]['color']}}></div> : null}
+                    {events[0]['blank'] == false && events[1]['blank'] == false ? <div className='mini-dot2' style={{backgroundColor: events[1]['color']}}></div> : null}
                 </div>
             </div>
         )

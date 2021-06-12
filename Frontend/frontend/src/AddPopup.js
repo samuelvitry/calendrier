@@ -121,11 +121,12 @@ export const AddPopup = (props) => {
     }
 
     if(dateChanged == false){
-        var now = new Date
-        var mtnH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours())
-        var mtnD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
-        var oneH = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate(), now.getHours() + 1)
-        var oneD = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate())
+        var time = new Date(props.time * 1000)
+        var now = new Date()
+        var mtnH = new Date(time.getFullYear(), time.getMonth() + 1, time.getDate(), now.getHours())
+        var mtnD = new Date(time.getFullYear(), time.getMonth() + 1, time.getDate())
+        var oneH = new Date(time.getFullYear(), time.getMonth() + 1, time.getDate(), now.getHours() + 1)
+        var oneD = new Date(time.getFullYear(), time.getMonth() + 1, time.getDate())
 
         mtnH = toHtmlDate(mtnH, false)
         mtnD = toHtmlDate(mtnD, true)

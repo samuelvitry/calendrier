@@ -245,6 +245,7 @@ header h1 {
     padding: 5%;
     padding-top: 3%;
     padding-bottom: 3%;
+    user-select: none;
 }
 .monthly-day-card:hover{
     background-color: #3581b82a;
@@ -518,6 +519,7 @@ header h1 {
     width: 12%;
     min-height: 12%;
     cursor: pointer;
+    user-select: none;
 }
 .mini-dot {
     display: flex;

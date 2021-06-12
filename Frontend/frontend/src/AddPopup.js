@@ -33,6 +33,7 @@ export const AddPopup = (props) => {
 
 
     function submitData () {
+        var TZoffset = new Date().getTimezoneOffset() * 60
         setNameError(false)
         setStartEndError(false)
         setDateError(false)
@@ -54,8 +55,8 @@ export const AddPopup = (props) => {
             var encrypted = AES.AES.encrypt(name, code).toString()
             let data = {
                 "event_name": encrypted,
-                "start_date": new Date(start).getTime() / 1000,
-                "end_date": new Date(end).getTime() / 1000,
+                "start_date": (new Date(start).getTime() / 1000) + TZoffset,
+                "end_date": (new Date(end).getTime() / 1000) + TZoffset,
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
@@ -78,8 +79,8 @@ export const AddPopup = (props) => {
             var encrypted = AES.AES.encrypt(name, code).toString()
             let data = {
                 "event_name": encrypted,
-                "start_date": new Date(start).getTime() / 1000,
-                "end_date": new Date(tempCustEnd).getTime() / 1000,
+                "start_date": (new Date(start).getTime() / 1000) + (2 * TZoffset),
+                "end_date": (new Date(tempCustEnd).getTime() / 1000) + (2 * TZoffset),
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,

@@ -104,8 +104,9 @@ export const Main = (props) => {
                         tempSto[objCalName] = [true, tempEvents[i]]
                     }
                     var TZoffset = new Date().getTimezoneOffset() * 60
-                    tempEvents[i]['start_date'] = tempEvents[i]['start_date'] + TZoffset
-                    tempEvents[i]['end_date'] = tempEvents[i]['end_date'] + TZoffset
+                    console.log(TZoffset)
+                    tempEvents[i]['start_date'] = tempEvents[i]['start_date'] - TZoffset
+                    tempEvents[i]['end_date'] = tempEvents[i]['end_date'] - TZoffset
                 }
                 if (tempSto.length < 1) {
                     tempSto['Default Calendar'] = [true]

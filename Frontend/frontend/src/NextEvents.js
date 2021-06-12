@@ -93,7 +93,7 @@ export const NextEvents = (props) => {
             {filteredList.map((x) => (<NextEventItem event={x}/>))}
             {filteredList.length < 1 ? 
             <div className='next-event-error'>
-                <p>Il n'y as rien par ici...</p>
+                <p>Il n'y a rien par ici...</p>
             </div> : null}
         </section>
     )

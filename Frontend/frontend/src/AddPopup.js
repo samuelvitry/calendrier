@@ -42,6 +42,7 @@ export const AddPopup = (props) => {
             setStart(toHtmlDate(new Date(tempStart.getFullYear(), tempStart.getMonth() + 1, tempStart.getDate()), true))
             let tempEnd = new Date(end)
             setEnd(toHtmlDate(new Date(tempEnd.getFullYear(), tempEnd.getMonth() + 1, tempEnd.getDate(), 23, 59, 59), true))
+            console.log(tempStart, tempEnd)
         }
         if (end > start && name !== ''){
             let code = cookies.code

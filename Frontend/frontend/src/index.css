@@ -1205,7 +1205,7 @@ header h1 {
     width: fit-content;
     padding-left: .8em;
     padding-right: .8em;
-    margin-left: .4bbbbem;
+    margin-left: .4em;
     border-radius: .5em;
     font-size: 14px;
     font-weight: 500;
@@ -1226,7 +1226,6 @@ header h1 {
 }
 .next-event-dot {
     width: .5em;
-    background-color: var(--secondary-color);
     border-radius: .5em;
     margin-right: .5em;
 }
@@ -1237,4 +1236,10 @@ header h1 {
 .next-event-date {
     font-size: 12px;
     font-weight: 400;
+}
+.next-event-error p {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    position: relative;
 }

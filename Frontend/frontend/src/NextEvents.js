@@ -3,8 +3,12 @@ import React from 'react'
 export const NextEvents = (props) => {
 
     var filteredList = props.eventList.map((x) => x)
+    var now = new Date()
 
-    //filter events
+    filteredList.sort(function(a,b) {
+        return a['start_date'] - b['start_date']
+    })
+    filteredList = filteredList.filter(event => event['start_date'] > now.getTime() / 1000)
 
     const dayConv = [
         'Sunday',
@@ -34,7 +38,6 @@ export const NextEvents = (props) => {
 
         function dateToTxt(nbr) {
             let date = new Date(nbr * 1000)
-            let now = new Date()
             let dateString = ''
             let durationT = props.event['end_date'] + 1 - props.event['start_date']
             if (date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear()) {
@@ -68,14 +71,12 @@ export const NextEvents = (props) => {
                     dateString = dateString.concat('0')
                 }
             }
-            console.log(dateString)
             return dateString
         }
 
         return (
             <div className="next-event-item">
-                <div className='next-event-dot'>
-                </div>
+                <div className='next-event-dot' style={{backgroundColor: props.event['color']}}></div>
                 <div className='next-event-text'>
                     <p className='next-event-name'>{props.event['event_name']}</p>
                     <p className='next-event-date'>{dateToTxt(props.event['start_date'])}</p>
@@ -84,9 +85,16 @@ export const NextEvents = (props) => {
         )
     }
 
+    //todo ajouter une image pour quand ya pas d'évent (peut être mascote ?)
+
     return (
         <section className="next-event">
+            <h2>Prochains évenements</h2>
             {filteredList.map((x) => (<NextEventItem event={x}/>))}
+            {filteredList.length < 1 ? 
+            <div className='next-event-error'>
+                <p>Il n'y as rien par ici...</p>
+            </div> : null}
         </section>
     )
 }

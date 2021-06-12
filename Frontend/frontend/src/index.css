@@ -482,15 +482,15 @@ header h1 {
 }
 .mini-calendar {
     background-color: var(--white-1);
-    margin-bottom: 4vh;
     padding: 5%;
-    border-radius: 15px;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: column;
     box-shadow: 5px 10px 32px 15px var(--shadow-color);
     -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
     -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    border-radius: 15px;
+    margin-bottom: 4vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
     overflow-x: hidden;
 }
 .mini-line {
@@ -1200,7 +1200,6 @@ header h1 {
 .code-in-line {
     display: flex;
     flex-wrap: nowrap;
-
 }
 .code-in-line a {
     width: fit-content;
@@ -1210,4 +1209,32 @@ header h1 {
     border-radius: .5em;
     font-size: 14px;
     font-weight: 500;
+}
+.next-event {
+    background-color: var(--white-1);
+    padding: 5%;
+    box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+    border-radius: 15px;
+}
+.next-event-item {
+    display: flex;
+}
+.next-event-item + .next-event-item {
+    margin-top: 1em;
+}
+.next-event-dot {
+    width: .5em;
+    background-color: var(--secondary-color);
+    border-radius: .5em;
+    margin-right: .5em;
+}
+.next-event-name {
+    font-size: 14px;
+    font-weight: 700;
+}
+.next-event-date {
+    font-size: 12px;
+    font-weight: 400;
 }

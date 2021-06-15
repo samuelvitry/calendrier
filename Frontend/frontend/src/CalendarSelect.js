@@ -38,7 +38,7 @@ export const CalendarSelect = (props) => {
                 </div>
                 <div className="container-select-calendar">
                 {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}
-                    {keyList.map((x) => (<Checkbox checked={props.stockageCalendar[x][0]} txt={x} changement={() => props.calendarSelecSwitch(x)} />))}
+                    {keyList.map((x) => (<div className='calendar-select-item'><Checkbox checked={props.stockageCalendar[x][0]} txt={x} changement={() => props.calendarSelecSwitch(x)} /><i className="fas fa-ellipsis-h"/></div>))}
                 </div>
             </section>
         )

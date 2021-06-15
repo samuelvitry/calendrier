@@ -888,14 +888,14 @@ header h1 {
     -ms-user-select: none;
     user-select: none;
 }
-.weekly-prev:hover, .weekly-next:hover, .monthly-prev:hover, .monthly-next:hover, .mini-nav-prev:hover, .mini-nav-next:hover, #calendar-add:hover {
+.weekly-prev:hover, .weekly-next:hover, .monthly-prev:hover, .monthly-next:hover, .mini-nav-prev:hover, .mini-nav-next:hover, #calendar-add:hover, .calendar-select-item i:hover {
     cursor: pointer;
     transform: scale(1.3);
     animation: navButton .2 1;
     background-color: var(--white-4);
     border-radius: 50px;
 }
-.weekly-prev:active, .weekly-next:active, .monthly-prev:active, .monthly-next:active, .mini-nav-prev:active, .mini-nav-next:active, #calendar-add:hover {
+.weekly-prev:active, .weekly-next:active, .monthly-prev:active, .monthly-next:active, .mini-nav-prev:active, .mini-nav-next:active, #calendar-add:hover, .calendar-select-item i:active {
     background-color: var(--secondary-color);
     opacity: 50%;
 }
@@ -1250,6 +1250,7 @@ header h1 {
 .calendar-select-top {
     display: flex;
     justify-content: space-between;
+    height: min-content;
 }
 #calendar-add {
     font-size: 24px;
@@ -1257,7 +1258,8 @@ header h1 {
     top: -4px;
 }
 .calendar-select-top h2 {
-    margin-bottom: .25em;
+    margin-bottom: 0;
+    height: min-content;
 }
 .calendar-add-div {
     display: flex;
@@ -1286,4 +1288,26 @@ header h1 {
 }
 .calendar-add-div input:hover {
     box-shadow: none;
+}
+.calendar-select-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+.calendar-select i {
+    font-size: 18px;
+    margin-right: .5em;
+    padding: 5px;
+    height: min-content;
+}
+.calendar-select-item:hover {
+    background-color: var(--white-3);
+}
+.calendar-select-item label {
+    margin: 0;
+}
+.container-select-calendar + .calendar-select-item {
+    margin-top: 0;
 }

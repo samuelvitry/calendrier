@@ -1261,5 +1261,29 @@ header h1 {
 }
 .calendar-add-div {
     display: flex;
-    
+    flex-wrap: nowrap;
+    margin-bottom: .7em;
+}
+.calendar-add-div a {
+    width: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white-1);
+    padding-left: 1em;
+    padding-right: 1em;
+}
+.calendar-add-div input {
+    color: var(--dark-color);
+    font-size: 12px;
+    margin-right: .5em;
+    margin-left: .1em;
+    box-shadow: none;
+    padding: .3em;
+    padding-left: .5em;
+}
+.calendar-add-div input:active {
+    box-shadow: none;
+}
+.calendar-add-div input:hover {
+    box-shadow: none;
 }

@@ -46,7 +46,7 @@ export const Main = (props) => {
                 setCodeHash(response.data.code[0]['key']);
                 traiterEvent(response.data.event);
             }
-        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); window.location.href = "./login"})
+        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); })
         setShldFetch(false)
     }
 
@@ -104,7 +104,6 @@ export const Main = (props) => {
                         tempSto[objCalName] = [true, tempEvents[i]]
                     }
                     var TZoffset = new Date().getTimezoneOffset() * 60
-                    console.log(TZoffset)
                     tempEvents[i]['start_date'] = tempEvents[i]['start_date'] - TZoffset
                     tempEvents[i]['end_date'] = tempEvents[i]['end_date'] - TZoffset
                 }
@@ -271,7 +270,7 @@ export const Main = (props) => {
         <section className="main-section">
             <div className="left-section">
                 <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
-                <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} />
+                <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
                 <NextEvents eventList={eventList} />
             </div>
             <div className="right-section">

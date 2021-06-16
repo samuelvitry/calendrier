@@ -1287,3 +1287,37 @@ header h1 {
 .calendar-add-div input:hover {
     box-shadow: none;
 }
+.calendar-select-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    margin-bottom: .8em;
+}
+.calendar-select-item:hover {
+    background-color: var(--white-3);
+}
+.calendar-select-item label {
+    margin-bottom: 0;
+}
+.calendar-select-item i {
+    font-size: 16px;
+    color: var(--lighter-dark);
+    margin-right: .8em;
+    opacity: 0;
+    transform: none;
+}
+.calendar-select-item i:hover {
+    color: var(--secondary-color);
+}
+.calendar-select-item i + i:hover {
+    color: var(--error-color);
+}
+.calendar-select-item:hover i {
+    opacity: 100%;
+    animation: calSelAnim .2s 1;
+}
+@keyframes calSelAnim {
+    0% {transform: translateX(1em);}
+    100% {transform: translateX(0);}
+}

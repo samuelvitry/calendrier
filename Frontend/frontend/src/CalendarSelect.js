@@ -8,6 +8,7 @@ export const CalendarSelect = (props) => {
 
     const [isAdd, setIsAdd] = useState(false)
     const [txt, setTxt] = useState('')
+    const [reload, setReload] = useState(0)
 
     var keyList = []
 
@@ -34,11 +35,19 @@ export const CalendarSelect = (props) => {
             <section className="calendar-select">
                 <div className='calendar-select-top'>
                     <h2>Selection des calendriers</h2>
-                    <h2 onClick={() => (setIsAdd(true))} id='calendar-add'>+</h2>
+                    <h2 onClick={() => (setIsAdd(!isAdd))} id='calendar-add'>+</h2>
                 </div>
                 <div className="container-select-calendar">
                 {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}
-                    {keyList.map((x) => (<Checkbox checked={props.stockageCalendar[x][0]} txt={x} changement={() => props.calendarSelecSwitch(x)} />))}
+                    {keyList.map((x) => (
+                        <div className='calendar-select-item' onClick={() => {props.calendarSelecSwitch(x)}}>
+                            <Checkbox checked={props.stockageCalendar[x][0]} txt={x} changement={() => props.calendarSelecSwitch(x)} />
+                            <div className='calendar-select-option'>
+                                <i className="fas fa-pen"></i>
+                                <i className="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </section>
         )
@@ -48,7 +57,7 @@ export const CalendarSelect = (props) => {
             <section className="calendar-select">
                 <div className='calendar-select-top'>
                     <h2>Selection des calendriers</h2>
-                    <h2 onClick={() => (setIsAdd(true))} id='calendar-add'>+</h2>
+                    <h2 onClick={() => (setIsAdd(!isAdd))} id='calendar-add'>+</h2>
                 </div>
                 <div className="container-select-calendar">
                     {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}

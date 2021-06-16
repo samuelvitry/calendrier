@@ -10,6 +10,7 @@ export const CalendarSelect = (props) => {
     const [txt, setTxt] = useState('')
     const [reload, setReload] = useState(0)
     const [isDelete, setIsDelete] = useState('')
+    const [isDefaultChecked, setIsDefaultChecked] = useState(true)
 
     var keyList = []
 
@@ -25,6 +26,15 @@ export const CalendarSelect = (props) => {
         api.post("/create", data).then(res => {props.ajouterEvent()})
         setIsAdd(false)
         setTxt('')
+    }
+
+    function calFilter(event) {
+        if (event['start_date'] > 2) {
+            return true
+        }
+        else {
+            return false
+        }
     }
 
     function deleteCalendar() {
@@ -46,7 +56,7 @@ export const CalendarSelect = (props) => {
                 {isDelete !== '' ? <div className='calendar-delete-container'>
                     <div className='calendar-delete-popup'>
                         <h2>Delete Event</h2>
-                        <p>Are you sure to delete {isDelete}? It will destroy every event inside of it! (It has {props.stockageCalendar[isDelete].length - 2} event{props.stockageCalendar[isDelete].length - 2 < 2 ? null : 's'} !)</p>
+                        <p>Are you sure to delete {isDelete}? It will destroy every event inside of it! (It has {props.stockageCalendar[isDelete].filter(calFilter).length} event{props.stockageCalendar[isDelete].length < 2 ? null : 's'} !)</p>
                         <div className='calendar-delete-btn'>
                             <Button full txt='Cancel' first onClick={() => setIsDelete('')}/>
                             <Button full txt='Delete' last onClick={() => deleteCalendar()}/>
@@ -81,7 +91,7 @@ export const CalendarSelect = (props) => {
                 </div>
                 <div className="container-select-calendar">
                     {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}
-                    <Checkbox checked={true} txt='Default Calendar' changement={() => {}}/>
+                    <Checkbox checked={isDefaultChecked} txt='Default Calendar' changement={() => {setIsDefaultChecked(!isDefaultChecked)}}/>
                 </div>
             </section>
         )

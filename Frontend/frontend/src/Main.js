@@ -76,7 +76,8 @@ export const Main = (props) => {
         }
     }
 
-    function traiterEvent (tempList) {
+    function traiterEvent (list) {
+        var tempList = list.sort((a, b) => a['start_date'] - b['start_date'])
         let tempEvents = []
         let tempSto = {}
         if (cookies.code != null){

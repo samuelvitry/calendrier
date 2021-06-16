@@ -261,12 +261,16 @@ export const MonthlyCalendar = (props) => {
                         <div onClick={() => setisDropdown(false)} className='detail-drop-delete' onClick={() => deleteEvent()}><i className="fas fa-trash"></i>Delete</div>
                     </div> : null}
                     <div className='detail-line'>
-                        <i className="far fa-clock"></i>
+                        <i style={{color: props.event['color']}} className="fas fa-clock"></i>
                         <p>{date_debut}</p>
                     </div>
                     <div className='detail-line'>
-                        <i className="far fa-hourglass"></i>
+                        <i style={{color: props.event['color']}} className="fas fa-hourglass"></i>
                         <p>{duration}</p>
+                    </div>
+                    <div className='detail-line'>
+                        <i style={{color: props.event['color']}} className="fas fa-calendar"></i>
+                        <p>{props.event['calendar']}</p> 
                     </div>
                     {repetition !== '' ? 
                     <div className='detail-line'>

@@ -270,7 +270,7 @@ export const Main = (props) => {
         <section className="main-section">
             <div className="left-section">
                 <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
-                <CalendarSelect stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
+                <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
                 <NextEvents eventList={eventList} />
             </div>
             <div className="right-section">

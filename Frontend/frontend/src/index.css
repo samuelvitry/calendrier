@@ -12,10 +12,13 @@
     --white-4: #D3D8DE;
     --border-color: #667885;
     --border-faded: #6678859a;
+    --border-dark: #4c5861;
     --gris-trans: #6678853b;
+    --gris-less-trans: #394249a9;
     --shadow-color: #3b3b3b27;
     --shadow-color-2: #3b3b3b3d;
     --error-color: #A72A2A;
+    --error-dark: #752424;
     --success-color: #63C44F;
 }
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400;500;700&display=swap');
@@ -27,6 +30,7 @@
     font-family: 'Poppins', sans-serif;
     font-size: 10px;
     user-select: none;
+    z-index: inheritb;
 }
 
 body {
@@ -1302,7 +1306,7 @@ header h1 {
 }
 .calendar-select-item i {
     font-size: 16px;
-    color: var(--lighter-dark);
+    color: var(--gris-less-trans);
     margin-right: .8em;
     opacity: 0;
     transform: none;
@@ -1320,4 +1324,49 @@ header h1 {
 @keyframes calSelAnim {
     0% {transform: translateX(1em);}
     100% {transform: translateX(0);}
+}
+.calendar-delete-popup {
+    background-color: var(--white-2);
+    color: var(--dark-color);
+    border-radius: 30px;
+    padding: 2%;
+    opacity: 100%;
+    width: 42em;
+}
+.calendar-delete-container {
+    background-color: #00000071;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+.calendar-delete-popup h2 {
+    font-size: 22px;
+    font-weight: 700;
+}
+.calendar-delete-popup p {
+    font-size: 14px;
+    margin-bottom: 1.6em;
+}
+.calendar-delete-btn {
+    display: flex;
+}
+.calendar-delete-btn a {
+    font-size: 14px;
+    font-weight: 700;
+    background-color: var(--border-color);
+}
+.calendar-delete-btn a + a {
+    background-color: var(--error-color);
+}
+.calendar-delete-btn a:hover {
+    background-color: var(--border-dark);
+}
+.calendar-delete-btn a + a:hover {
+    background-color: var(--error-dark);
 }

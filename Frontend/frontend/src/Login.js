@@ -11,20 +11,22 @@ export const Login = () => {
 
     const [login, setLogin] = useState('')
     const [password, setPassword] = useState('')
+    const [isError, setIsError] = useState(false)
 
     function submitData () {
         var mdp = login + 'sel' + password
         mdp = sha256(mdp)
-        api.get("/login" + "?mdp=" + mdp).then((response) => {if(response.status == 200) {window.location.href = "./calendar"}})
+        api.get("/login" + "?mdp=" + mdp).then((response) => {if(response.status == 200) {window.location.href = "./calendar"}}).catch((err) => setIsError(true))
     }
     function redirectHome () {
-
+        //todo
     }
 
     return (
         <div className='login-container'>
             <div className='login-card'>
                 <h1>Log-in</h1>
+                {isError ? <p>There is a problem with the email or the password.</p> : null}
                 <input onChange={(event) => setLogin(event.target.value)} type='email' autoComplete='off' autoCapitalize='off' className='login-email input-contained' autoFocus='autofocus' placeholder='Email' required='required' />
                 <input onChange={(event) => setPassword(event.target.value)} type='password' autoComplete='off' autoCapitalize='off' className='login-password input-contained' placeholder='Password' required='required' />
                 <div className='login-btn-container'>

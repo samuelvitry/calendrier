@@ -1258,6 +1258,7 @@ header h1 {
 .calendar-select-top {
     display: flex;
     justify-content: space-between;
+    margin-bottom: .25em;
 }
 #calendar-add {
     font-size: 24px;
@@ -1265,7 +1266,8 @@ header h1 {
     top: -4px;
 }
 .calendar-select-top h2 {
-    margin-bottom: .25em;
+    margin-bottom: 0;
+    height: min-content;
 }
 .calendar-add-div {
     display: flex;
@@ -1373,4 +1375,24 @@ header h1 {
 }
 .calendar-delete-btn a + a:hover {
     background-color: var(--error-dark);
+}
+.login-card p {
+    text-align: left;
+    color: var(--error-color);
+    font-weight: 600;
+    margin-top: 1em;
+    margin-bottom: .8;
+}
+.login-card h1 {
+    margin: 0;
+}
+.login-card input {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+.login-card input + input {
+    margin-bottom: 0;
+}
+.login-card h1 + input {
+    margin-top: 1.6em;
 }

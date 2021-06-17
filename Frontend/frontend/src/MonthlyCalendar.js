@@ -249,8 +249,8 @@ export const MonthlyCalendar = (props) => {
         //faire une fonction qui gère l'appuie sur le bouton édit et delete
     
         return (
-            <div className='detail-container'>
-                <div className='event-detail'>
+            <div className='detail-container' onClick={() => props.closeDetail()}>
+                <div className='event-detail' onClick={(e) => e.stopPropagation()}>
                     <div className='detail-first-line'>
                         <i className="fas fa-times" onClick={() => props.closeDetail()}></i>
                         <h2 style={{color: props.event['color']}}>{name}</h2>

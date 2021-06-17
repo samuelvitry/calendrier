@@ -53,8 +53,8 @@ export const CalendarSelect = (props) => {
     if(Object.keys(props.stockageCalendar).length > 0){
         return (
             <section className='calendar-select'>
-                {isDelete !== '' ? <div className='calendar-delete-container'>
-                    <div className='calendar-delete-popup'>
+                {isDelete !== '' ? <div className='calendar-delete-container' onClick={() => setIsDelete('')}>
+                    <div className='calendar-delete-popup' onClick={(e) => e.stopPropagation()}>
                         <h2>Delete Event</h2>
                         <p>Are you sure to delete {isDelete}? It will destroy every event inside of it! (It has {props.stockageCalendar[isDelete].filter(calFilter).length} event{props.stockageCalendar[isDelete].length < 2 ? null : 's'} !)</p>
                         <div className='calendar-delete-btn'>

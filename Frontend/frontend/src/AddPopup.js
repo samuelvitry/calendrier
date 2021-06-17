@@ -146,8 +146,8 @@ export const AddPopup = (props) => {
     }
 
     return (
-        <div className='add-container'>
-            <div className='add-popup'>
+        <div className='add-container' onClick={() => props.setisAdd(false)}>
+            <div className='add-popup' onClick={(e) => e.stopPropagation()}>
                 <div className='add-first-line'>
                     <h2>New Event</h2>
                 </div>

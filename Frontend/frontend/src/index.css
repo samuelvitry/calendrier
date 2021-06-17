@@ -576,6 +576,7 @@ header h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 100;
 }
 .event-detail {
     background-color: var(--white-2);
@@ -1230,8 +1231,18 @@ header h1 {
     -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
     border-radius: 15px;
 }
+.next-event h2 {
+    margin-bottom: .2em;
+}
 .next-event-item {
     display: flex;
+    padding: 7px;
+    border-radius: 10px;
+    position: relative;
+    left: -5px;
+}
+.next-event-item:hover {
+    background-color: var(--white-3);
 }
 .next-event-item + .next-event-item {
     margin-top: 1em;

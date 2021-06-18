@@ -32,7 +32,6 @@
   user-select: none;
   z-index: inheritb;
 }
-
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
@@ -52,7 +51,6 @@ body {
   display: inline-block;
   margin: 0;
 }
-
 ::-webkit-scrollbar {
   width: 13px;
   margin: 1px;
@@ -67,7 +65,6 @@ body {
   background-clip: padding-box;
   border-radius: 100px;
 }
-
 header {
   margin-bottom: 0;
   width: 100%;
@@ -89,7 +86,6 @@ header h1 {
   font-size: 18px;
   font-weight: 500;
 }
-
 .main-section {
   display: grid;
   grid-template-columns: 1fr 3fr;
@@ -164,7 +160,6 @@ header h1 {
   }
 }
 .monthly-calendar {
-  height: 100%;
   background-color: var(--white-1);
   margin-bottom: 4vh;
   border-radius: 15px;
@@ -699,7 +694,6 @@ header h1 {
   border-width: 0.1px;
   overflow-y: overlay;
 }
-
 .day-row {
   position: relative;
   display: flex;
@@ -1424,4 +1418,29 @@ header h1 {
   border-radius: 15px;
 }
 .today-actual {
+  height: 75vh;
+}
+.today-line {
+  position: absolute;
+  border: solid;
+  border-color: var(--secondary-color);
+  height: 73vh;
+  border-radius: 10px;
+  left: 7.5em;
+}
+.hour-point {
+  height: 6vh;
+  display: flex;
+}
+.hour-dot {
+  height: fit-content;
+  width: fit-content;
+  padding: 3px;
+  border-radius: 5em;
+  border: solid;
+  border-color: var(--secondary-color);
+  background-color: var(--white-2);
+  border-width: 5px;
+  position: absolute;
+  left: 7em;
 }

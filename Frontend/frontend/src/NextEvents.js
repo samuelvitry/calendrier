@@ -187,14 +187,14 @@ export const NextEvents = (props) => {
     //todo ajouter une image pour quand ya pas d'évent (peut être mascote ?)
 
     return (
-        <section className="next-event">
+        <div className="next-event">
             <h2>Prochains évenements</h2>
             {filteredList.map((x) => (<NextEventItem key={x['key']} reload={() => props.reload()} event={x}/>))}
             {filteredList.length < 1 ? 
             <div className='next-event-error'>
                 <p>Il n'y a rien par ici...</p>
             </div> : null}
-        </section>
+        </div>
     )
 }
 

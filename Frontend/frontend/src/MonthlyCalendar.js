@@ -124,31 +124,6 @@ export const MonthlyCalendar = (props) => {
         var day = new Date(props.year, props.month-1, nbr - offsetbeggin)
         return (day);
     }
-    
-    const LastLine = (props) => {
-
-        const [isOut, setIsOut] = useState(props.isExpanded);
-        
-
-        if (offsetDebut(1) === false && offsetFin(7) === false){
-            return null;
-        }
-        else {
-            return (
-                <div className={props.annim}>
-                    <div className="monthly-line">
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(29).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(29)} day={getJour(29)} disabled={offsetFin(1)}/>
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(30).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(30)} day={getJour(30)} disabled={offsetFin(2)}/>
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(31).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(31)} day={getJour(31)} disabled={offsetFin(3)}/>
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(32).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(32)} day={getJour(32)} disabled={offsetFin(4)}/>
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(33).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(33)} day={getJour(33)} disabled={offsetFin(5)}/>
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(34).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(34)} day={getJour(34)} disabled={offsetFin(6)}/>
-                        <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(35).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isOut} eventList={dispatchEvent(35)} day={getJour(35)} disabled={offsetFin(7)} numColor={offsetFin(7) ? "#cc3600" : "#FF6B35"}/>
-                    </div>
-                </div>
-            );
-        }
-    }
 
     //le fait on arrive a appeler la fonction expand depuis le composant dernière line mais pas dans le parent, je fait donc un composant parent a toutes les lignes
     const Line = (props) => {
@@ -157,8 +132,7 @@ export const MonthlyCalendar = (props) => {
         //const [offset, setoffset] = useState(props.offset);
 
         return (
-            <div className={props.annim}>
-                <div className="monthly-line">
+            <>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(1).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(1)} day={getJour(1)} disabled={offsetDebut(1)}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(2).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(2)} day={getJour(2)} disabled={offsetDebut(2)}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(3).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(3)} day={getJour(3)} disabled={offsetDebut(3)}/>
@@ -166,8 +140,6 @@ export const MonthlyCalendar = (props) => {
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(5).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(5)} day={getJour(5)} disabled={offsetDebut(5)}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(6).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(6)} day={getJour(6)} disabled={offsetDebut(6)}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(7).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(7)} day={getJour(7)} disabled={offsetDebut(7)} numColor="#FF6B35"/>
-                </div>
-                <div className="monthly-line">
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(8).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(8)} day={getJour(8)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(9).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(9)} day={getJour(9)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(10).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(10)} day={getJour(10)} disabled={false}/>
@@ -175,8 +147,6 @@ export const MonthlyCalendar = (props) => {
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(12).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(12)} day={getJour(12)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(13).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(13)} day={getJour(13)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(14).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(14)} day={getJour(14)} disabled={false} numColor="#FF6B35"/>
-                </div>
-                <div className="monthly-line">
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(15).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(15)} day={getJour(15)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(16).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(16)} day={getJour(16)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(17).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(17)} day={getJour(17)} disabled={false}/>
@@ -184,8 +154,6 @@ export const MonthlyCalendar = (props) => {
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(19).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(19)} day={getJour(19)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(20).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(20)} day={getJour(20)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(21).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(21)} day={getJour(21)} disabled={false} numColor="#FF6B35"/>
-                </div>
-                <div className="monthly-line">
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(22).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(22)} day={getJour(22)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(23).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(23)} day={getJour(23)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(24).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(24)} day={getJour(24)} disabled={false}/>
@@ -193,8 +161,14 @@ export const MonthlyCalendar = (props) => {
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(26).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(26)} day={getJour(26)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(27).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(27)} day={getJour(27)} disabled={false}/>
                     <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(28).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}} expand={isExpanded} eventList={dispatchEvent(28)} day={getJour(28)} disabled={false} numColor="#FF6B35"/>
-                </div>
-            </div>
+                    {offsetDebut(1) === false && offsetFin(7) === false ? null : <><MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(29).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(29)} day={getJour(29)} disabled={offsetFin(1)}/>
+                    <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(30).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(30)} day={getJour(30)} disabled={offsetFin(2)}/>
+                    <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(31).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(31)} day={getJour(31)} disabled={offsetFin(3)}/>
+                    <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(32).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(32)} day={getJour(32)} disabled={offsetFin(4)}/>
+                    <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(33).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(33)} day={getJour(33)} disabled={offsetFin(5)}/>
+                    <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(34).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(34)} day={getJour(34)} disabled={offsetFin(6)}/>
+                    <MonthlyCalendarDay ajouterIci={() => {settimeAdd(getJour(35).getTime() / 1000); setisAdd(true)}} open={(nbr) => setPopup(nbr)} etendre={() => {expand()}}eventList={dispatchEvent(35)} day={getJour(35)} disabled={offsetFin(7)} numColor={offsetFin(7) ? "#cc3600" : "#FF6B35"}/></>}
+            </>
         );
     }
     
@@ -294,11 +268,8 @@ export const MonthlyCalendar = (props) => {
     return (
         <div className="monthly-calendar">
             <MonthlyTopbar add={() => {setisAdd(true); props.setAnnim("")}} switch={props.switch} month={props.month} year={props.year} nextMonth={() => props.nextMonth()} prevMonth={() => props.prevMonth()}/>
-            <div className="monthly-actual">
-                <Line annim={props.annim} />
-                <div>
-                    <LastLine annim={props.annim} isExpanded={isExpanded}/>
-                </div>
+            <div className={props.annim + ' monthly-actual'}>
+                <Line />
             </div>
             {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={getEventByNbr(isDetail)} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup time={timeAdd} ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
         </div>

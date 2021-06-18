@@ -52,7 +52,7 @@ export const CalendarSelect = (props) => {
     
     if(Object.keys(props.stockageCalendar).length > 0){
         return (
-            <section className='calendar-select'>
+            <div className='calendar-select'>
                 {isDelete !== '' ? <div className='calendar-delete-container' onClick={() => setIsDelete('')}>
                     <div className='calendar-delete-popup' onClick={(e) => e.stopPropagation()}>
                         <h2>Delete Event</h2>
@@ -79,12 +79,12 @@ export const CalendarSelect = (props) => {
                         </div>
                     ))}
                 </div>
-            </section>
+            </div>
         )
     }
     else {
         return (
-            <section className="calendar-select">
+            <div className="calendar-select">
                 <div className='calendar-select-top'>
                     <h2>Selection des calendriers</h2>
                     <h2 onClick={() => (setIsAdd(!isAdd))} id='calendar-add'>+</h2>
@@ -93,7 +93,7 @@ export const CalendarSelect = (props) => {
                     {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}
                     <Checkbox checked={isDefaultChecked} txt='Default Calendar' changement={() => {setIsDefaultChecked(!isDefaultChecked)}}/>
                 </div>
-            </section>
+            </div>
         )
     }
 }

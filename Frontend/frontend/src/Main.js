@@ -10,6 +10,7 @@ import { useCookies } from "react-cookie"
 import { Button } from './Button'
 import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
+import { Today } from './Today'
 
 axios.defaults.withCredentials = true;
 
@@ -36,8 +37,7 @@ export const Main = (props) => {
         // January 4 is always in week 1.
         var week1 = new Date(date.getFullYear(), 0, 4);
         // Adjust to Thursday in week 1 and count number of weeks from date to week1.
-        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
-                              - 3 + (week1.getDay() + 6) % 7) / 7);
+        return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000 - 3 + (week1.getDay() + 6) % 7) / 7);
     }
 
     if (shldFetch) {
@@ -267,12 +267,15 @@ export const Main = (props) => {
         return (day);
     }
 
+    // <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
+    // <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
+    // <NextEvents eventList={eventList} reload={() => forceReload()}/>
+
+
     return (
         <section className="main-section">
             <div className="left-section">
-                <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
-                <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
-                <NextEvents eventList={eventList} reload={() => forceReload()}/>
+                <Today />
             </div>
             <div className="right-section">
                 {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}

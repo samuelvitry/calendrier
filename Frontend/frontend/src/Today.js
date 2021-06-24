@@ -58,8 +58,10 @@ export const Today = (props) => {
         return (
             <div className='event-point'>
                 <div className='event-dot' />
+                <div className='today-link-line' />
                 <div className='event-point-info'>
-                    
+                    <h2>Event Test</h2>
+                    <p>12h00</p>
                 </div>
             </div>
         )
@@ -72,6 +74,7 @@ export const Today = (props) => {
             <div className='today-actual'>
                 <div className='today-line' />
                 {deuxhoursList.map((x) => <HourPoint hour={x} />)}
+                <EventPoint />
             </div>
         </div>
     )

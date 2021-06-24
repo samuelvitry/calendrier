@@ -1419,14 +1419,15 @@ header h1 {
 }
 .today-actual {
   height: 75vh;
+  position: relative;
 }
 .today-line {
   position: absolute;
   border: solid;
-  border-color: var(--secondary-color);
+  border-color: var(--border-color);
   height: 73vh;
   border-radius: 10px;
-  left: 7.5em;
+  left: 4.5em;
 }
 .hour-point {
   height: 6vh;
@@ -1438,9 +1439,67 @@ header h1 {
   padding: 3px;
   border-radius: 5em;
   border: solid;
-  border-color: var(--secondary-color);
+  border-color: var(--border-color);
   background-color: var(--white-2);
   border-width: 5px;
   position: absolute;
-  left: 7em;
+  left: 4em;
+}
+.event-point {
+  display: flex;
+  align-items: center;
+}
+.event-dot {
+  height: fit-content;
+  width: fit-content;
+  padding: 3px;
+  border-radius: 5em;
+  border: solid;
+  border-color: var(--secondary-color);
+  background-color: var(--white-2);
+  border-width: 5px;
+  margin-right: 1em;
+  position: absolute;
+  left: 4em;
+  top: 3vh;
+  z-index: 100;
+}
+.event-point-info {
+  background-color: var(--secondary-color);
+  color: var(--white-2);
+  padding: 7px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-radius: 10px;
+  position: absolute;
+  left: 6.5em;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-evenly;
+  transform: translateY(-7px);
+  top: 3vh;
+  z-index: 100;
+  width: calc(100% - 7em);
+}
+.event-point-info h2 {
+  font-size: 14px;
+  margin-bottom: 0;
+  height: min-content;
+}
+.event-point-info p {
+  font-weight: 500;
+  font-size: 12px;
+  height: min-content;
+}
+.today-link-line {
+  position: absolute;
+  border: solid;
+  border-color: var(--secondary-color);
+  width: 5em;
+  border-radius: 10px;
+  border-width: 2px;
+  left: 4em;
+  top: 3vh;
+  transform: translateY(0.6em);
+  z-index: 10;
 }

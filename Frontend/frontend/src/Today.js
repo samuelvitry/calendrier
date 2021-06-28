@@ -55,18 +55,36 @@ export const Today = (props) => {
     }
     
     const EventPoint = (props) => {
+
+        let today = new Date()
+        let ceMatin = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() / 1000
+
+        let offsetY = (props.event['start_date'] - ceMatin) / 3600 * 3
+
         return (
             <div className='event-point'>
-                <div className='event-dot' />
-                <div className='today-link-line' />
-                <div className='event-point-info'>
-                    <h2>Event Test</h2>
-                    <p>12h00</p>
+                <div className='event-dot' style={{top: offsetY + 'vh', borderColor: props.event['color']}}/>
+                <div className='today-link-line' style={{top: offsetY + 'vh', borderColor: props.event['color']}}/>
+                <div className='event-point-info' style={{top: offsetY + 'vh', backgroundColor: props.event['color']}}>
+                    <h2>{props.event['event_name']}</h2>
                 </div>
             </div>
         )
     }
-    
+
+    function filterEvent (event) {
+        let today = new Date()
+        let ceMatin = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() / 1000
+        let ceSoir = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime() / 1000
+        if(event['start_date'] >= ceMatin && event['start_date'] <= ceSoir) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+
+    var todayEvents = props.eventList.filter((x) => filterEvent(x))
 
     return (
         <div className='today'>
@@ -74,7 +92,7 @@ export const Today = (props) => {
             <div className='today-actual'>
                 <div className='today-line' />
                 {deuxhoursList.map((x) => <HourPoint hour={x} />)}
-                <EventPoint />
+                {todayEvents.map((x) => <EventPoint event={x}/>)}
             </div>
         </div>
     )

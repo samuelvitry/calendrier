@@ -1461,7 +1461,6 @@ header h1 {
   margin-right: 1em;
   position: absolute;
   left: 4em;
-  top: 3vh;
   z-index: 100;
 }
 .event-point-info {
@@ -1475,15 +1474,13 @@ header h1 {
   left: 6.5em;
   display: flex;
   align-items: baseline;
-  justify-content: space-evenly;
   transform: translateY(-7px);
-  top: 3vh;
   z-index: 100;
-  width: calc(100% - 7em);
 }
 .event-point-info h2 {
   font-size: 14px;
   margin-bottom: 0;
+  margin-right: 0.1em;
   height: min-content;
 }
 .event-point-info p {
@@ -1499,7 +1496,6 @@ header h1 {
   border-radius: 10px;
   border-width: 2px;
   left: 4em;
-  top: 3vh;
   transform: translateY(0.6em);
   z-index: 10;
 }

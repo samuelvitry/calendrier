@@ -29,6 +29,21 @@ export const Main = (props) => {
     const [codeHash, setCodeHash] = useState('')
     const [shldFetch, setShldFetch] = useState(true)
 
+    const [isWeekly, setisWeekly] = useState(false);
+
+    const [height, setHeight] = useState(window.innerHeight)
+    const [width, setWidth] = useState(window.innerwidth)
+
+    const updateWidthAndHeight = () => {
+        setWidth(window.innerWidth);
+        setHeight(window.innerHeight);
+    };
+
+    React.useEffect(() => {
+        window.addEventListener("resize", updateWidthAndHeight);
+        return () => window.removeEventListener("resize", updateWidthAndHeight);
+    });
+
     Date.prototype.getWeek = function() {
         var date = new Date(this.getTime());
         date.setHours(0, 0, 0, 0);
@@ -173,8 +188,6 @@ export const Main = (props) => {
         }
     }
 
-    const [isWeekly, setisWeekly] = useState(false);
-
     function switchMonWee() {
         setAnnim("")
         let temp = isWeekly
@@ -271,15 +284,31 @@ export const Main = (props) => {
     // <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
     // <NextEvents eventList={eventList} reload={() => forceReload()}/>
 
+    // <Today eventList={generateEventList()} reload={() => forceReload()}/>
+
+    const mql_large = window.matchMedia('(min-width: 1610px)');
+    const mql_mobile = window.matchMedia('(max-width: 1270px)')
+
+    let large = mql_large.matches
+    let mobile = mql_mobile.matches
 
     return (
-        <section className="main-section">
-            <div className="left-section">
-                <Today eventList={generateEventList()} reload={() => forceReload()}/>
-            </div>
-            <div className="right-section">
+        <section className="main-section" style={large ? {gridTemplateColumns: '1fr 3fr .7fr'} : mobile ? {gridTemplateColumns: '3fr'} : {gridTemplateColumns: '1fr 3fr'}}>
+            {!mobile ? <div className="left-section">
+                <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
+                <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
+                <NextEvents eventList={eventList} reload={() => forceReload()}/>
+            </div> : null}
+            <div className={mobile ? "right-section right-section-mobile" : "right-section"}>
                 {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
             </div>
+            {large ? <Today eventList={generateEventList()} reload={() => forceReload()}/> : null}
+            {mobile ? (
+                <>
+                    <NextEvents mobile eventList={eventList} reload={() => forceReload()}/>
+                    <CalendarSelect mobile reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
+                </>
+            ) : null}
             {isCode ? <div className='code-popup-container'>
                 <div className='code-popup'>
                     <h1>There is a problem !</h1>

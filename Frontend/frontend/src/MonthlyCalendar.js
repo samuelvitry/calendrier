@@ -187,7 +187,7 @@ export const MonthlyCalendar = (props) => {
             <div className={props.annim + ' monthly-actual'}>
                 <Line />
             </div>
-            {isDetail !== - 1 ? <EventDetail nbr={isDetail} event={getEventByNbr(isDetail)} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup time={timeAdd} ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
+            {isDetail !== - 1 ? <EventDetail reload={() => reload()} nbr={isDetail} event={getEventByNbr(isDetail)} closeDetail={() => closePopup()}/> : isAdd ? <AddPopup time={timeAdd} ajouterEvent={(x) => props.ajouterEvent(x)} calendarList={(x) => props.calendarList} setisAdd={() => setisAdd(false)}/> : null}
         </div>
     )
 }

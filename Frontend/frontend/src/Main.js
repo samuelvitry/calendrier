@@ -11,6 +11,7 @@ import { Button } from './Button'
 import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
 import { Today } from './Today'
+import { Planning } from './Planning'
 
 axios.defaults.withCredentials = true;
 
@@ -294,6 +295,7 @@ export const Main = (props) => {
 
     return (
         <section className="main-section" style={large ? {gridTemplateColumns: '1fr 3fr .7fr'} : mobile ? {gridTemplateColumns: '3fr'} : {gridTemplateColumns: '1fr 3fr'}}>
+            {mobile ? <Planning /> : null}
             {!mobile ? <div className="left-section">
                 <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
                 <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>

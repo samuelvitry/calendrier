@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { EventDetail } from './EventDetail'
 
 export const Today = (props) => {
+
+    const [isDetail, setIsDetail] = useState(-1)
 
     const hoursList = [
         "00h00",
@@ -62,7 +65,7 @@ export const Today = (props) => {
         let offsetY = (props.event['start_date'] - ceMatin) / 3600 * 3
 
         return (
-            <div className='event-point'>
+            <div className='event-point' onClick={() => setIsDetail(props.index)}>
                 <div className='event-dot' style={{top: offsetY + 'vh', borderColor: props.event['color']}}/>
                 <div className='today-link-line' style={{top: offsetY + 'vh', borderColor: props.event['color']}}/>
                 <div className='event-point-info' style={{top: offsetY + 'vh', backgroundColor: props.event['color']}}>
@@ -76,6 +79,9 @@ export const Today = (props) => {
         let today = new Date()
         let ceMatin = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() / 1000
         let ceSoir = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime() / 1000
+        if (event['end_date'] - event['start_date'] >= 86399) {
+            return false
+        }
         if(event['start_date'] >= ceMatin && event['start_date'] <= ceSoir) {
             return true
         }
@@ -88,11 +94,12 @@ export const Today = (props) => {
 
     return (
         <div className='today'>
+            {isDetail !== -1 ? <EventDetail event={todayEvents[isDetail]} reload={() => props.reload()} closeDetail={() => {setIsDetail(-1)}}/> : null}
             <h2>Today</h2>
             <div className='today-actual'>
                 <div className='today-line' />
                 {deuxhoursList.map((x) => <HourPoint hour={x} />)}
-                {todayEvents.map((x) => <EventPoint event={x}/>)}
+                {todayEvents.map((x, index) => <EventPoint index={index} event={x}/>)}
             </div>
         </div>
     )

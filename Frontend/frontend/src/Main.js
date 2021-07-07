@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import {NextEvents} from './NextEvents'
-import {TodoList} from './TodoList'
+import { NextEvents } from './NextEvents'
+import { TodoList } from './TodoList'
 import { MonthlyCalendar } from './MonthlyCalendar'
 import { CalendarSelect } from './CalendarSelect'
 import { MiniCalendar } from './MiniCalendar'
@@ -45,7 +45,7 @@ export const Main = (props) => {
         return () => window.removeEventListener("resize", updateWidthAndHeight);
     });
 
-    Date.prototype.getWeek = function() {
+    Date.prototype.getWeek = function () {
         var date = new Date(this.getTime());
         date.setHours(0, 0, 0, 0);
         // Thursday in current week decides the year.
@@ -58,11 +58,11 @@ export const Main = (props) => {
 
     if (shldFetch) {
         api.get("/").then((response) => {
-            if (response.status == 200){
+            if (response.status == 200) {
                 setCodeHash(response.data.code[0]['key']);
                 traiterEvent(response.data.event);
             }
-        }).catch((err) => {console.log(err); console.log('Failed ! Redirect !'); })
+        }).catch((err) => { console.log(err); console.log('Failed ! Redirect !'); })
         setShldFetch(false)
     }
 
@@ -70,18 +70,18 @@ export const Main = (props) => {
     const [stockageCalendar, setStockageCalendar] = useState({})
     const [reload, setReload] = useState(0)
 
-    if (isCode && cookies.code != undefined){
-        if (codeHash === sha256(cookies.code)){
+    if (isCode && cookies.code != undefined) {
+        if (codeHash === sha256(cookies.code)) {
             setIsCode(false)
             forceReload()
         }
     }
 
-    function forceReload () {
+    function forceReload() {
         setShldFetch(true)
     }
 
-    function submitCode () {
+    function submitCode() {
         if (code !== '') {
             if (codeHash === sha256(code)) {
                 setCookie("code", code, { path: '/' })
@@ -92,11 +92,11 @@ export const Main = (props) => {
         }
     }
 
-    function traiterEvent (list) {
+    function traiterEvent(list) {
         var tempList = list.sort((a, b) => a['start_date'] - b['start_date'])
         let tempEvents = []
         let tempSto = {}
-        if (cookies.code != null){
+        if (cookies.code != null) {
             if (sha256(cookies.code) !== codeHash) {
                 let temp = {}
                 temp['Default Calendar'] = [true]
@@ -104,7 +104,7 @@ export const Main = (props) => {
                 setIsCode(true)
             }
             else {
-                for (let i = 0; i < tempList.length; i ++){
+                for (let i = 0; i < tempList.length; i++) {
                     let code = parseInt(tempList[i]['color'])
                     tempEvents.push(tempList[i])
                     tempEvents[i]['color'] = colorCodeConv[code]
@@ -136,14 +136,14 @@ export const Main = (props) => {
         }
     }
 
-    function calendarSelecSwitch (name) {
+    function calendarSelecSwitch(name) {
         let temp = stockageCalendar
         stockageCalendar[name][0] = stockageCalendar[name][0] ? false : true
         setStockageCalendar(temp)
         setReload(reload + 1)
     }
 
-    function generateEventList () {
+    function generateEventList() {
         let tempList = []
         for (let name in stockageCalendar) {
             if (stockageCalendar[name][0]) {
@@ -152,19 +152,19 @@ export const Main = (props) => {
         }
         return tempList
     }
-    function generateWeeklyList () {
+    function generateWeeklyList() {
         let total = generateEventList()
         return total.filter(valeur => {
-            if( valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
-            if( valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
+            if (valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
+            if (valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
         })
     }
 
-    function generateCalendarTable () {
+    function generateCalendarTable() {
         let calendarList = []
         for (let i = 0; i < eventList.length; i++) {
             if (calendarList.includes(eventList[i]['calendar'])) {
-                
+
             }
             else {
                 calendarList.push(eventList[i]['calendar'])
@@ -177,11 +177,11 @@ export const Main = (props) => {
     }
 
 
-    function isFromWeek(event){
-        if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000){
+    function isFromWeek(event) {
+        if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000) {
             return true;
         }
-        if(event['end_date'] > getDateOfISOWeek().getTime() / 1000 && event['end_date'] < lastOfDay(6).getTime() / 1000){
+        if (event['end_date'] > getDateOfISOWeek().getTime() / 1000 && event['end_date'] < lastOfDay(6).getTime() / 1000) {
             return true;
         }
         else {
@@ -192,20 +192,20 @@ export const Main = (props) => {
     function switchMonWee() {
         setAnnim("")
         let temp = isWeekly
-        if(temp){
+        if (temp) {
             setisWeekly(false)
         }
-        else{
+        else {
             setisWeekly(true)
         }
     }
-    
+
     function ajouterEvent(event) {
         setAnnim("")
         forceReload()
     }
 
-    
+
     var now = new Date()
     const [year, setyear] = useState(now.getFullYear())
     const [week, setweek] = useState(now.getWeek())
@@ -213,11 +213,11 @@ export const Main = (props) => {
     const [annim, setAnnim] = useState("")
 
     var weeklyEventList = eventList.filter(valeur => {
-        if( valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
-        if( valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
+        if (valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
+        if (valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
     })
 
-    function nextWeek(){
+    function nextWeek() {
         let tempMonth = month - 1
         let temp = new Date(year, tempMonth, getDateOfISOWeek().getDate() + 7)
         setweek(temp.getWeek())
@@ -225,7 +225,7 @@ export const Main = (props) => {
         setyear(temp.getFullYear())
         setAnnim("right-appear")
     }
-    function prevWeek(){
+    function prevWeek() {
         let tempMonth = month - 1
         let temp = new Date(year, tempMonth, getDateOfISOWeek().getDate() - 7)
         setweek(temp.getWeek())
@@ -233,24 +233,24 @@ export const Main = (props) => {
         setyear(temp.getFullYear())
         setAnnim("left-appear")
     }
-    function nextMonth(){
-        let temp = new Date(year, month , 1)
+    function nextMonth() {
+        let temp = new Date(year, month, 1)
         setweek(temp.getWeek())
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
         setAnnim("right-appear")
     }
-    function prevMonth(){
+    function prevMonth() {
         let temp = new Date(year, month - 2, 1)
         setweek(temp.getWeek())
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
         setAnnim("left-appear")
     }
-    
+
 
     function rowToJour(nbr) {
-        let mon =  getDateOfISOWeek()
+        let mon = getDateOfISOWeek()
         return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr)
     }
     function getDateOfISOWeek() {
@@ -263,21 +263,21 @@ export const Main = (props) => {
             ISOweekStart.setDate(simple.getDate() + 8 - simple.getDay());
         return ISOweekStart;
     }
-    function lastOfDay(nbr){
-        let mon =  getDateOfISOWeek()
+    function lastOfDay(nbr) {
+        let mon = getDateOfISOWeek()
         return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr, 23, 59, 59)
     }
 
-    function getMoinsJour (date) {
+    function getMoinsJour(date) {
         var day = new Date(year, month, 0).getDay();
         if (day === 0) {
             day = 7
         }
         return date.getDate() + day
     }
-    function getJour (nbr) {
+    function getJour(nbr) {
         var offsetbeggin = new Date(year, month - 1, 0).getDay();
-        var day = new Date(year, month-1, nbr - offsetbeggin)
+        var day = new Date(year, month - 1, nbr - offsetbeggin)
         return (day);
     }
 
@@ -294,21 +294,21 @@ export const Main = (props) => {
     let mobile = mql_mobile.matches
 
     return (
-        <section className="main-section" style={large ? {gridTemplateColumns: '1fr 3fr .7fr'} : mobile ? {gridTemplateColumns: '3fr'} : {gridTemplateColumns: '1fr 3fr'}}>
+        <section className="main-section" style={large ? { gridTemplateColumns: '300px 3fr 255px' } : mobile ? { gridTemplateColumns: '3fr' } : { gridTemplateColumns: '300px 3fr' }}>
             {mobile ? <Planning /> : null}
             {!mobile ? <div className="left-section">
-                <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
-                <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
-                <NextEvents eventList={eventList} reload={() => forceReload()}/>
+                <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} />
+                <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)} />
+                <NextEvents eventList={eventList} reload={() => forceReload()} />
             </div> : null}
             <div className={mobile ? "right-section right-section-mobile" : "right-section"}>
-                {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()}/> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()}/>}
+                {isWeekly ? <WeeklyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()} /> : <MonthlyCalendar reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()} />}
             </div>
-            {large ? <Today eventList={generateEventList()} reload={() => forceReload()}/> : null}
+            {large ? <Today eventList={generateEventList()} reload={() => forceReload()} /> : null}
             {mobile ? (
                 <>
-                    <NextEvents mobile eventList={eventList} reload={() => forceReload()}/>
-                    <CalendarSelect mobile reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>
+                    <NextEvents mobile eventList={eventList} reload={() => forceReload()} />
+                    <CalendarSelect mobile reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)} />
                 </>
             ) : null}
             {isCode ? <div className='code-popup-container'>
@@ -316,11 +316,11 @@ export const Main = (props) => {
                     <h1>There is a problem !</h1>
                     <p>We need your code to access the events !</p>
                     <div className='code-in-line'>
-                        <input className='input-contained' type='password' onChange={(e) => setCode(e.target.value)}/>
+                        <input className='input-contained' type='password' onChange={(e) => setCode(e.target.value)} />
                         <Button onClick={() => submitCode()} full txt='Submit' />
                     </div>
                 </div>
             </div> : null}
-      </section>
+        </section>
     )
 }

@@ -93,7 +93,7 @@ header h1 {
 .left-section > div {
   margin-bottom: 3em;
 }
-.left-section h2 {
+.left-section h2, .today h2 {
   margin-bottom: 4%;
   font-size: 18px;
   font-weight: 500;

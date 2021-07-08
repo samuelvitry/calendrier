@@ -295,7 +295,6 @@ export const Main = (props) => {
 
     return (
         <section className="main-section" style={large ? { gridTemplateColumns: '300px 3fr 255px' } : mobile ? { gridTemplateColumns: '3fr' } : { gridTemplateColumns: '300px 3fr' }}>
-            {mobile ? <Planning /> : null}
             {!mobile ? <div className="left-section">
                 <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} />
                 <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)} />
@@ -307,7 +306,7 @@ export const Main = (props) => {
             {large ? <Today eventList={generateEventList()} reload={() => forceReload()} /> : null}
             {mobile ? (
                 <>
-                    <NextEvents mobile eventList={eventList} reload={() => forceReload()} />
+                    <Planning mobile eventList={eventList} reload={() => forceReload()} />
                     <CalendarSelect mobile reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)} />
                 </>
             ) : null}

@@ -176,12 +176,14 @@ header h1 {
   border-color: var(--border-color);
   border-width: 1px;
   overflow: hidden;
+  max-width: calc(100vw - 4em - 10%);
 }
 .monthly-day-card {
   border: solid;
   border-color: var(--border-color);
   border-width: 1px;
   padding-bottom: 0.8%;
+  overflow: hidden;
 }
 .monthly-number {
   border-radius: 100%;
@@ -212,6 +214,7 @@ header h1 {
   margin-right: 10px;
   padding: 1px;
   opacity: 100%;
+  max-width: 100%;
 }
 .monthly-item p {
   font-size: 10px;
@@ -1502,4 +1505,13 @@ header h1 {
   left: 4em;
   transform: translateY(0.6em);
   z-index: 5;
+}
+.planning {
+  background-color: var(--white-1);
+  padding: 5%;
+  box-shadow: 5px 10px 32px 15px var(--shadow-color);
+  -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+  -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+  border-radius: 15px;
+  height: 60vh;
 }

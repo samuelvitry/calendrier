@@ -9,6 +9,10 @@ export const MonthlyCalendarDay = (props, { open }) => {
 
     var height = Math.floor((window.innerHeight - 530) / 100)
 
+    if (window.matchMedia('(max-width: 1270px)').matches) {
+        height = Math.floor((window.innerHeight - 730) / 100)
+    }
+
     if (height < 1) {
         height = 1
     }

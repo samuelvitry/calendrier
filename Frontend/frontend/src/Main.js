@@ -287,7 +287,7 @@ export const Main = (props) => {
 
     // <Today eventList={generateEventList()} reload={() => forceReload()}/>
 
-    const mql_large = window.matchMedia('(min-width: 1610px)');
+    const mql_large = window.matchMedia('(min-width: 1610px)')
     const mql_mobile = window.matchMedia('(max-width: 1270px)')
 
     let large = mql_large.matches

@@ -47,7 +47,7 @@ export const Today = (props) => {
         "22h00",
         "24h00"
     ]
-    
+
     const HourPoint = (props) => {
         return (
             <div className='hour-point'>
@@ -56,7 +56,7 @@ export const Today = (props) => {
             </div>
         )
     }
-    
+
     const EventPoint = (props) => {
 
         let today = new Date()
@@ -66,23 +66,23 @@ export const Today = (props) => {
 
         return (
             <div className='event-point' onClick={() => setIsDetail(props.index)}>
-                <div className='event-dot' style={{top: offsetY + 'vh', borderColor: props.event['color']}}/>
-                <div className='today-link-line' style={{top: offsetY + 'vh', borderColor: props.event['color']}}/>
-                <div className='event-point-info' style={{top: offsetY + 'vh', backgroundColor: props.event['color']}}>
+                <div className='event-dot' style={{ top: offsetY + 'vh', borderColor: props.event['color'] }} />
+                <div className='today-link-line' style={{ top: offsetY + 'vh', borderColor: props.event['color'] }} />
+                <div className='event-point-info' style={{ top: offsetY + 'vh', backgroundColor: props.event['color'] }}>
                     <h2>{props.event['event_name']}</h2>
                 </div>
             </div>
         )
     }
 
-    function filterEvent (event) {
+    function filterEvent(event) {
         let today = new Date()
         let ceMatin = new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() / 1000
         let ceSoir = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59).getTime() / 1000
         if (event['end_date'] - event['start_date'] >= 86399) {
             return false
         }
-        if(event['start_date'] >= ceMatin && event['start_date'] <= ceSoir) {
+        if (event['start_date'] >= ceMatin && event['start_date'] <= ceSoir) {
             return true
         }
         else {
@@ -92,14 +92,16 @@ export const Today = (props) => {
 
     var todayEvents = props.eventList.filter((x) => filterEvent(x))
 
+    //todo inserer la date
+
     return (
         <div className='today'>
-            {isDetail !== -1 ? <EventDetail event={todayEvents[isDetail]} reload={() => props.reload()} closeDetail={() => {setIsDetail(-1)}}/> : null}
-            <h2>Today</h2>
+            {isDetail !== -1 ? <EventDetail event={todayEvents[isDetail]} reload={() => props.reload()} closeDetail={() => { setIsDetail(-1) }} /> : null}
+            <h2>Today, insérer la date</h2>
             <div className='today-actual'>
                 <div className='today-line' />
                 {deuxhoursList.map((x) => <HourPoint hour={x} />)}
-                {todayEvents.map((x, index) => <EventPoint index={index} event={x}/>)}
+                {todayEvents.map((x, index) => <EventPoint index={index} event={x} />)}
             </div>
         </div>
     )

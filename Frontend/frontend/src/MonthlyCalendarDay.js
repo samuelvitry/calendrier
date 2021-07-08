@@ -1,78 +1,83 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Typography } from '@material-ui/core'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { Widgets } from '@material-ui/icons';
 
 
 
 export const MonthlyCalendarDay = (props, { open }) => {
 
+    var nbrEvents = []
+
+    var height = Math.floor((window.innerHeight - 530) / 100)
+
+    if (height < 1) {
+        height = 1
+    }
+
+    for (let i = 0; i < height; i++) {
+        nbrEvents.push(i)
+    }
 
     const eventList = props.eventList.map((x) => x)
-    function screenDate(date){
+    function screenDate(date) {
         var heur = date.getHours();
         var minutes = date.getMinutes();
-        if (minutes < 10){
+        if (minutes < 10) {
             minutes = '0' + minutes
         }
-        if (heur < 10){
+        if (heur < 10) {
             heur = '0' + heur
         }
         return (heur + "h" + minutes);
     }
-    for (let i = 0; i < eventList.length; i++){
+    for (let i = 0; i < eventList.length; i++) {
         var event = eventList[i]
-        if(event['end_date'] - event['start_date'] < 86400){
-            var date =  new Date(event['start_date'] * 1000)
+        if (event['end_date'] - event['start_date'] < 86400) {
+            var date = new Date(event['start_date'] * 1000)
             event['display_date'] = screenDate(date)
         }
     }
 
-    while (eventList.length < 4){
-        const blankEvent = {'blank': true}
+    while (eventList.length < nbrEvents.length) {
+        const blankEvent = { 'blank': true }
         eventList.push(blankEvent);
     }
-    
-    function openPopup (nbr) {
+
+    function openPopup(nbr) {
         props.open(nbr)
     }
 
     const MonthlyCalendarItem = (props) => {
 
-    
-        if (props.blank){
+
+        if (props.blank) {
             return (
-                <div className="monthly-item" style={{visibility: 'hidden'}}>
-                    <Typography variant="body2" style={{marginLeft: '5px'}}>You found me GG !</Typography>
+                <div className="monthly-item" style={{ visibility: 'hidden' }}>
+                    <Typography variant="body2" style={{ marginLeft: '5px' }}>You found me GG !</Typography>
                 </div>
             )
         }
         else {
             return (
                 <div onClick={() => openPopup(props.nbr)} className="monthly-item" style={{
-                        borderLeft: props.full ? 'none' : 'solid', 
-                        borderColor: props.color , 
-                        borderWidth: '2px', 
-                        boxSizing: 'border-box', 
-                        backgroundColor: props.full ? props.color : null, 
-                        color: props.full ? '#F7FAFD' : '#1B2228', 
-                        borderRadius: props.full ? '5px' : '0px'
-                    }}>
-                    <Typography variant="body2" style={{marginLeft: '5px'}}>{props.name}</Typography>
+                    borderLeft: props.full ? 'none' : 'solid',
+                    borderColor: props.color,
+                    borderWidth: '2px',
+                    boxSizing: 'border-box',
+                    backgroundColor: props.full ? props.color : null,
+                    color: props.full ? '#F7FAFD' : '#1B2228',
+                    borderRadius: props.full ? '5px' : '0px'
+                }}>
+                    <Typography variant="body2" style={{ marginLeft: '5px' }}>{props.name}</Typography>
                 </div>
             )
         }
     }
 
-
     return (
         <div className="monthly-day-card" onDoubleClick={() => props.ajouterIci()}>
-            <div className='monthly-number-container'><Typography className='monthly-number' variant="h5" style={{textAlign: 'right', color: props.numColor}}>{props.day.getDate()}</Typography></div>
+            <div className='monthly-number-container'><Typography className='monthly-number' variant="h5" style={{ textAlign: 'right', color: props.numColor }}>{props.day.getDate()}</Typography></div>
             <div className="events-list">
-                <MonthlyCalendarItem nbr={eventList[0]['nbr']} name={eventList[0]['event_name']} blank={eventList[0]['blank']} date={eventList[0]['display_date']} color={eventList[0]['color']} full={eventList[0]['full']}/>
-                <MonthlyCalendarItem nbr={eventList[1]['nbr']} name={eventList[1]['event_name']} blank={eventList[1]['blank']} date={eventList[1]['display_date']} color={eventList[1]['color']} full={eventList[1]['full']}/>
-                <MonthlyCalendarItem nbr={eventList[2]['nbr']} name={eventList[2]['event_name']} blank={eventList[2]['blank']} date={eventList[2]['display_date']} color={eventList[2]['color']} full={eventList[2]['full']}/>
-                <MonthlyCalendarItem nbr={eventList[3]['nbr']} name={eventList[3]['event_name']} blank={eventList[3]['blank']} date={eventList[3]['display_date']} color={eventList[3]['color']} full={eventList[3]['full']}/>
+                {nbrEvents.map((x) => <MonthlyCalendarItem nbr={eventList[x]['nbr']} name={eventList[x]['event_name']} blank={eventList[x]['blank']} date={eventList[x]['display_date']} color={eventList[x]['color']} full={eventList[x]['full']} />)}
             </div>
         </div>
     )

@@ -20,15 +20,54 @@
   --error-color: #a72a2a;
   --error-dark: #752424;
   --success-color: #63c44f;
+  --10px: 10px;
+  --12px: 12px;
+  --14px: 14px;
+  --16px: 16px;
+  --17px: 17px;
+  --18px: 18px;
+  --20px: 20px;
+  --22px: 22px;
+  --24px: 24px;
+  --28px: 28px;
 }
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap");
+
+@media screen and (max-width: 600px) {
+  :root {
+    --10px: calc(10px/1.5);
+    --12px: calc(12px/1.5);
+    --14px: calc(14px/1.5);
+    --16px: calc(16px/1.5);
+    --17px: calc(17px/1.5);
+    --18px: calc(18px/1.5);
+    --20px: calc(20px/1.5);
+    --22px: calc(22px/1.5);
+    --24px: calc(24px/1.5);
+    --28px: calc(28px/1.5);
+  }
+}
+@media screen and (max-width: 450px) {
+  :root {
+    --10px: calc(10px/2);
+    --12px: calc(12px/2);
+    --14px: calc(14px/2);
+    --16px: calc(16px/2);
+    --17px: calc(17px/2);
+    --18px: calc(18px/2);
+    --20px: calc(20px/2);
+    --22px: calc(22px/2);
+    --24px: calc(24px/2);
+    --28px: calc(28px/2);
+  }
+}
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
-  font-size: 10px;
+  font-size: var(--10px);
   user-select: none;
   z-index: inherit;
 }
@@ -82,7 +121,7 @@ header {
   padding: 1.6em;
 }
 header h1 {
-  font-size: 18px;
+  font-size: var(--18px);
   font-weight: 500;
 }
 .main-section {
@@ -95,7 +134,7 @@ header h1 {
 }
 .left-section h2, .today h2 {
   margin-bottom: 4%;
-  font-size: 18px;
+  font-size: var(--18px);
   font-weight: 500;
 }
 .container {
@@ -119,7 +158,7 @@ header h1 {
 .monthly-topbar .button-full,
 .plus-add {
   color: var(--white-1);
-  font-size: 18px;
+  font-size: var(--18px);
 }
 .monthly-top-button {
   margin-top: 1vh;
@@ -144,7 +183,7 @@ header h1 {
   font-weight: 500;
 }
 .monthly-nav * {
-  font-size: 28px;
+  font-size: var(--28px);
 }
 .monthly-next {
   margin-left: 1vw;
@@ -159,7 +198,6 @@ header h1 {
 }
 .monthly-calendar {
   background-color: var(--white-1);
-  margin-bottom: 4vh;
   border-radius: 15px;
   padding: 5%;
   padding-top: 2vh;
@@ -217,7 +255,7 @@ header h1 {
   max-width: 100%;
 }
 .monthly-item p {
-  font-size: 10px;
+  font-size: var(--10px);
   user-select: none;
   color: var(--white-1);
 }
@@ -270,7 +308,7 @@ header h1 {
   box-shadow: 0px 0px 15px var(--darker-secondary);
 }
 .monthly-topbar .button-empty {
-  font-size: 18px;
+  font-size: var(--18px);
 }
 .button-full {
   padding-right: 1.8em;
@@ -352,7 +390,7 @@ header h1 {
   min-width: 100%;
 }
 .login-card h1 {
-  font-size: 22px;
+  font-size: var(--22px);
   font-weight: 700;
 }
 .input-contained {
@@ -365,7 +403,7 @@ header h1 {
   background-color: var(--white-3);
   box-shadow: 0px 0px 5px 1px var(--secondary-color);
   outline: none;
-  font-size: 14px;
+  font-size: var(--14px);
 }
 .input-contained:hover {
   border-color: var(--main-color);
@@ -392,7 +430,7 @@ header h1 {
   background-color: rgba(0, 0, 0, 0);
   outline: none;
   color: var(--white-2);
-  font-size: medium;
+  font-size: var(--16px);
 }
 .input-open:focus {
   border-color: var(--secondary-color);
@@ -417,13 +455,13 @@ header h1 {
 }
 .login-submit .button-full {
   background-color: var(--main-color);
-  font-size: 16px;
+  font-size: var(--16px);
   color: var(--white-2);
   justify-content: center;
   font-weight: 500;
 }
 .login-cancel .button-full {
-  font-size: 16px;
+  font-size: var(--16px);
   color: var(--white-2);
   justify-content: center;
   font-weight: 500;
@@ -558,7 +596,7 @@ header h1 {
   padding: 2%;
 }
 .event-detail h2 {
-  font-size: 18px;
+  font-size: var(--18px);
   text-align: center;
 }
 .detail-first-line {
@@ -576,18 +614,18 @@ header h1 {
 }
 .detail-line i {
   margin-right: 1vw;
-  font-size: 14px;
+  font-size: var(--14px);
 }
 .detail-first-line i {
-  font-size: 18px;
+  font-size: var(--18px);
   padding: 5px;
 }
 .detail-line p {
   font-weight: 400;
-  font-size: 16px;
+  font-size: var(--16px);
 }
 .detail-line i {
-  font-size: 16px;
+  font-size: var(--16px);
 }
 .detail-first-line i:hover {
   cursor: pointer;
@@ -615,7 +653,7 @@ header h1 {
 .detail-dropdown div {
   padding-left: 10px;
   padding-right: 30px;
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 500;
   width: 100%;
 }
@@ -641,7 +679,7 @@ header h1 {
 .weekly-topbar .button-full,
 .plus-add {
   color: var(--white-1);
-  font-size: 18px;
+  font-size: var(--18px);
   font-weight: 500;
 }
 .weekly-top-button {
@@ -665,7 +703,7 @@ header h1 {
   font-weight: 500;
 }
 .weekly-nav * {
-  font-size: 28px;
+  font-size: var(--28px);
 }
 .weekly-next {
   margin-left: 1vw;
@@ -704,10 +742,10 @@ header h1 {
   width: 100%;
 }
 .day-row h3 {
-  font-size: 16px;
+  font-size: var(--16px);
 }
 .first-number h3 {
-  font-size: 16px;
+  font-size: var(--16px);
 }
 .number-row {
   flex-shrink: 2;
@@ -781,11 +819,11 @@ header h1 {
 }
 .weekly-event * {
   color: var(--dark-color);
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 500;
 }
 .weekly-event-hour {
-  font-size: 12px;
+  font-size: var(--12px);
   font-weight: 400;
 }
 .check-container {
@@ -803,7 +841,7 @@ header h1 {
   align-items: baseline;
   border-radius: 10px;
   height: 35px;
-  font-size: 16px;
+  font-size: var(--16px);
   font-weight: 400;
 }
 .check-container:hover {
@@ -943,7 +981,7 @@ header h1 {
   padding: 12px;
 }
 .monthly-weekly-switch * {
-  font-size: 18px;
+  font-size: var(--18px);
 }
 .monthly-weekly-switch1 {
   border-radius: 0px;
@@ -993,11 +1031,11 @@ header h1 {
   justify-content: center;
 }
 .add-first-line i {
-  font-size: 16px;
+  font-size: var(--16px);
   padding: 5px;
 }
 .add-popup h2 {
-  font-size: 18px;
+  font-size: var(--18px);
   text-align: center;
 }
 .add-first-line {
@@ -1035,11 +1073,11 @@ header h1 {
 }
 .add-line i {
   margin-right: 1vw;
-  font-size: 14px;
+  font-size: var(--14px);
 }
 .add-line input {
   box-shadow: none;
-  font-size: 14px;
+  font-size: var(--14px);
   color: var(--dark-color);
   font-weight: 500;
   border-color: var(--secondary-color);
@@ -1073,7 +1111,7 @@ header h1 {
   flex-wrap: wrap;
 }
 .add-under-line .check-container {
-  font-size: 12px;
+  font-size: var(--12px);
   width: fit-content;
   padding: 3px;
   padding-left: 25px;
@@ -1114,11 +1152,11 @@ header h1 {
 }
 .add-color-selector p,
 .add-color-selector i {
-  font-size: 14px;
+  font-size: var(--14px);
 }
 .add-color-drop-element p,
 .add-color-drop-element i {
-  font-size: 14px;
+  font-size: var(--14px);
 }
 .color-add-line {
   flex-direction: row;
@@ -1160,12 +1198,12 @@ header h1 {
   margin-top: 3em;
 }
 .add-button-line * {
-  font-size: 16px;
+  font-size: var(--16px);
   font-weight: 500;
 }
 .add-error-line {
   color: var(--error-color);
-  font-size: 12px;
+  font-size: var(--12px);
   font-weight: 500;
   position: relative;
   bottom: -7px;
@@ -1195,17 +1233,17 @@ header h1 {
   padding: 2%;
 }
 .code-popup h1 {
-  font-size: 17px;
+  font-size: var(--17px);
   font-weight: 700;
   margin-bottom: 0.7em;
 }
 .code-popup p {
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 400;
   margin-bottom: 0.5em;
 }
 .code-popup input {
-  font-size: 12px;
+  font-size: var(--12px);
   padding: 0.5em;
   box-shadow: none;
 }
@@ -1222,7 +1260,7 @@ header h1 {
   padding-right: 0.8em;
   margin-left: 0.4em;
   border-radius: 0.5em;
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 500;
 }
 .next-event {
@@ -1256,15 +1294,15 @@ header h1 {
   margin-right: 0.5em;
 }
 .next-event-name {
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 700;
 }
 .next-event-date {
-  font-size: 12px;
+  font-size: var(--12px);
   font-weight: 400;
 }
 .next-event-error p {
-  font-size: 16px;
+  font-size: var(--16px);
   font-weight: 400;
   text-align: center;
   position: relative;
@@ -1275,7 +1313,7 @@ header h1 {
   margin-bottom: 0.25em;
 }
 #calendar-add {
-  font-size: 24px;
+  font-size: var(--24px);
   position: relative;
   top: -4px;
 }
@@ -1290,7 +1328,7 @@ header h1 {
 }
 .calendar-add-div a {
   width: auto;
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 500;
   color: var(--white-1);
   padding-left: 1em;
@@ -1298,7 +1336,7 @@ header h1 {
 }
 .calendar-add-div input {
   color: var(--dark-color);
-  font-size: 12px;
+  font-size: var(--12px);
   margin-right: 0.5em;
   margin-left: 0.1em;
   box-shadow: none;
@@ -1325,7 +1363,7 @@ header h1 {
   margin-bottom: 0;
 }
 .calendar-select-item i {
-  font-size: 16px;
+  font-size: var(--16px);
   color: var(--gris-less-trans);
   margin-right: 0.8em;
   opacity: 0;
@@ -1371,18 +1409,18 @@ header h1 {
   z-index: 1000;
 }
 .calendar-delete-popup h2 {
-  font-size: 22px;
+  font-size: var(--22px);
   font-weight: 700;
 }
 .calendar-delete-popup p {
-  font-size: 14px;
+  font-size: var(--14px);
   margin-bottom: 1.6em;
 }
 .calendar-delete-btn {
   display: flex;
 }
 .calendar-delete-btn a {
-  font-size: 14px;
+  font-size: var(--14px);
   font-weight: 700;
   background-color: var(--border-color);
 }
@@ -1484,7 +1522,7 @@ header h1 {
   z-index: 15;
 }
 .event-point-info h2 {
-  font-size: 14px;
+  font-size: var(--14px);
   margin-bottom: 0;
   margin-right: 0.1em;
   height: min-content;
@@ -1492,7 +1530,7 @@ header h1 {
 }
 .event-point-info p {
   font-weight: 500;
-  font-size: 12px;
+  font-size: var(--12px);
   height: min-content;
 }
 .today-link-line {

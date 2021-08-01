@@ -1054,7 +1054,7 @@ header h1 {
   color: var(--dark-color);
   border-radius: 2.6em;
   padding: 2em;
-  max-width: 90vw;
+  max-width: 95vw;
   z-index: 10000;
 }
 .add-first-line {
@@ -1668,6 +1668,9 @@ header h1 {
     margin-left: 0em;
     margin-top: .8em;
   }
+  .add-popup {
+    transform: translateY(-5vh);
+  }
   .add-popup input {
     font-size: 16px;
     margin-left: 0;
@@ -1685,5 +1688,15 @@ header h1 {
   }
   .add-line {
     flex-wrap: wrap;
+  }
+  .add-popup select {
+    font-size: 16px;
+  }
+  .add-line a {
+    font-size: 16px;
+    margin-left: 0;
+  }
+  .add-line a + a {
+    margin-top: .5em;
   }
 }

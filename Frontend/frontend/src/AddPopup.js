@@ -207,8 +207,8 @@ export const AddPopup = (props) => {
                     </>
                     : null}
                 <div className='add-button-line add-line'>
-                    <Button onClick={() => props.setisAdd(false)} txt='Cancel' first />
-                    <Button onClick={() => submitData()} full txt='Create Event' last />
+                    {window.matchMedia('(min-width: 450px)').matches ? <Button onClick={() => props.setisAdd(false)} txt='Cancel' first /> : <Button onClick={() => submitData()} full txt='Create Event' last />}
+                    {window.matchMedia('(min-width: 450px)').matches ? <Button onClick={() => submitData()} full txt='Create Event' last /> : <Button onClick={() => props.setisAdd(false)} txt='Cancel' first />}
                 </div>
             </div>
         </div >

@@ -74,6 +74,33 @@ body {
   background-clip: padding-box;
   border-radius: 100px;
 }
+select {
+  width: 100%;
+  padding: .5em;
+  border: solid;
+  border-radius: .6em;
+  border-width: 1px;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: var(--darker-dark);;
+  background-color: var(--white-2);
+  font-size: var(--14px);
+}
+select:hover {
+  border-width: 2px;
+}
+select:focus {
+  outline: none;
+}
+option {
+  width: 100%;
+  padding: .5em;
+  border-radius: .6em;
+  border-width: 1px;
+  background-color: rgba(0, 0, 0, 0);
+  border-color: var(--darker-dark);;
+  background-color: var(--white-2);
+  font-size: var(--14px);
+}
 header {
   margin-bottom: 3em;
   width: 100%;
@@ -289,7 +316,9 @@ header h1 {
   height: fit-content;
   width: 100%;
   background: var(--secondary-color);
-  border: none;
+  border: solid;
+  border-color: rgba(0, 0, 0, 0);
+  border-width: 1px;
   border-radius: 0.5em;
   display: flex;
   align-items: center;
@@ -391,6 +420,7 @@ header h1 {
   }
 }
 .input-open {
+  box-sizing: border-box;
   padding: .5em;
   width: 100%;
   border: none;
@@ -1211,6 +1241,11 @@ header h1 {
   position: relative;
   bottom: -7px;
 }
+.add-line select {
+  margin-top: .2em;
+  margin-right: .5em;
+}
+.add
 .first-button {
   margin-right: 0.4em;
 }

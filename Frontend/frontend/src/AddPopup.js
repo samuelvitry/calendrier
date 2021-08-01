@@ -171,12 +171,12 @@ export const AddPopup = (props) => {
                     <p className='add-p-half'>Color</p>
                 </div>
                 <div className='color-add-line add-line'>
-                    <select value={calendarNbr} onChange={(e) => setCalendarNbr(e.target.value)}>
+                    <select style={{ borderColor: colorCodeConv[color] }} value={calendarNbr} onChange={(e) => setCalendarNbr(e.target.value)}>
                         {props.calendarList().map((x, y) => (
                             <option value={y}>{x}</option>
                         ))}
                     </select>
-                    <select value={color} onChange={(e) => setcolor(e.target.value)}>
+                    <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
                         {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
                             {x}
                         </option>)}

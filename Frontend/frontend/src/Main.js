@@ -16,7 +16,7 @@ import { Planning } from './Planning'
 axios.defaults.withCredentials = true;
 
 export const api = axios.create({
-    baseURL: 'http://127.0.0.1:8000/api/'
+    baseURL: 'http://192.168.1.19:8000/api/'
 })
 
 export const Main = (props) => {
@@ -62,7 +62,7 @@ export const Main = (props) => {
                 setCodeHash(response.data.code[0]['key']);
                 traiterEvent(response.data.event);
             }
-        }).catch((err) => { console.log(err); console.log('Failed ! Redirect !'); })
+        }).catch((err) => { console.log(err); console.log('Failed ! Redirect !'); window.location.href = "./login" })
         setShldFetch(false)
     }
 
@@ -315,7 +315,7 @@ export const Main = (props) => {
                     <h1>There is a problem !</h1>
                     <p>We need your code to access the events !</p>
                     <div className='code-in-line'>
-                        <input className='input-contained' type='password' onChange={(e) => setCode(e.target.value)} />
+                        <input className='input-contained' type='password' onChange={(e) => setCode(e.target.value)} autoFocus />
                         <Button onClick={() => submitCode()} full txt='Submit' />
                     </div>
                 </div>

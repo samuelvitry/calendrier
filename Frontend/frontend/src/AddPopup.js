@@ -32,7 +32,7 @@ export const AddPopup = (props) => {
     const [startEndError, setStartEndError] = useState(false)
 
 
-    function submitData () {
+    function submitData() {
         var TZoffset = new Date().getTimezoneOffset() * 60
         setNameError(false)
         setStartEndError(false)
@@ -43,7 +43,7 @@ export const AddPopup = (props) => {
             let tempEnd = new Date(end)
             setEnd(toHtmlDate(new Date(tempEnd.getFullYear(), tempEnd.getMonth() + 1, tempEnd.getDate(), 23, 59, 59), true))
         }
-        if (end > start && name !== ''){
+        if (end > start && name !== '') {
             let code = cookies.code
             code = code.concat(' ceci est du sel')
             if (props.calendarList()[calendarNbr]) {
@@ -61,9 +61,9 @@ export const AddPopup = (props) => {
                 "full": true,
                 "calendar": tempCalendar,
             }
-            api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
+            api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
-        else if(fullDay && end == start && name !== '') {
+        else if (fullDay && end == start && name !== '') {
             let code = cookies.code
             code = code.concat(' ceci est du sel')
             if (props.calendarList()[calendarNbr]) {
@@ -85,13 +85,13 @@ export const AddPopup = (props) => {
                 "full": true,
                 "calendar": tempCalendar,
             }
-            api.post("/create", data).then(res => {props.setisAdd(false); props.ajouterEvent()})
+            api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
         else {
-            if(name == '') {
+            if (name == '') {
                 setNameError(true)
             }
-            if (start > end){
+            if (start > end) {
                 setStartEndError(true)
             }
             //todo treat date error
@@ -100,28 +100,28 @@ export const AddPopup = (props) => {
 
     function toHtmlDate(date, full) {
         let tempM = date.getMonth()
-        if (tempM < 10){
+        if (tempM < 10) {
             tempM = '0' + tempM
         }
         let tempD = date.getDate()
-        if (tempD < 10){
+        if (tempD < 10) {
             tempD = '0' + tempD
         }
         let tempH = date.getHours()
-        if (tempH < 10){
+        if (tempH < 10) {
             tempH = '0' + tempH
         }
         let temp
         if (full) {
             temp = date.getFullYear() + '-' + tempM + '-' + tempD
         }
-        else{
+        else {
             temp = date.getFullYear() + '-' + tempM + '-' + tempD + 'T' + tempH + ':00:00'
         }
         return temp
     }
 
-    if(dateChanged == false){
+    if (dateChanged == false) {
         var time = new Date(props.time * 1000)
         var now = new Date()
         var mtnH = new Date(time.getFullYear(), time.getMonth() + 1, time.getDate(), now.getHours())
@@ -138,7 +138,7 @@ export const AddPopup = (props) => {
             setStart(mtnD)
             setEnd(oneD)
         }
-        else if(fullDay == false && start != mtnH){
+        else if (fullDay == false && start != mtnH) {
             setStart(mtnH)
             setEnd(oneH)
         }
@@ -152,7 +152,7 @@ export const AddPopup = (props) => {
                 </div>
                 {nameError ? <p className='add-error-line'>Please provide a name</p> : null}
                 <div className='add-line'>
-                    <input onChange={(e) => setName(e.target.value)} style={{borderColor: colorCodeConv[color]}} placeholder='Event name' className='input-open'></input>
+                    <input autoFocus onChange={(e) => setName(e.target.value)} style={{ borderColor: colorCodeConv[color] }} placeholder='Event name' className='input-open'></input>
                 </div>
                 <div className='add-half-line'>
                     <p className='add-p-half'>Start Date</p>
@@ -160,8 +160,8 @@ export const AddPopup = (props) => {
                 </div>
                 {dateError ? <p className='add-error-line'>Incorrect date</p> : startEndError ? <p className='add-error-line'>Event can't end before starting</p> : null}
                 <div className='add-line'>
-                    <input value={start} onChange={(e) => {setDateChanged(true); setStart(e.target.value)}} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
-                    <input value={end} onChange={(e) => {setDateChanged(true); setEnd(e.target.value)}} style={{borderColor: colorCodeConv[color]}} type={fullDay ? "date" :"datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                    <input value={start} onChange={(e) => { setDateChanged(true); setStart(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                    <input value={end} onChange={(e) => { setDateChanged(true); setEnd(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
                 </div>
                 <div className='add-under-line'>
                     <Checkbox changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />
@@ -171,55 +171,22 @@ export const AddPopup = (props) => {
                     <p className='add-p-half'>Color</p>
                 </div>
                 <div className='color-add-line add-line'>
-                    <div className='add-half-drop'>
-                        <div style={{borderColor: colorCodeConv[color]}} onClick={() => {isCalendar ? setIsCalendar(false) : setIsCalendar(true); setisColor(false)}} className='add-color-selector'>
-                            <i className="fas fa-calendar-alt" style={{color: colorCodeConv[color]}}></i>
-                            <p>{props.calendarList()[calendarNbr]}</p>
-                            <i className="fas fa-caret-down" style={{right: '2em'}}></i>
-                        </div>
-                        {isCalendar ? <div className='add-color-drop'>
-                            {props.calendarList().map((x) => (
-                            <div onClick={() => {setCalendarNbr(props.calendarList().indexOf(x)); setIsCalendar(false)}} className='add-color-drop-element'>
-                                <i className="fas fa-calendar-alt" style={{color: colorCodeConv[color]}}></i>
-                                <p>{x}</p>
-                            </div>))}
-                        </div> : null}
-                    </div>
-                    <div className='add-half-drop'>
-                        <div  style={{borderColor: colorCodeConv[color]}} onClick={() => {isColor ? setisColor(false) : setisColor(true); setIsCalendar(false)}} className='add-color-selector'>
-                            <i className="fas fa-tag" style={{color: colorCodeConv[color]}}></i>
-                            <p>{colorConv[color]}</p>
-                            <i className="fas fa-caret-down"></i>
-                        </div>
-                        {isColor ? <div className='add-color-drop'>
-                            <div onClick={() => {setcolor(0); setisColor(false)}} className='add-color-drop-element'>
-                                <i className="fas fa-tag" style={{color: '#3581B8'}}></i>
-                                <p>Blue</p>
-                            </div>
-                            <div onClick={() => {setcolor(1); setisColor(false)}} className='add-color-drop-element'>
-                                <i className="fas fa-tag" style={{color: '#5BA94C'}}></i>
-                                <p>Green</p>
-                            </div>
-                            <div onClick={() => {setcolor(2); setisColor(false)}} className='add-color-drop-element'>
-                                <i className="fas fa-tag" style={{color: '#E4C111'}}></i>
-                                <p>Yellow</p>
-                            </div>
-                            <div onClick={() => {setcolor(3); setisColor(false)}} className='add-color-drop-element'>
-                                <i className="fas fa-tag" style={{color: '#FF6B35'}}></i>
-                                <p>Orange</p>
-                            </div>
-                            <div onClick={() => {setcolor(4); setisColor(false)}} className='add-color-drop-element'>
-                                <i className="fas fa-tag" style={{color: '#A72A2A'}}></i>
-                                <p>Red</p>
-                            </div>
-                        </div> : null}
-                    </div>
+                    <select value={calendarNbr} onChange={(e) => setCalendarNbr(e.target.value)}>
+                        {props.calendarList().map((x, y) => (
+                            <option value={y}>{x}</option>
+                        ))}
+                    </select>
+                    <select value={color} onChange={(e) => setcolor(e.target.value)}>
+                        {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
+                            {x}
+                        </option>)}
+                    </select>
                 </div>
                 <div className='add-button-line add-line'>
-                    <Button onClick={() => props.setisAdd(false)} txt='Cancel' first/>
-                    <Button onClick={() => submitData()} full txt='Create Event' last/>
+                    <Button onClick={() => props.setisAdd(false)} txt='Cancel' first />
+                    <Button onClick={() => submitData()} full txt='Create Event' last />
                 </div>
             </div>
-        </div>
+        </div >
     )
 }

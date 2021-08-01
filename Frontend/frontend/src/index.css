@@ -218,15 +218,15 @@ header h1 {
   white-space: nowrap;
   overflow: hidden;
   cursor: pointer;
-  margin: 2px;
-  margin-left: 10px;
-  margin-right: 10px;
-  padding: 1px;
+  margin: .2em;
+  margin-left: .8em;
+  margin-right: .8em;
+  padding: .1em;
   opacity: 100%;
   max-width: 100%;
 }
 .monthly-item p {
-  font-size: var(--10px);
+  font-size: var(--12px);
   user-select: none;
   color: var(--white-1);
 }
@@ -336,20 +336,20 @@ header h1 {
   height: 100%;
   min-height: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 20vh;
 }
 .login-card {
   background-color: var(--white-1);
   border-radius: 20px;
   padding: 3em;
-  max-width: 25em;
+  max-width: 40em;
   min-width: 300px;
   box-shadow: 5px 10px 32px 15px var(--shadow-color);
   -webkit-box-shadow: 5px 10px 32px 15px var(--shadow-color);
   -moz-box-shadow: 5px 10px 32px 15px var(--shadow-color);
+  transform: translateY(-15vh);
 }
 .login-card * {
   margin-top: 4%;
@@ -361,24 +361,23 @@ header h1 {
   min-width: 100%;
 }
 .login-card h1 {
-  font-size: var(--22px);
+  font-size: 22px;
   font-weight: 700;
 }
 .input-contained {
   border: solid;
   border-color: var(--secondary-color);
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
   width: 100%;
   border-width: 1px;
   background-color: var(--white-3);
-  box-shadow: 0px 0px 5px 1px var(--secondary-color);
   outline: none;
-  font-size: var(--14px);
+  font-size: 16px;
 }
+
 .input-contained:hover {
   border-color: var(--main-color);
-  box-shadow: 2px 2px 7px 2px var(--main-color);
 }
 .input-contained:active {
   border-color: var(--main-color);
@@ -392,7 +391,7 @@ header h1 {
   }
 }
 .input-open {
-  padding: 10px;
+  padding: .5em;
   width: 100%;
   border: none;
   border-bottom: solid;
@@ -426,19 +425,41 @@ header h1 {
 }
 .login-submit .button-full {
   background-color: var(--main-color);
-  font-size: var(--16px);
+  font-size: 16px;
   color: var(--white-2);
   justify-content: center;
   font-weight: 500;
 }
 .login-cancel .button-full {
-  font-size: var(--16px);
+  font-size: 16px;
   color: var(--white-2);
   justify-content: center;
   font-weight: 500;
 }
 .login-submit .button-full:hover {
   background-color: var(--darker-main);
+}
+.login-card p {
+  text-align: left;
+  color: var(--error-color);
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 0.8em;
+  font-size: 12px;
+  margin-left: .2em;
+}
+.login-card h1 {
+  margin: 0;
+}
+.login-card input {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+.login-card input + input {
+  margin-bottom: 0;
+}
+.login-card h1 + input {
+  margin-top: 2em;
 }
 @keyframes leftAppear {
   0% {
@@ -562,9 +583,11 @@ header h1 {
 .event-detail {
   background-color: var(--white-2);
   color: var(--dark-color);
-  border-radius: 30px;
-  width: 30%;
-  padding: 2%;
+  border-radius: 3em;
+  width: 45em;
+  max-width: 90vw;
+  padding: 2.5em;
+  transform: translateY(-12vh);
 }
 .event-detail h2 {
   font-size: var(--18px);
@@ -581,7 +604,13 @@ header h1 {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-bottom: 3%;
+}
+.detail-line + .detail-line {
+  margin-top: 1em;
+}
+.detail-first-line h2 {
+  font-weight: 700;
+  font-size: var(--18px);
 }
 .detail-line i {
   margin-right: 1vw;
@@ -986,16 +1015,16 @@ header h1 {
   top: 0;
   left: 0;
   z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .add-popup {
   background-color: var(--white-2);
   color: var(--dark-color);
-  border-radius: 30px;
-  position: fixed;
-  top: 30%;
-  left: 30%;
-  width: 40%;
-  padding: 2%;
+  border-radius: 2.6em;
+  padding: 2em;
+  max-width: 90vw;
   z-index: 10000;
 }
 .add-first-line {
@@ -1054,6 +1083,7 @@ header h1 {
   color: var(--dark-color);
   font-weight: 500;
   border-color: var(--secondary-color);
+  border-radius: 0;
 }
 .add-line input:hover {
   box-shadow: none;
@@ -1202,21 +1232,22 @@ header h1 {
   background-color: var(--white-2);
   color: var(--dark-color);
   border-radius: 3em;
-  width: 30%;
-  padding: 2%;
+  max-width: 95vw;
+  padding: 3em;
+  transform: translateY(-10vh);
 }
 .code-popup h1 {
-  font-size: var(--17px);
+  font-size: var(--20px);
   font-weight: 700;
   margin-bottom: 0.7em;
 }
 .code-popup p {
-  font-size: var(--14px);
+  font-size: var(--16px);
   font-weight: 400;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.6em;
 }
 .code-popup input {
-  font-size: var(--12px);
+  font-size: var(--14px);
   padding: 0.5em;
   box-shadow: none;
 }
@@ -1233,7 +1264,7 @@ header h1 {
   padding-right: 0.8em;
   margin-left: 0.4em;
   border-radius: 0.5em;
-  font-size: var(--14px);
+  font-size: var(--16px);
   font-weight: 500;
 }
 .next-event {
@@ -1257,9 +1288,6 @@ header h1 {
 }
 .next-event-item:hover {
   background-color: var(--white-3);
-}
-.next-event-item + .next-event-item {
-  margin-top: 1em;
 }
 .next-event-dot {
   width: 0.5em;
@@ -1406,26 +1434,6 @@ header h1 {
 .calendar-delete-btn a + a:hover {
   background-color: var(--error-dark);
 }
-.login-card p {
-  text-align: left;
-  color: var(--error-color);
-  font-weight: 600;
-  margin-top: 1em;
-  margin-bottom: 0.8;
-}
-.login-card h1 {
-  margin: 0;
-}
-.login-card input {
-  margin-top: 0;
-  margin-bottom: 1em;
-}
-.login-card input + input {
-  margin-bottom: 0;
-}
-.login-card h1 + input {
-  margin-top: 1.6em;
-}
 .today {
   background-color: var(--white-1);
   padding: 5%;
@@ -1540,6 +1548,9 @@ header h1 {
     --24px: calc(24px/1.5);
     --28px: calc(28px/1.5);
   }
+  .login-card {
+    max-width: 60vw;
+  }
 }
 /* todo ne pas diviser la police par deux, instead changer le layout (dans le JS)*/
 /*todo reduire le padding des cartes/le faire disparaitre complétement quand screen trop petit*/
@@ -1598,5 +1609,46 @@ header h1 {
   }
   body {
     background-color: var(--white-2);
+  }
+  .login-card {
+    max-width: 90vw;
+  }
+  .code-popup h1 {
+    font-size: 22px;
+  }
+  .code-popup p {
+    font-size: 18px;
+  }
+  .code-popup input {
+    font-size: 16px;
+  }
+  .code-popup a {
+    font-size: 16px;
+  }
+  .code-in-line {
+    flex-wrap: wrap;
+  }
+  .code-in-line a {
+    width: 100%;
+    margin-left: 0em;
+    margin-top: .8em;
+  }
+  .add-popup input {
+    font-size: 16px;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .add-popup input + input {
+    margin-top: .8em;
+  }
+  .add-popup h2 {
+    font-size: 18px;
+  }
+  .add-popup p {
+    font-size: 13px;
+  }
+  .add-line {
+    flex-wrap: wrap;
   }
 }

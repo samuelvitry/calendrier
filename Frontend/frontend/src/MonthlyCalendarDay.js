@@ -75,9 +75,9 @@ export const MonthlyCalendarDay = (props, { open }) => {
                     boxSizing: 'border-box',
                     backgroundColor: props.full ? props.color : null,
                     color: props.full ? '#F7FAFD' : '#1B2228',
-                    borderRadius: props.full ? '5px' : '0px'
+                    borderRadius: props.full ? '.5em' : '0px'
                 }}>
-                    <Typography variant="body2" style={{ marginLeft: '5px' }}>{props.name}</Typography>
+                    <Typography variant="body2" style={{ marginLeft: '.3em' }}>{props.name}</Typography>
                 </div>
             )
         }

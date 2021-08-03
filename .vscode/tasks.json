@@ -1,0 +1,36 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start all",
+			"dependsOn": [
+				"React Start",
+				"Django Start"
+			],
+			"dependsOrder": "parallel",
+			"group": "none",
+		},
+		{
+			"label": "React Start",
+			"type": "shell",
+			"command": "./home/samyloup/Documents/Github/calendrier/.vscode/scripts/react_start.sh",
+			"group": "none",
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			}
+		},
+		{
+			"label": "Django Start",
+			"type": "shell",
+			"command": "/home/samyloup/Documents/Github/calendrier/.vscode/scripts/django_start.sh",
+			"group": "none",
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			}
+		}
+	]
+}

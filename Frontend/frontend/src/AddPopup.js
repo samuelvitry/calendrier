@@ -152,7 +152,9 @@ export const AddPopup = (props) => {
                 </div>
                 {nameError ? <p className='add-error-line'>Please provide a name</p> : null}
                 <div className='add-line'>
-                    <input type='text' autoFocus onChange={(e) => setName(e.target.value)} style={{ borderColor: colorCodeConv[color] }} placeholder='Event name' className='input-open'></input>
+                    <div className='input-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                        <input type='text' autoFocus onChange={(e) => setName(e.target.value)} style={{ borderColor: colorCodeConv[color] }} placeholder='Event name' className='input-open'></input>
+                    </div>
                 </div>
                 <div className='add-half-line'>
                     <p className='add-p-half'>Start Date</p>
@@ -160,8 +162,12 @@ export const AddPopup = (props) => {
                 </div>
                 {dateError ? <p className='add-error-line'>Incorrect date</p> : startEndError ? <p className='add-error-line'>Event can't end before starting</p> : null}
                 <div className='add-line'>
-                    <input value={start} onChange={(e) => { setDateChanged(true); setStart(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
-                    {window.matchMedia('(max-width: 450px)').matches ? null : <input value={end} onChange={(e) => { setDateChanged(true); setEnd(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>}
+                    <div className='input-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                        <input value={start} onChange={(e) => { setDateChanged(true); setStart(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='Start date' className='input-open input-add-half input-add-half-first'></input>
+                    </div>
+                    <div className='input-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                        {window.matchMedia('(max-width: 450px)').matches ? null : <input value={end} onChange={(e) => { setDateChanged(true); setEnd(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>}
+                    </div>
                 </div>
                 {window.matchMedia('(max-width: 450px)').matches ?
                     <>
@@ -169,7 +175,9 @@ export const AddPopup = (props) => {
                             <p className='add-p-half'>End Date</p>
                         </div>
                         <div className='add-line'>
-                            <input value={end} onChange={(e) => { setDateChanged(true); setEnd(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                            <div className='input-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                                <input value={end} onChange={(e) => { setDateChanged(true); setEnd(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type={fullDay ? "date" : "datetime-local"} placeholder='End date' className='input-open input-add-half input-add-half-second'></input>
+                            </div>
                         </div>
                     </>
                     : null}
@@ -181,16 +189,20 @@ export const AddPopup = (props) => {
                     {window.matchMedia('(max-width: 450px)').matches ? null : <p className='add-p-half'>Color</p>}
                 </div>
                 <div className='color-add-line add-line'>
-                    <select style={{ borderColor: colorCodeConv[color] }} value={calendarNbr} onChange={(e) => setCalendarNbr(e.target.value)}>
-                        {props.calendarList().map((x, y) => (
-                            <option value={y}>{x}</option>
-                        ))}
-                    </select>
-                    {window.matchMedia('(max-width: 450px)').matches ? null : <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
-                        {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
-                            {x}
-                        </option>)}
-                    </select>}
+                    <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                        <select style={{ borderColor: colorCodeConv[color] }} value={calendarNbr} onChange={(e) => setCalendarNbr(e.target.value)}>
+                            {props.calendarList().map((x, y) => (
+                                <option value={y}>{x}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                        {window.matchMedia('(max-width: 450px)').matches ? null : <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
+                            {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
+                                {x}
+                            </option>)}
+                        </select>}
+                    </div>
                 </div>
                 {window.matchMedia('(max-width: 450px)').matches ?
                     <>
@@ -198,11 +210,13 @@ export const AddPopup = (props) => {
                             <p className='add-p-half'>Color</p>
                         </div>
                         <div className='color-add-line add-line'>
-                            <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
-                                {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
-                                    {x}
-                                </option>)}
-                            </select>
+                            <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                                <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
+                                    {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
+                                        {x}
+                                    </option>)}
+                                </select>
+                            </div>
                         </div>
                     </>
                     : null}
@@ -214,4 +228,3 @@ export const AddPopup = (props) => {
         </div >
     )
 }
-//window.matchMedia('(max-width: 450px)').matches

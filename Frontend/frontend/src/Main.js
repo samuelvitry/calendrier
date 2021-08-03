@@ -12,6 +12,7 @@ import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
 import { Today } from './Today'
 import { Planning } from './Planning'
+import Slider from "react-slick";
 
 axios.defaults.withCredentials = true;
 

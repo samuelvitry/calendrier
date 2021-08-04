@@ -169,7 +169,7 @@ export const WeeklyCalendar = (props) => {
                 </select></div> : null}
                 <div className='weekly-top-button'>
                     <a className="button-full" onClick={() => props.add()}>
-                        <span className='plus-add'>+</span>New
+                        <span className='plus-add'>+</span>{window.matchMedia('(max-width: 450px)').matches ? null : 'New'}
                     </a>
                 </div>
             </div>

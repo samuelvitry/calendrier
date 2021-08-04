@@ -52,6 +52,7 @@ body {
   background-color: var(--white-3);
   position: relative;
   color: var(--dark-color);
+  overflow-x: hidden;
 }
 #root {
   width: 100%;
@@ -797,6 +798,7 @@ header h1 {
 }
 .number-row {
   flex-shrink: 2;
+  height: fit-content;
 }
 .number-cell {
   min-height: 6vh;
@@ -819,6 +821,18 @@ header h1 {
   text-align: center;
   padding: 5px;
 }
+.weekly-first-line .day-row .weekly-cell {
+  min-height: fit-content;
+}
+.weekly-first-line .day-row {
+  height: 100%;
+}
+.weekly-first-line .number-row .number-cell {
+  min-height: fit-content;
+}
+.weekly-first-line .number-row {
+  height: 100%;
+}
 .hidden {
   visibility: hidden;
 }
@@ -826,10 +840,6 @@ header h1 {
   display: flex;
   flex-direction: row;
   background-color: #3581b848;
-  -webkit-border-top-left-radius: 15px;
-  -webkit-border-top-right-radius: 15px;
-  -moz-border-radius-topleft: 15px;
-  -moz-border-radius-topright: 15px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
@@ -837,8 +847,8 @@ header h1 {
   border: none;
 }
 .entire-day-cell {
-  min-height: 3vh;
   width: 100%;
+  height: 100%;
 }
 @keyframes eventAppear {
   0% {
@@ -1712,5 +1722,53 @@ header h1 {
   }
   .cal-type-switch {
     margin: 0;
+  }
+  .weekly-calendar {
+    padding: 0;
+    border-radius: 0;
+    width: calc(100% - 13px);
+    padding-top: 2%;
+    padding-bottom: 3%;
+    margin-bottom: 0;
+  }
+  .weekly-topbar {
+    padding-left: 2%;
+    padding-right: 2%;
+  }
+  .weekly-first-line {
+    background-color: rgba(0, 0, 0, 0);
+    border-top-right-radius: 15px;
+    border-right: solid;;
+    border-color: var(--border-faded);
+    border-width: 0.1px;
+  }
+  .weekly-first-line .number-row {
+    background-color: var(--white-1);
+  }
+  .weekly-first-line > .day-row {
+    background-color: #3581b848;
+    border-left: solid;
+    border-top: solid;
+    border-color: var(--border-faded);
+    border-width: 0.1px;
+    border-top-left-radius: 15px;
+  }
+  .weekly-first-line > .day-row + .day-row {
+    border-radius: 0;
+  }
+  .weekly-first-line > .day-row:last-child {
+    border-top-right-radius: 15px;
+  }
+  .weekly-other-line .number-row {
+    background-color: #3581b848;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+  }
+  .weekly-other-line {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-left: solid;
+    border-color: var(--border-faded);
+    border-width: 0.1px;
   }
 }

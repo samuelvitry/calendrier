@@ -17,7 +17,7 @@ import Slider from "react-slick";
 axios.defaults.withCredentials = true;
 
 export const api = axios.create({
-    baseURL: 'http://192.168.1.19:8000/api/'
+    baseURL: 'http://127.0.0.1:8000/api/'
 })
 
 export const Main = (props) => {

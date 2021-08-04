@@ -158,15 +158,15 @@ export const WeeklyCalendar = (props) => {
                     <h2>Week {props.week} ({monthConv[props.month]}), {props.year}</h2>
                     <p className="weekly-prev" onClick={() => props.prevWeek()}>&#60;</p>
                     <p className="weekly-next" onClick={() => props.nextWeek()}>&#62;</p>
+                    {window.matchMedia('(max-width: 450px)').matches ? null : <div className='select-wrapper cal-type-switch'> <select onChange={(e) => { if (e.target.value == 'monthly') { changement() } }} className='cal-type-switch-in'>
+                        <option value='weekly'>Weekly</option>
+                        <option value='monthly'>Monthly</option>
+                    </select></div>}
                 </div>
-                <div className='monthly-weekly-switch'>
-                    <a className='monthly-weekly-switch1 switch-empty' onClick={() => changement()}>
-                        Monthly
-                    </a>
-                    <a className='monthly-weekly-switch2 switch-full'>
-                        Weekly
-                    </a>
-                </div>
+                {window.matchMedia('(max-width: 450px)').matches ? <div className='select-wrapper cal-type-switch'> <select onChange={(e) => { if (e.target.value == 'monthly') { changement() } }} className='cal-type-switch-in'>
+                    <option value='weekly'>Weekly</option>
+                    <option value='monthly'>Monthly</option>
+                </select></div> : null}
                 <div className='weekly-top-button'>
                     <a className="button-full" onClick={() => props.add()}>
                         <span className='plus-add'>+</span>New

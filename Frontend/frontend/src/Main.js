@@ -14,6 +14,8 @@ import { Today } from './Today'
 import { Planning } from './Planning'
 import Slider from "react-slick";
 
+//todo stocker le msg en md5 (ou avec une encryption qu'on peut récup genre nom d'user) en encypt les event en md5
+
 axios.defaults.withCredentials = true;
 
 export const api = axios.create({

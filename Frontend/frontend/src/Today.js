@@ -3,6 +3,9 @@ import { EventDetail } from './EventDetail'
 
 export const Today = (props) => {
 
+    var dateString = ''
+    var today = new (Date)
+
     const [isDetail, setIsDetail] = useState(-1)
 
     const hoursList = [
@@ -47,6 +50,20 @@ export const Today = (props) => {
         "22h00",
         "24h00"
     ]
+    const monthConv = {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December',
+    }
 
     const HourPoint = (props) => {
         return (
@@ -92,12 +109,12 @@ export const Today = (props) => {
 
     var todayEvents = props.eventList.filter((x) => filterEvent(x))
 
-    //todo inserer la date
+    dateString = dateString + monthConv[today.getMonth() + 1] + ' ' + today.getDate() + ', ' + today.getFullYear()
 
     return (
         <div className='today'>
             {isDetail !== -1 ? <EventDetail event={todayEvents[isDetail]} reload={() => props.reload()} closeDetail={() => { setIsDetail(-1) }} /> : null}
-            <h2>Today, insérer la date</h2>
+            <h2>Today, {dateString}</h2>
             <div className='today-actual'>
                 <div className='today-line' />
                 {deuxhoursList.map((x) => <HourPoint hour={x} />)}

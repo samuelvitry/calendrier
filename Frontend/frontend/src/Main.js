@@ -12,9 +12,25 @@ import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
 import { Today } from './Today'
 import { Planning } from './Planning'
-import Slider from "react-slick";
 
-//todo stocker le msg en md5 (ou avec une encryption qu'on peut récup genre nom d'user) en encypt les event en md5
+export function encryptCode(code, user) {
+    var key = ''
+    if ('email' in user) {
+        key = sha256(user['email'])
+        key = key + sha256(user['account_creation_date'])
+        key = sha256(key)
+        return AES.AES.encrypt(code, key).toString()
+    }
+}
+export function decryptCode(code, user) {
+    var key = ''
+    if ('email' in user) {
+        key = sha256(user['email'])
+        key = key + sha256(user['account_creation_date'])
+        key = sha256(key)
+        return AES.AES.decrypt(code, key).toString(AES.enc.Utf8)
+    }
+}
 
 axios.defaults.withCredentials = true;
 
@@ -37,6 +53,8 @@ export const Main = (props) => {
 
     const [height, setHeight] = useState(window.innerHeight)
     const [width, setWidth] = useState(window.innerwidth)
+
+    const [user, setUser] = useState({})
 
     const updateWidthAndHeight = () => {
         setWidth(window.innerWidth);
@@ -63,6 +81,7 @@ export const Main = (props) => {
         api.get("/").then((response) => {
             if (response.status == 200) {
                 setCodeHash(response.data.code[0]['key']);
+                setUser(response.data.user[0]);
                 traiterEvent(response.data.event);
             }
         }).catch((err) => { console.log(err); console.log('Failed ! Redirect !'); window.location.href = "./login" })
@@ -73,8 +92,8 @@ export const Main = (props) => {
     const [stockageCalendar, setStockageCalendar] = useState({})
     const [reload, setReload] = useState(0)
 
-    if (isCode && cookies.code != undefined) {
-        if (codeHash === sha256(cookies.code)) {
+    if (isCode && decryptCode(cookies.code, user) != undefined) {
+        if (codeHash === sha256(decryptCode(cookies.code, user))) {
             setIsCode(false)
             forceReload()
         }
@@ -87,7 +106,7 @@ export const Main = (props) => {
     function submitCode() {
         if (code !== '') {
             if (codeHash === sha256(code)) {
-                setCookie("code", code, { path: '/' })
+                setCookie("code", encryptCode(code, user), { path: '/' })
                 setIsCode(false)
                 forceReload()
             }
@@ -99,8 +118,8 @@ export const Main = (props) => {
         var tempList = list.sort((a, b) => a['start_date'] - b['start_date'])
         let tempEvents = []
         let tempSto = {}
-        if (cookies.code != null) {
-            if (sha256(cookies.code) !== codeHash) {
+        if (decryptCode(cookies.code, user) != null) {
+            if (sha256(decryptCode(cookies.code, user)) !== codeHash) {
                 let temp = {}
                 temp['Default Calendar'] = [true]
                 setStockageCalendar(temp)
@@ -112,7 +131,7 @@ export const Main = (props) => {
                     tempEvents.push(tempList[i])
                     tempEvents[i]['color'] = colorCodeConv[code]
                     tempEvents[i]['nbr'] = i
-                    let fullCode = cookies.code
+                    let fullCode = decryptCode(cookies.code, user)
                     fullCode = fullCode.concat(' ceci est du sel')
                     var bytes = AES.AES.decrypt(tempEvents[i]['event_name'], fullCode)
                     tempEvents[i]['event_name'] = bytes.toString(AES.enc.Utf8)
@@ -304,7 +323,7 @@ export const Main = (props) => {
                 <NextEvents eventList={eventList} reload={() => forceReload()} />
             </div> : null}
             <div className={mobile ? "right-section right-section-mobile" : "right-section"}>
-                {isWeekly ? <WeeklyCalendar mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()} /> : <MonthlyCalendar mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()} />}
+                {isWeekly ? <WeeklyCalendar user={user} mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()} /> : <MonthlyCalendar user={user} mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()} />}
             </div>
             {large ? <Today eventList={generateEventList()} reload={() => forceReload()} /> : null}
             {mobile ? (

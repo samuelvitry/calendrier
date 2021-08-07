@@ -1,7 +1,7 @@
 import react, { useState } from 'react'
 import { Checkbox } from './Checkbox'
 import { Button } from './Button'
-import { api } from './Main'
+import { api, decryptCode } from './Main'
 import axios from 'axios'
 import AES from 'crypto-js'
 import { useCookies } from "react-cookie";
@@ -44,7 +44,7 @@ export const AddPopup = (props) => {
             setEnd(toHtmlDate(new Date(tempEnd.getFullYear(), tempEnd.getMonth() + 1, tempEnd.getDate(), 23, 59, 59), true))
         }
         if (end > start && name !== '') {
-            let code = cookies.code
+            let code = decryptCode(cookies.code, props.user)
             code = code.concat(' ceci est du sel')
             if (props.calendarList()[calendarNbr]) {
                 var tempCalendar = props.calendarList()[calendarNbr]
@@ -64,7 +64,7 @@ export const AddPopup = (props) => {
             api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
         else if (fullDay && end == start && name !== '') {
-            let code = cookies.code
+            let code = decryptCode(cookies.code, props.user)
             code = code.concat(' ceci est du sel')
             if (props.calendarList()[calendarNbr]) {
                 var tempCalendar = props.calendarList()[calendarNbr]

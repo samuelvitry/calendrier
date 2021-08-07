@@ -1,3 +1,4 @@
+from django.db import models
 from rest_framework import serializers
 from .models import User, Evenement
 
@@ -41,8 +42,6 @@ class CreateUserSerializer(serializers.ModelSerializer):
             'email',
             'password',
             'username',
-            'cle',
-            'cle2',
             'key'
         )
 
@@ -53,5 +52,11 @@ class CodeSerializer(serializers.ModelSerializer):
             'key',
         )
 
-#create user serializer
-#
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'account_creation_date',
+            'username'
+        )

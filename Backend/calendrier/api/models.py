@@ -28,8 +28,6 @@ class User(models.Model):
     password = models.CharField(max_length=1024)
     username = models.CharField(max_length=512, unique=True)
     account_creation_date = models.DateTimeField(auto_now_add=True)
-    cle = models.CharField(max_length=64)
-    cle2 = models.CharField(max_length=64)
     code = models.CharField(max_length=32, default=getCode)    #code = proprio
     key = models.CharField(max_length=512)
     def __str__(self):

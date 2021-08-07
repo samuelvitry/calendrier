@@ -2,7 +2,7 @@ from hashlib import sha256
 import hashlib
 from django.shortcuts import render
 from rest_framework import generics, status
-from .serializers import eventSerializer, loginSerializer, CreateUserSerializer, CodeSerializer, createEventSerializer
+from .serializers import eventSerializer, loginSerializer, CreateUserSerializer, CodeSerializer, createEventSerializer, UserSerializer
 from .models import User, Evenement
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -15,7 +15,8 @@ class ListEvent(APIView):
                 utilisateur = User.objects.filter(code=request.session['proprio'])
                 serializer = eventSerializer(events, many=True)
                 serializer2 = CodeSerializer(utilisateur, many=True)
-                return Response({"event": serializer.data, "code": serializer2.data}, status=status.HTTP_200_OK)
+                serializer3 = UserSerializer(utilisateur, many=True)
+                return Response({"event": serializer.data, "code": serializer2.data, "user": serializer3.data}, status=status.HTTP_200_OK)
             else:
                 return Response(status=status.HTTP_401_UNAUTHORIZED)
         else:

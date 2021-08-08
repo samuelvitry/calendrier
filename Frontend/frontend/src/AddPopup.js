@@ -182,7 +182,7 @@ export const AddPopup = (props) => {
                     </>
                     : null}
                 {window.matchMedia('(max-width: 450px)').matches ? null : <div className='add-under-line'>
-                    <Checkbox changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />
+                    <Checkbox checked={fullDay} changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />
                 </div>}
                 <div className='add-half-line'>
                     <p className='add-p-half'>Calendar</p>
@@ -192,13 +192,13 @@ export const AddPopup = (props) => {
                     <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
                         <select style={{ borderColor: colorCodeConv[color] }} value={calendarNbr} onChange={(e) => setCalendarNbr(e.target.value)}>
                             {props.calendarList().map((x, y) => (
-                                <option value={y}>{x}</option>
+                                <option key={y} value={y}>{x}</option>
                             ))}
                         </select>
                     </div>
                     <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
                         {window.matchMedia('(max-width: 450px)').matches ? null : <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
-                            {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
+                            {colorConv.map((x, y) => <option key={y} style={{ color: colorCodeConv[y] }} value={y}>
                                 {x}
                             </option>)}
                         </select>}
@@ -212,7 +212,7 @@ export const AddPopup = (props) => {
                         <div className='color-add-line add-line'>
                             <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
                                 <select style={{ borderColor: colorCodeConv[color] }} value={color} onChange={(e) => setcolor(e.target.value)}>
-                                    {colorConv.map((x, y) => <option style={{ color: colorCodeConv[y] }} value={y}>
+                                    {colorConv.map((x, y) => <option key={y} style={{ color: colorCodeConv[y] }} value={y}>
                                         {x}
                                     </option>)}
                                 </select>

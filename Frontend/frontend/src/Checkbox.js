@@ -13,8 +13,8 @@ export const Checkbox = (props) => {
 
     return (
         <label onMouseDown={() => handleClick()} className='check-container'>{props.txt}
-            <input type='checkbox' checked={isChecked} onChange={null}></input>
-            <span className='checkmark' style={{borderColor: props.color, backgroundColor: isChecked ? props.color : '#EEF2F6'}}></span>
+            <input type='checkbox' checked={isChecked} onChange={() => (null)}></input>
+            <span className='checkmark' style={{ borderColor: props.color, backgroundColor: isChecked ? props.color : '#EEF2F6' }}></span>
         </label>
     )
 }

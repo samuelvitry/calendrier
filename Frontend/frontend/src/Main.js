@@ -24,7 +24,7 @@ export function encryptCode(code, user) {
 }
 export function decryptCode(code, user) {
     var key = ''
-    if ('email' in user) {
+    if ('email' in user && code != null) {
         key = sha256(user['email'])
         key = key + sha256(user['account_creation_date'])
         key = sha256(key)

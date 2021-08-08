@@ -1136,6 +1136,7 @@ header h1 {
 }
 .add-line input {
   box-shadow: none;
+  min-width: 19em;
   font-size: var(--14px);
   color: var(--dark-color);
   font-weight: 500;
@@ -1168,7 +1169,7 @@ header h1 {
   border-width: 2px;
 }
 .add-under-line .checkmark:after {
-  left: 3.9px;
+  left: 3.3px;
   top: 1px;
   width: 3px;
   height: 6px;

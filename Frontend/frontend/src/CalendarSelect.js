@@ -23,7 +23,7 @@ export const CalendarSelect = (props) => {
             "full": true,
             "calendar": txt,
         }
-        api.post("/create", data).then(res => {props.ajouterEvent()})
+        api.post("/create", data).then(res => { props.ajouterEvent() })
         setIsAdd(false)
         setTxt('')
     }
@@ -49,17 +49,17 @@ export const CalendarSelect = (props) => {
     for (var key in props.stockageCalendar) {
         keyList.push(key)
     }
-    
-    if(Object.keys(props.stockageCalendar).length > 0){
+
+    if (Object.keys(props.stockageCalendar).length > 0) {
         return (
             <div className='calendar-select'>
                 {isDelete !== '' ? <div className='calendar-delete-container' onClick={() => setIsDelete('')}>
                     <div className='calendar-delete-popup' onClick={(e) => e.stopPropagation()}>
                         <h2>Delete Event</h2>
-                        <p>Are you sure to delete {isDelete}? It will destroy every event inside of it! (It has {props.stockageCalendar[isDelete].filter(calFilter).length} event{props.stockageCalendar[isDelete].length < 2 ? null : 's'} !)</p>
+                        <p>Are you sure to delete {isDelete}? It will destroy every event inside of it! (It has {props.stockageCalendar[isDelete].filter(calFilter).length - 1} event{props.stockageCalendar[isDelete].length < 2 ? null : 's'} !)</p>
                         <div className='calendar-delete-btn'>
-                            <Button full txt='Cancel' first onClick={() => setIsDelete('')}/>
-                            <Button full txt='Delete' last onClick={() => deleteCalendar()}/>
+                            <Button full txt='Cancel' first onClick={() => setIsDelete('')} />
+                            <Button full txt='Delete' last onClick={() => deleteCalendar()} />
                         </div>
                     </div>
                 </div> : null}
@@ -68,13 +68,13 @@ export const CalendarSelect = (props) => {
                     <h2 onClick={() => (setIsAdd(!isAdd))} id='calendar-add'>+</h2>
                 </div>
                 <div className="container-select-calendar">
-                {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}
+                    {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'} /><Button onClick={() => (addCalendar())} full txt={'Add'} /></div> : null}
                     {keyList.map((x) => (
-                        <div className='calendar-select-item' onClick={() => {props.calendarSelecSwitch(x)}}>
+                        <div key={x} className='calendar-select-item' onClick={() => { props.calendarSelecSwitch(x) }}>
                             <Checkbox checked={props.stockageCalendar[x][0]} txt={x} changement={() => props.calendarSelecSwitch(x)} />
                             <div className='calendar-select-option'>
-                                <i className="fas fa-pen" onClick={(e) => {e.stopPropagation(); }}></i>
-                                <i className="fas fa-trash" onClick={(e) => {e.stopPropagation(); setIsDelete(x)}}></i>
+                                <i className="fas fa-pen" onClick={(e) => { e.stopPropagation(); }}></i>
+                                <i className="fas fa-trash" onClick={(e) => { e.stopPropagation(); setIsDelete(x) }}></i>
                             </div>
                         </div>
                     ))}
@@ -90,8 +90,8 @@ export const CalendarSelect = (props) => {
                     <h2 onClick={() => (setIsAdd(!isAdd))} id='calendar-add'>+</h2>
                 </div>
                 <div className="container-select-calendar">
-                    {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'}/><Button onClick={() => (addCalendar())} full txt={'Add'}/></div> : null}
-                    <Checkbox checked={isDefaultChecked} txt='Default Calendar' changement={() => {setIsDefaultChecked(!isDefaultChecked)}}/>
+                    {isAdd ? <div className='calendar-add-div'><input onChange={(e) => setTxt(e.target.value)} className='input-contained' placeholder={'Calendar name'} /><Button onClick={() => (addCalendar())} full txt={'Add'} /></div> : null}
+                    <Checkbox checked={isDefaultChecked} txt='Default Calendar' changement={() => { setIsDefaultChecked(!isDefaultChecked) }} />
                 </div>
             </div>
         )

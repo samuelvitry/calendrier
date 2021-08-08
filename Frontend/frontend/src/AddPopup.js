@@ -181,9 +181,9 @@ export const AddPopup = (props) => {
                         </div>
                     </>
                     : null}
-                {window.matchMedia('(max-width: 450px)').matches ? null : <div className='add-under-line'>
+                <div className='add-under-line'>
                     <Checkbox checked={fullDay} changement={(bo) => setFullDay(bo => !bo)} color={colorCodeConv[color]} txt='All day' />
-                </div>}
+                </div>
                 <div className='add-half-line'>
                     <p className='add-p-half'>Calendar</p>
                     {window.matchMedia('(max-width: 450px)').matches ? null : <p className='add-p-half'>Color</p>}

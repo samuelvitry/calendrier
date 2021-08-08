@@ -1151,7 +1151,7 @@ header h1 {
   flex-wrap: wrap;
 }
 .add-under-line .check-container {
-  font-size: var(--12px);
+  font-size: var(--13px);
   width: fit-content;
   padding: 3px;
   padding-left: 25px;
@@ -1168,7 +1168,7 @@ header h1 {
   border-radius: 3px;
   border-width: 2px;
 }
-.add-under-line .checkmark:after {
+.add-under-line .checkmark::after {
   left: 3.3px;
   top: 1px;
   width: 3px;
@@ -1296,6 +1296,7 @@ header h1 {
 .code-in-line {
   display: flex;
   flex-wrap: nowrap;
+  margin-bottom: 0.6em;
 }
 .code-in-line a {
   width: fit-content;
@@ -1305,6 +1306,32 @@ header h1 {
   border-radius: 0.5em;
   font-size: var(--16px);
   font-weight: 500;
+}
+.code-popup .check-container {
+  width: fit-content;
+  padding: 3px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-bottom: 0%;
+  height: 25px;
+  align-items: flex-end;
+  transform: translateX(-5px);
+  font-size: var(--13px);
+}
+.code-popup .checkmark {
+  top: 4.5px;
+  left: 5px;
+  height: 15px;
+  width: 15px;
+  border-radius: 3px;
+  border-width: 2px;
+}
+.code-popup .checkmark::after {
+  left: 3.3px;
+  top: 1px;
+  width: 3px;
+  height: 6px;
+  border-width: 0 2px 2px 0;
 }
 .next-event {
   background-color: var(--white-1);

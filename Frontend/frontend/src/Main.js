@@ -12,6 +12,7 @@ import { sha256 } from 'js-sha256'
 import AES from 'crypto-js'
 import { Today } from './Today'
 import { Planning } from './Planning'
+import { Checkbox } from './Checkbox'
 
 export function encryptCode(code, user) {
     var key = ''
@@ -48,6 +49,7 @@ export const Main = (props) => {
     const [code, setCode] = useState('')
     const [codeHash, setCodeHash] = useState('')
     const [shldFetch, setShldFetch] = useState(true)
+    const [isCodeSave, setIsCodeSave] = useState(false)
 
     const [isWeekly, setisWeekly] = useState(false);
 
@@ -106,7 +108,12 @@ export const Main = (props) => {
     function submitCode() {
         if (code !== '') {
             if (codeHash === sha256(code)) {
-                setCookie("code", encryptCode(code, user), { path: '/' })
+                if (isCodeSave) {
+                    setCookie("code", encryptCode(code, user), { path: '/' })
+                }
+                else {
+                    setCookie("code", encryptCode(code, user), { path: '/', maxAge: 15 })
+                }
                 setIsCode(false)
                 forceReload()
             }
@@ -340,6 +347,7 @@ export const Main = (props) => {
                         <input className='input-contained' type='password' onChange={(e) => setCode(e.target.value)} autoFocus />
                         <Button onClick={() => submitCode()} full txt='Submit' />
                     </div>
+                    <Checkbox checked={isCodeSave} changement={(x) => setIsCodeSave(x)} txt='Remember me ?' color='#3581b8' />
                 </div>
             </div> : null}
         </section>

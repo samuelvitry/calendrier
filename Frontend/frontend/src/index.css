@@ -582,6 +582,9 @@ header h1 {
   flex-wrap: nowrap;
   justify-content: center;
 }
+.mini-none-p {
+  /* transform: translateY(5px); */
+}
 .mini-dot * {
   min-height: 5px;
   min-width: 5px;

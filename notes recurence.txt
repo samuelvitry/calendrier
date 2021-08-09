@@ -1,0 +1,12 @@
+on weekly check, also check if there is recurent event that could appear in the week (general begin and general end), then if time of repeat if shorter than a week, add it
+
+type of repeat :
+evry x minutes
+evry x hour
+evry day at x hour
+evry x day of week at x hour
+evry x day of month at x hour
+evry xth day of the month at x hour ?
+evry x day of the year at x hour
+
+pour chaque event, check si il s'execute dans la période choisie (month or week) puis pour chaque event (si il est en x day of the year, check si le month correspond, etc) puis loop a travers les events recurents avec une suite de if pour déterminer leurs types et en fonction, créer les events dans la variable

@@ -43,5 +43,6 @@ class Evenement(models.Model):
     color = models.IntegerField(default=5)
     calendar = models.CharField(max_length=1024)
     key = models.CharField(max_length=1024, default=getEventCode)
+    recurence = models.IntegerField(default=-1)
     def __str__(self):
         return self.event_name

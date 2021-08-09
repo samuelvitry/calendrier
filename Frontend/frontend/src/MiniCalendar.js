@@ -1,11 +1,11 @@
 import react from 'react'
 
 export const MiniCalendar = (props) => {
-    
+
     var eventList = props.eventList
     const stockageEvent = {}
 
-    function dispatchEvent (nbr) {
+    function dispatchEvent(nbr) {
         // récup le nbr du jour réel
         let offset = new Date(props.year, props.month - 1, 1).getDay()
         if (offset == 0) {
@@ -15,7 +15,7 @@ export const MiniCalendar = (props) => {
         let start_date = new Date(props.year, props.month - 1, nbr - offset).getTime() / 1000
         let end_date = new Date(props.year, props.month - 1, nbr - offset, 23, 59, 59).getTime() / 1000
         let tempStockage = []
-        for (let i = 0; i < eventList.length; i++){
+        for (let i = 0; i < eventList.length; i++) {
             let event = eventList[i]
             //event['blank'] = false   11/06/2021 don't know why this is here...
             if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
@@ -30,18 +30,18 @@ export const MiniCalendar = (props) => {
         }
 
         while (tempStockage.length < 2) {
-            tempStockage.push({'blank': true})
+            tempStockage.push({ 'blank': true })
         }
 
         return tempStockage
     }
-    
-    function getJour (nbr) {
+
+    function getJour(nbr) {
         var offsetbeggin = new Date(props.year, props.month - 1, 0).getDay();
-        var day = new Date(props.year, props.month-1, nbr - offsetbeggin)
+        var day = new Date(props.year, props.month - 1, nbr - offsetbeggin)
         return (day);
     }
-    function getMoinsJour (date) {
+    function getMoinsJour(date) {
         var day = new Date(props.year, props.month, 0).getDay();
         if (day === 0) {
             day = 7
@@ -55,23 +55,23 @@ export const MiniCalendar = (props) => {
         var gris = false
         const today = new Date
         var selected = false
-        if (props.premier){
-            if (getJour(props.day).getDate() > 15){
+        if (props.premier) {
+            if (getJour(props.day).getDate() > 15) {
                 gris = true
             }
         }
-        if (props.dernier){
-            if (getJour(props.day).getDate() < 15){
+        if (props.dernier) {
+            if (getJour(props.day).getDate() < 15) {
                 gris = true
             }
         }
         var mois = today.getMonth()
         mois = mois + 1
-        if (getJour(props.day).getDate() == today.getDate()){
-            if (props.month == mois){
+        if (getJour(props.day).getDate() == today.getDate()) {
+            if (props.month == mois) {
                 selected = true
             }
-            if (props.premier && getJour(props.day).getDate() > 15){
+            if (props.premier && getJour(props.day).getDate() > 15) {
                 selected = false
             }
             if (props.dernier && getJour(props.day).getDate() < 15) {
@@ -82,14 +82,14 @@ export const MiniCalendar = (props) => {
         var events = dispatchEvent(props.day)
         var nbrDot = events.length
 
-        
+
 
         return (
-            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{color: gris ? '#49505550' : '#111B22'}}>
-                <p>{getJour(props.day).getDate()}</p>
+            <div className={selected ? 'mini-jour mini-selected' : 'mini-jour'} style={{ color: gris ? '#49505550' : '#111B22' }}>
+                <p className={events[0]['blank'] == true && events[1]['blank'] == true ? 'mini-none-p' : null}>{getJour(props.day).getDate()}</p>
                 <div className='mini-dot'>
-                    {nbrDot > 0 ? <div className='mini-dot1' style={{backgroundColor: events[0]['color']}}></div> : null}
-                    {events[0]['blank'] == false && events[1]['blank'] == false ? <div className='mini-dot2' style={{backgroundColor: events[1]['color']}}></div> : null}
+                    {nbrDot > 0 ? <div className='mini-dot1' style={{ backgroundColor: events[0]['color'] }}></div> : null}
+                    {events[0]['blank'] == false && events[1]['blank'] == false ? <div className='mini-dot2' style={{ backgroundColor: events[1]['color'] }}></div> : null}
                 </div>
             </div>
         )
@@ -98,7 +98,7 @@ export const MiniCalendar = (props) => {
 
     const Line = (props) => {
 
-        Date.prototype.getWeek = function() {
+        Date.prototype.getWeek = function () {
             var date = new Date(this.getTime());
             date.setHours(0, 0, 0, 0);
             // Thursday in current week decides the year.
@@ -107,7 +107,7 @@ export const MiniCalendar = (props) => {
             var week1 = new Date(date.getFullYear(), 0, 4);
             // Adjust to Thursday in week 1 and count number of weeks from date to week1.
             return 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
-                                  - 3 + (week1.getDay() + 6) % 7) / 7);
+                - 3 + (week1.getDay() + 6) % 7) / 7);
         }
 
         var thisW = new Date(props.year, props.month - 1, props.offset + 1).getWeek()
@@ -119,13 +119,13 @@ export const MiniCalendar = (props) => {
 
         return (
             <div className={classNom}>
-                <MiniJour month={props.month} day={1 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour month={props.month} day={2 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour month={props.month} day={3 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour month={props.month} day={4 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour month={props.month} day={5 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour month={props.month} day={6 + props.offset} premier={props.premier} dernier={props.dernier}/>
-                <MiniJour month={props.month} day={7 + props.offset} premier={props.premier} dernier={props.dernier}/>
+                <MiniJour month={props.month} day={1 + props.offset} premier={props.premier} dernier={props.dernier} />
+                <MiniJour month={props.month} day={2 + props.offset} premier={props.premier} dernier={props.dernier} />
+                <MiniJour month={props.month} day={3 + props.offset} premier={props.premier} dernier={props.dernier} />
+                <MiniJour month={props.month} day={4 + props.offset} premier={props.premier} dernier={props.dernier} />
+                <MiniJour month={props.month} day={5 + props.offset} premier={props.premier} dernier={props.dernier} />
+                <MiniJour month={props.month} day={6 + props.offset} premier={props.premier} dernier={props.dernier} />
+                <MiniJour month={props.month} day={7 + props.offset} premier={props.premier} dernier={props.dernier} />
             </div>
         )
     }
@@ -153,11 +153,11 @@ export const MiniCalendar = (props) => {
                     <h2 className='mini-nav-next' onClick={() => props.nextMonth()}>&#62;</h2>
                 </div>
             </div>
-            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={0} premier={true} dernier={false}/>
-            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={7} premier={false} dernier={false}/>
-            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={14} premier={false} dernier={false}/>
-            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={21} premier={false} dernier={false}/>
-            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={28} premier={false} dernier={true}/>
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={0} premier={true} dernier={false} />
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={7} premier={false} dernier={false} />
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={14} premier={false} dernier={false} />
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={21} premier={false} dernier={false} />
+            <Line annim={props.annim} month={props.month} year={props.year} sele={props.isSele} nowWeek={props.week} offset={28} premier={false} dernier={true} />
         </div>
     )
 }

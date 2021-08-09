@@ -1235,7 +1235,7 @@ header h1 {
 .add-button-line {
   justify-content: space-between;
   margin-bottom: 0;
-  margin-top: 3em;
+  margin-top: 2.5em;
 }
 .add-button-line * {
   font-size: var(--16px);
@@ -1258,6 +1258,30 @@ header h1 {
 }
 .last-button {
   margin-left: 0.4em;
+}
+.add-more {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+}
+.add-more p {
+
+  font-size: var(--14px);
+}
+@keyframes chevron {
+  0%{transform: rotate(180deg);}
+  100%{transform: rotate(0deg);}
+}
+.add-more i {
+  margin-left: .6em;
+  transform: rotate(0deg);
+  
+  font-size: var(--12px);
+}
+.add-chevron-annim {
+  animation: chevron .1s 1 ease-in;
 }
 .code-popup-container {
   position: fixed;

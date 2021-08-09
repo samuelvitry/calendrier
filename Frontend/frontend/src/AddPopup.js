@@ -21,6 +21,29 @@ export const AddPopup = (props) => {
 
     const colorConv = ['Blue', 'Green', 'Yellow', 'Orange', 'Red']
     const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
+    const dayConv = [
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday',
+        'Saturday',
+    ]
+    const monthConv = {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December',
+    }
 
     const [name, setName] = useState('')
     const [start, setStart] = useState(new Date().getTime())
@@ -30,7 +53,10 @@ export const AddPopup = (props) => {
     const [nameError, setNameError] = useState(false)
     const [dateError, setDateError] = useState(false)
     const [startEndError, setStartEndError] = useState(false)
+    const [recurence, setRecurence] = useState(-1)
 
+    const [isAdvenced, setIsAdvenced] = useState(false)
+    const [advencedChanged, setAdvencedChanged] = useState(false)
 
     function submitData() {
         var TZoffset = new Date().getTimezoneOffset() * 60
@@ -42,6 +68,9 @@ export const AddPopup = (props) => {
             setStart(toHtmlDate(new Date(tempStart.getFullYear(), tempStart.getMonth() + 1, tempStart.getDate()), true))
             let tempEnd = new Date(end)
             setEnd(toHtmlDate(new Date(tempEnd.getFullYear(), tempEnd.getMonth() + 1, tempEnd.getDate(), 23, 59, 59), true))
+            if (recurence == 5) {
+                setRecurence(-1)
+            }
         }
         if (end > start && name !== '') {
             let code = decryptCode(cookies.code, props.user)
@@ -60,6 +89,7 @@ export const AddPopup = (props) => {
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
+                "recurence": recurence,
             }
             api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
@@ -220,6 +250,27 @@ export const AddPopup = (props) => {
                         </div>
                     </>
                     : null}
+                <div className='add-more' onClick={() => { setIsAdvenced(!isAdvenced); setAdvencedChanged(true) }}>
+                    <p>Advanced options</p>{isAdvenced ? <i className={advencedChanged ? "fas fa-chevron-up add-chevron-annim" : "fas fa-chevron-up"}></i> : <i className={advencedChanged ? "fas fa-chevron-down add-chevron-annim" : "fas fa-chevron-down"}></i>}
+                </div>
+                {isAdvenced ?
+                    <>
+                        <div className='add-half-line'>
+                            <p className='add-p-half'>Repetition</p>
+                        </div>
+                        <div className='add-line'>
+                            <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                                <select style={{ borderColor: colorCodeConv[color] }} value={recurence} onChange={(e) => setRecurence(e.target.value)}>
+                                    <option key={-1} value={-1}>No repetition</option>
+                                    {fullDay ? <option key={1} value={1}>Every day</option> : <option key={1} value={1}>Every day at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+                                    {fullDay ? <option key={2} value={2}>Every {dayConv[new Date(start).getDay()]}</option> : <option key={2} value={2}>Every {dayConv[new Date(start).getDay()]} at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+                                    {fullDay ? <option key={3} value={3}>Every {new Date(start).getDate()} of the month</option> : <option key={3} value={3}>Every {new Date(start).getDate()} of the month at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+                                    {fullDay ? <option key={4} value={4}>Every {new Date(start).getDate()} of {monthConv[new Date(start).getMonth() + 1]}</option> : <option key={4} value={4}>Every {new Date(start).getDate()} of {monthConv[new Date(start).getMonth() + 1]} at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+                                    {fullDay ? null : <option key={5} value={5}>Every hour at {new Date(start).getMinutes()} minutes</option>}
+                                </select>
+                            </div>
+                        </div>
+                    </> : null}
                 <div className='add-button-line add-line'>
                     {window.matchMedia('(min-width: 450px)').matches ? <Button onClick={() => props.setisAdd(false)} txt='Cancel' first /> : <Button onClick={() => submitData()} full txt='Create Event' last />}
                     {window.matchMedia('(min-width: 450px)').matches ? <Button onClick={() => submitData()} full txt='Create Event' last /> : <Button onClick={() => props.setisAdd(false)} txt='Cancel' first />}

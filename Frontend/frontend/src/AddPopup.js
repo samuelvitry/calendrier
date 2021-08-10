@@ -56,6 +56,8 @@ export const AddPopup = (props) => {
     const [isRepeat, setIsRepeat] = useState(false)
     const [recurence, setRecurence] = useState(1)
     const [recurenceNbr, setRecurenceNbr] = useState(1)
+    const [recurenceEndType, setRecurenceEndType] = useState(0)
+    const [recurenceEndNbr, setRecurenceEndNbr] = useState(0)
 
     const [isAdvenced, setIsAdvenced] = useState(false)
     const [advencedChanged, setAdvencedChanged] = useState(false)
@@ -101,6 +103,8 @@ export const AddPopup = (props) => {
                 "full": true,
                 "calendar": tempCalendar,
                 "recurence": generateRepeat(),
+                "recurenceEndType": recurenceEndType,
+                "recurenceEndNbr": new Date(recurenceNbr).getTime() / 1000,
             }
             api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
@@ -287,6 +291,23 @@ export const AddPopup = (props) => {
                                     </div>
                                 </> : null}
                         </div>
+                        {isRepeat ?
+                            <div className='add-second-line'>
+                                <div className='select-wrapper select-wrapper-not-full' style={{ borderColor: colorCodeConv[color] }}>
+                                    <select style={{ borderColor: colorCodeConv[color] }} value={recurenceEndType} onChange={(e) => setRecurenceEndType(e.target.value)}>
+                                        <option key={0} value={0}>Forever</option>
+                                        <option key={1} value={1}>For a number of occurences</option>
+                                        <option key={2} value={2}>Until a certain date</option>
+                                    </select>
+                                </div>
+                                {recurenceEndType == 0 ? null : recurenceEndType == 1 ?
+                                    <div className='input-wrapper input-wrapper-number' style={{ borderColor: colorCodeConv[color] }}>
+                                        <input style={{ minWidth: 0, borderColor: colorCodeConv[color] }} className='input-open' type='number' min={1} step={1} value={recurenceEndNbr} onChange={(e) => { setRecurenceEndNbr(e.target.value); console.log(e.target.value) }} />
+                                    </div>
+                                    : <div className='input-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+                                        <input value={recurenceEndNbr} onChange={(e) => { setRecurenceEndNbr(e.target.value); console.log(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type="date" className='input-open input-add-half input-add-half-first'></input>
+                                    </div>}
+                            </div> : null}
                     </> : null}
                 <div className='add-button-line add-line'>
                     {window.matchMedia('(min-width: 450px)').matches ? <Button onClick={() => props.setisAdd(false)} txt='Cancel' first /> : <Button onClick={() => submitData()} full txt='Create Event' last />}

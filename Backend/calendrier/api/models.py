@@ -44,7 +44,7 @@ class Evenement(models.Model):
     calendar = models.CharField(max_length=1024)
     key = models.CharField(max_length=1024, default=getEventCode)
     recurence = models.IntegerField(default=-1)
-    recurenceEndType = models.IntegerField(default=1)
+    recurenceEndType = models.IntegerField(default=0)
     recurenceEndNbr = models.IntegerField(default=0)
     def __str__(self):
         return self.event_name

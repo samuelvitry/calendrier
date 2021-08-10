@@ -1165,6 +1165,28 @@ input[type=number]::-webkit-outer-spin-button {
 .add-line-repeat > label {
   margin-right: .3em;
 }
+.add-line-repeat {
+  margin-bottom: 0;
+}
+.add-line-repeat .check-container {
+  margin-bottom: 0;
+}
+.add-second-line {
+  margin-top: .5em;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+}
+.add-second-line input {
+  padding: .3em;
+}
+.add-second-line .select-wrapper-not-full {
+  margin-left: 0;
+}
+.add-second-line div + div {
+  margin-left: .5em;
+  width: 17em;
+}
 .add-line input {
   box-shadow: none;
   min-width: 19em;

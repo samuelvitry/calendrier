@@ -82,6 +82,7 @@ body {
   border-radius: 1em;
   height: 100%;
   padding: 1px;
+  border-color: var(--secondary-color);
 }
 .select-wrapper:hover {
   border: solid;
@@ -95,7 +96,7 @@ select {
   border-radius: .6em;
   border-width: 1px;
   background-color: rgba(0, 0, 0, 0);
-  border-color: var(--darker-dark);;
+  border-color: var(--secondary-color);;
   background-color: var(--white-2);
   font-size: var(--14px);
 }
@@ -435,6 +436,7 @@ header h1 {
   height: 100%;
   padding-bottom: 1px;
   border: none;
+  border-color: var(--secondary-color);
 }
 .input-wrapper:hover {
   padding: 0;
@@ -1136,6 +1138,32 @@ header h1 {
 .add-line i {
   margin-right: 1vw;
   font-size: var(--14px);
+}
+.add-line p {
+  padding-top: .2em;
+  font-size: var(--16px);
+}
+.input-wrapper-number {
+  width: 4em;
+  margin-left: .5em;
+}
+.input-wrapper-number input {
+  padding: .2em;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+.select-wrapper-not-full {
+  margin-left: .5em;
+  width: fit-content;
+}
+.select-wrapper-not-full select {
+  width: fit-content;
+  padding: .3em;
+}
+.add-line-repeat > label {
+  margin-right: .3em;
 }
 .add-line input {
   box-shadow: none;

@@ -53,10 +53,21 @@ export const AddPopup = (props) => {
     const [nameError, setNameError] = useState(false)
     const [dateError, setDateError] = useState(false)
     const [startEndError, setStartEndError] = useState(false)
-    const [recurence, setRecurence] = useState(-1)
+    const [isRepeat, setIsRepeat] = useState(false)
+    const [recurence, setRecurence] = useState(1)
+    const [recurenceNbr, setRecurenceNbr] = useState(1)
 
     const [isAdvenced, setIsAdvenced] = useState(false)
     const [advencedChanged, setAdvencedChanged] = useState(false)
+
+    function generateRepeat() {
+        if (isRepeat) {
+            return (recurence * 10) + recurenceNbr
+        }
+        else {
+            return -1
+        }
+    }
 
     function submitData() {
         var TZoffset = new Date().getTimezoneOffset() * 60
@@ -89,7 +100,7 @@ export const AddPopup = (props) => {
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
-                "recurence": recurence,
+                "recurence": generateRepeat(),
             }
             api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
@@ -258,17 +269,23 @@ export const AddPopup = (props) => {
                         <div className='add-half-line'>
                             <p className='add-p-half'>Repetition</p>
                         </div>
-                        <div className='add-line'>
-                            <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
-                                <select style={{ borderColor: colorCodeConv[color] }} value={recurence} onChange={(e) => setRecurence(e.target.value)}>
-                                    <option key={-1} value={-1}>No repetition</option>
-                                    {fullDay ? <option key={1} value={1}>Every day</option> : <option key={1} value={1}>Every day at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
-                                    {fullDay ? <option key={2} value={2}>Every {dayConv[new Date(start).getDay()]}</option> : <option key={2} value={2}>Every {dayConv[new Date(start).getDay()]} at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
-                                    {fullDay ? <option key={3} value={3}>Every {new Date(start).getDate()} of the month</option> : <option key={3} value={3}>Every {new Date(start).getDate()} of the month at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
-                                    {fullDay ? <option key={4} value={4}>Every {new Date(start).getDate()} of {monthConv[new Date(start).getMonth() + 1]}</option> : <option key={4} value={4}>Every {new Date(start).getDate()} of {monthConv[new Date(start).getMonth() + 1]} at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
-                                    {fullDay ? null : <option key={5} value={5}>Every hour at {new Date(start).getMinutes()} minutes</option>}
-                                </select>
-                            </div>
+                        <div className='add-line add-line-repeat' style={{ alignItems: 'baseline' }}>
+                            <Checkbox txt='Repeat' checked={isRepeat} changement={(bo) => setIsRepeat(bo => !bo)} color={colorCodeConv[color]} />
+                            {isRepeat ?
+                                <>
+                                    <p> every </p>
+                                    <div className='input-wrapper input-wrapper-number'>
+                                        <input style={{ minWidth: 0 }} className='input-open' type='number' min={1} max={9} step={1} value={recurenceNbr} onChange={(e) => setRecurenceNbr(e.target.value)} />
+                                    </div>
+                                    <div className='select-wrapper select-wrapper-not-full' style={{ borderColor: colorCodeConv[color] }}>
+                                        <select style={{ borderColor: colorCodeConv[color] }} value={recurence} onChange={(e) => setRecurence(e.target.value)}>
+                                            <option value={1} key={1}>Day</option>
+                                            <option value={2} key={2}>Week</option>
+                                            <option value={3} key={3}>Month</option>
+                                            <option value={4} key={4}>Year</option>
+                                        </select>
+                                    </div>
+                                </> : null}
                         </div>
                     </> : null}
                 <div className='add-button-line add-line'>
@@ -279,3 +296,13 @@ export const AddPopup = (props) => {
         </div >
     )
 }
+{/* <div className='select-wrapper' style={{ borderColor: colorCodeConv[color] }}>
+    <select style={{ borderColor: colorCodeConv[color] }} value={recurence} onChange={(e) => setRecurence(e.target.value)}>
+        <option key={-1} value={-1}>No repetition</option>
+        {fullDay ? <option key={1} value={1}>Every day</option> : <option key={1} value={1}>Every day at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+        {fullDay ? <option key={2} value={2}>Every {dayConv[new Date(start).getDay()]}</option> : <option key={2} value={2}>Every {dayConv[new Date(start).getDay()]} at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+        {fullDay ? <option key={3} value={3}>Every {new Date(start).getDate()} of the month</option> : <option key={3} value={3}>Every {new Date(start).getDate()} of the month at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+        {fullDay ? <option key={4} value={4}>Every {new Date(start).getDate()} of {monthConv[new Date(start).getMonth() + 1]}</option> : <option key={4} value={4}>Every {new Date(start).getDate()} of {monthConv[new Date(start).getMonth() + 1]} at {new Date(start).getHours()}{new Date(start).getHours() < 10 ? '0' : null}:{new Date(start).getMinutes()}{new Date(start).getMilliseconds() < 10 ? '0' : null}</option>}
+        {fullDay ? null : <option key={5} value={5}>Every hour at {new Date(start).getMinutes()} minutes</option>}
+    </select>
+</div> */}

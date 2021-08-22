@@ -92,6 +92,7 @@ export const Main = (props) => {
 
     const [eventList, seteventList] = useState([])
     const [stockageCalendar, setStockageCalendar] = useState({})
+    const [recurentEvents, setRecurentEvents] = useState([])
     const [reload, setReload] = useState(0)
 
     if (isCode && decryptCode(cookies.code, user) != undefined) {
@@ -124,6 +125,7 @@ export const Main = (props) => {
     function traiterEvent(list) {
         var tempList = list.sort((a, b) => a['start_date'] - b['start_date'])
         let tempEvents = []
+        let tempRecu = []
         let tempSto = {}
         if (decryptCode(cookies.code, user) != null) {
             if (sha256(decryptCode(cookies.code, user)) !== codeHash) {
@@ -152,10 +154,17 @@ export const Main = (props) => {
                     var TZoffset = new Date().getTimezoneOffset() * 60
                     tempEvents[i]['start_date'] = tempEvents[i]['start_date'] - TZoffset
                     tempEvents[i]['end_date'] = tempEvents[i]['end_date'] - TZoffset
+                    var recuNbr = tempEvents[i]['recurence'].toString()
+                    if (recuNbr != -1) {
+                        tempEvents[i]['recurence_nbr'] = parseInt(recuNbr.split(1))
+                        tempEvents[i]['recurence_type'] = parseInt(recuNbr.split(0, 1))
+                        tempRecu.push(tempEvents[i])
+                    }
                 }
                 if (tempSto.length < 1) {
                     tempSto['Default Calendar'] = [true]
                 }
+                setRecurentEvents(tempRecu)
                 setStockageCalendar(tempSto)
                 seteventList(tempEvents)
             }
@@ -330,7 +339,7 @@ export const Main = (props) => {
                 <NextEvents eventList={eventList} reload={() => forceReload()} />
             </div> : null}
             <div className={mobile ? "right-section right-section-mobile" : "right-section"}>
-                {isWeekly ? <WeeklyCalendar user={user} mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()} /> : <MonthlyCalendar user={user} mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()} />}
+                {isWeekly ? <WeeklyCalendar recu={recurentEvents} user={user} mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} ajouterEvent={(x) => ajouterEvent(x)} calendarList={generateCalendarTable()} switch={() => switchMonWee()} nextWeek={() => nextWeek()} prevWeek={() => prevWeek()} year={year} week={week} month={month} eventList={generateWeeklyList()} /> : <MonthlyCalendar recu={recurentEvents} user={user} mobile={mobile} reload={() => forceReload()} setAnnim={(x) => setAnnim(x)} annim={annim} ajouterEvent={(x) => ajouterEvent(x)} switch={() => switchMonWee()} calendarList={generateCalendarTable()} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()} month={month} year={year} eventList={generateEventList()} />}
             </div>
             {large ? <Today eventList={generateEventList()} reload={() => forceReload()} /> : null}
             {mobile ? (

@@ -71,6 +71,15 @@ export const AddPopup = (props) => {
         }
     }
 
+    function generateRecurenceEndNbr() {
+        if (recurenceEndType == 2) {
+            return new Date(recurenceEndNbr).getTime()
+        }
+        else {
+            return recurenceEndNbr
+        }
+    }
+
     function submitData() {
         var TZoffset = new Date().getTimezoneOffset() * 60
         setNameError(false)
@@ -104,7 +113,7 @@ export const AddPopup = (props) => {
                 "calendar": tempCalendar,
                 "recurence": generateRepeat(),
                 "recurenceEndType": recurenceEndType,
-                "recurenceEndNbr": new Date(recurenceNbr).getTime() / 1000,
+                "recurenceEndNbr": generateRecurenceEndNbr(),
             }
             api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
@@ -129,6 +138,9 @@ export const AddPopup = (props) => {
                 "color": color,
                 "full": true,
                 "calendar": tempCalendar,
+                "recurence": generateRepeat(),
+                "recurenceEndType": recurenceEndType,
+                "recurenceEndNbr": generateRecurenceEndNbr(),
             }
             api.post("/create", data).then(res => { props.setisAdd(false); props.ajouterEvent() })
         }
@@ -302,10 +314,10 @@ export const AddPopup = (props) => {
                                 </div>
                                 {recurenceEndType == 0 ? null : recurenceEndType == 1 ?
                                     <div className='input-wrapper input-wrapper-number' style={{ borderColor: colorCodeConv[color] }}>
-                                        <input style={{ minWidth: 0, borderColor: colorCodeConv[color] }} className='input-open' type='number' min={1} step={1} value={recurenceEndNbr} onChange={(e) => { setRecurenceEndNbr(e.target.value); console.log(e.target.value) }} />
+                                        <input style={{ minWidth: 0, borderColor: colorCodeConv[color] }} className='input-open' type='number' min={1} step={1} value={recurenceEndNbr} onChange={(e) => { setRecurenceEndNbr(e.target.value) }} />
                                     </div>
                                     : <div className='input-wrapper' style={{ borderColor: colorCodeConv[color] }}>
-                                        <input value={recurenceEndNbr} onChange={(e) => { setRecurenceEndNbr(e.target.value); console.log(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type="date" className='input-open input-add-half input-add-half-first'></input>
+                                        <input value={recurenceEndNbr} onChange={(e) => { setRecurenceEndNbr(e.target.value) }} style={{ borderColor: colorCodeConv[color] }} type="date" className='input-open input-add-half input-add-half-first'></input>
                                     </div>}
                             </div> : null}
                     </> : null}

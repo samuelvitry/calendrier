@@ -71,6 +71,8 @@ class CreateEvent(APIView):
                 q = Evenement(event_name=event_name, start_date=start_date, end_date=end_date, color=color, full=full, proprio=proprio, calendar=calendar, recurence=recurence, recurenceEndType=recurenceEndType, recurenceEndNbr=recurenceEndNbr)
                 q.save()
                 return Response(status=status.HTTP_201_CREATED)
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST)
 
 class CreateUser(APIView):
 

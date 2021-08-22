@@ -10,3 +10,8 @@ evry xth day of the month at x hour ?
 evry x day of the year at x hour
 
 pour chaque event, check si il s'execute dans la période choisie (month or week) puis pour chaque event (si il est en x day of the year, check si le month correspond, etc) puis loop a travers les events recurents avec une suite de if pour déterminer leurs types et en fonction, créer les events dans la variable
+
+
+pour chaque event, prendre le nbr de week, soustraire le nbr du début et diviser par le nombre de rep, si = 1  alors c'est bon
+
+/!\ certaines recurence_nbr s'affiche NaN

@@ -20,6 +20,8 @@ export const MonthlyCalendar = (props) => {
 
     const [timeAdd, settimeAdd] = useState(new Date().getTime() / 1000)
 
+    const [oldMonth, setOldMonth] = useState(-1)
+
     const monthConv = {
         1: 'January',
         2: 'February',
@@ -44,6 +46,24 @@ export const MonthlyCalendar = (props) => {
         props.reload()
     }
 
+    if (oldMonth != props.month) {
+        let end_date = new Date(props.year, props.month, 0, 23, 59, 59).getTime() / 1000
+        let start_date = new Date(props.year, props.month - 1, 1).getTime() / 1000
+        for (let i = 0; i < props.recu.length; i++) {
+            let eventRecu = props.recu[i]
+            if (eventRecu['start_date'] > end_date) {
+                continue
+            }
+            if (eventRecu['recurenceEndType'] == 2) {
+                if (eventRecu['recurenceEndNbr'] / 1000 < start_date) {
+                    continue
+                }
+            }
+            //puis faire les différents check
+        }
+        setOldMonth(props.month)
+    }
+
     function dispatchEvent(nbr) {
         // récup le nbr du jour réel
         let offset = new Date(props.year, props.month - 1, 1).getDay()
@@ -57,14 +77,16 @@ export const MonthlyCalendar = (props) => {
         for (let i = 0; i < props.eventList.length; i++) {
             let event = props.eventList[i]
             event['blank'] = false
-            if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
-                tempStockage.push(event)
-            }
-            else if (event['end_date'] >= start_date && event['end_date'] <= end_date) {
-                tempStockage.push(event)
-            }
-            else if (event['start_date'] <= start_date && event['end_date'] >= end_date) {
-                tempStockage.push(event)
+            if (event['recurence'] == -1) {
+                if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
+                    tempStockage.push(event)
+                }
+                else if (event['end_date'] >= start_date && event['end_date'] <= end_date) {
+                    tempStockage.push(event)
+                }
+                else if (event['start_date'] <= start_date && event['end_date'] >= end_date) {
+                    tempStockage.push(event)
+                }
             }
         }
         while (tempStockage.length < 4) {

@@ -28,9 +28,9 @@ class createEventSerializer(serializers.ModelSerializer):
             'color',
             'full',
             'calendar',
-            'recurence'
+            'recurence',
             'recurenceEndType',
-            'recurenceEndNbr'
+            'recurenceEndNbr',
         )
 
 class loginSerializer(serializers.ModelSerializer):

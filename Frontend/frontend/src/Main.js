@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { NextEvents } from './NextEvents'
-import { TodoList } from './TodoList'
 import { MonthlyCalendar } from './MonthlyCalendar'
 import { CalendarSelect } from './CalendarSelect'
 import { MiniCalendar } from './MiniCalendar'
@@ -53,8 +52,8 @@ export const Main = (props) => {
 
     const [isWeekly, setisWeekly] = useState(false);
 
-    const [height, setHeight] = useState(window.innerHeight)
-    const [width, setWidth] = useState(window.innerwidth)
+    const [, setHeight] = useState(window.innerHeight)
+    const [, setWidth] = useState(window.innerwidth)
 
     const [user, setUser] = useState({})
 
@@ -68,8 +67,8 @@ export const Main = (props) => {
         return () => window.removeEventListener("resize", updateWidthAndHeight);
     });
 
-    Date.prototype.getWeek = function () {
-        var date = new Date(this.getTime());
+    function getWeek(d) {
+        let date = new Date(d)
         date.setHours(0, 0, 0, 0);
         // Thursday in current week decides the year.
         date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
@@ -81,7 +80,7 @@ export const Main = (props) => {
 
     if (shldFetch) {
         api.get("/").then((response) => {
-            if (response.status == 200) {
+            if (response.status === 200) {
                 setCodeHash(response.data.code[0]['key']);
                 setUser(response.data.user[0]);
                 traiterEvent(response.data.event);
@@ -95,7 +94,7 @@ export const Main = (props) => {
     const [recurentEvents, setRecurentEvents] = useState([])
     const [reload, setReload] = useState(0)
 
-    if (isCode && decryptCode(cookies.code, user) != undefined) {
+    if (isCode && decryptCode(cookies.code, user) !== undefined) {
         if (codeHash === sha256(decryptCode(cookies.code, user))) {
             setIsCode(false)
             forceReload()
@@ -155,7 +154,7 @@ export const Main = (props) => {
                     tempEvents[i]['start_date'] = tempEvents[i]['start_date'] - TZoffset
                     tempEvents[i]['end_date'] = tempEvents[i]['end_date'] - TZoffset
                     var recuNbr = tempEvents[i]['recurence'].toString()
-                    if (tempEvents[i]['recurence'] != -1) {
+                    if (tempEvents[i]['recurence'] !== -1) {
                         tempEvents[i]['recurence_nbr'] = parseInt(recuNbr.split('')[1])
                         tempEvents[i]['recurence_type'] = parseInt(recuNbr.split('')[0])
                         tempRecu.push(tempEvents[i])
@@ -195,6 +194,7 @@ export const Main = (props) => {
         return total.filter(valeur => {
             if (valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
             if (valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
+            return false
         })
     }
 
@@ -215,17 +215,17 @@ export const Main = (props) => {
     }
 
 
-    function isFromWeek(event) {
-        if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000) {
-            return true;
-        }
-        if (event['end_date'] > getDateOfISOWeek().getTime() / 1000 && event['end_date'] < lastOfDay(6).getTime() / 1000) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
+    // function isFromWeek(event) {
+    //     if (event['start_date'] > getDateOfISOWeek().getTime() / 1000 && event['start_date'] < lastOfDay(6).getTime() / 1000) {
+    //         return true;
+    //     }
+    //     if (event['end_date'] > getDateOfISOWeek().getTime() / 1000 && event['end_date'] < lastOfDay(6).getTime() / 1000) {
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+    // }
 
     function switchMonWee() {
         setAnnim("")
@@ -246,19 +246,19 @@ export const Main = (props) => {
 
     var now = new Date()
     const [year, setyear] = useState(now.getFullYear())
-    const [week, setweek] = useState(now.getWeek())
+    const [week, setweek] = useState(getWeek(now))
     const [month, setmonth] = useState(now.getMonth() + 1)
     const [annim, setAnnim] = useState("")
 
-    var weeklyEventList = eventList.filter(valeur => {
-        if (valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
-        if (valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
-    })
+    // var weeklyEventList = eventList.filter(valeur => {
+    //     if (valeur.start_date > getDateOfISOWeek().getTime() / 1000 && valeur.start_date < lastOfDay(6).getTime() / 1000) return true;
+    //     if (valeur.end_date > getDateOfISOWeek().getTime() / 1000 && valeur.end_date < lastOfDay(6).getTime() / 1000) return true;
+    // })
 
     function nextWeek() {
         let tempMonth = month - 1
         let temp = new Date(year, tempMonth, getDateOfISOWeek().getDate() + 7)
-        setweek(temp.getWeek())
+        setweek(getWeek(temp))
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
         setAnnim("right-appear")
@@ -266,31 +266,27 @@ export const Main = (props) => {
     function prevWeek() {
         let tempMonth = month - 1
         let temp = new Date(year, tempMonth, getDateOfISOWeek().getDate() - 7)
-        setweek(temp.getWeek())
+        setweek(getWeek(temp))
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
         setAnnim("left-appear")
     }
     function nextMonth() {
         let temp = new Date(year, month, 1)
-        setweek(temp.getWeek())
+        setweek(getWeek(temp))
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
         setAnnim("right-appear")
     }
     function prevMonth() {
         let temp = new Date(year, month - 2, 1)
-        setweek(temp.getWeek())
+        setweek(getWeek(temp))
         setmonth(temp.getMonth() + 1)
         setyear(temp.getFullYear())
         setAnnim("left-appear")
     }
 
 
-    function rowToJour(nbr) {
-        let mon = getDateOfISOWeek()
-        return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr)
-    }
     function getDateOfISOWeek() {
         var simple = new Date(year, 0, 1 + (week - 1) * 7);
         var dow = simple.getDay();
@@ -306,18 +302,22 @@ export const Main = (props) => {
         return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr, 23, 59, 59)
     }
 
-    function getMoinsJour(date) {
-        var day = new Date(year, month, 0).getDay();
-        if (day === 0) {
-            day = 7
-        }
-        return date.getDate() + day
-    }
-    function getJour(nbr) {
-        var offsetbeggin = new Date(year, month - 1, 0).getDay();
-        var day = new Date(year, month - 1, nbr - offsetbeggin)
-        return (day);
-    }
+    // function getMoinsJour(date) {
+    //     var day = new Date(year, month, 0).getDay();
+    //     if (day === 0) {
+    //         day = 7
+    //     }
+    //     return date.getDate() + day
+    // }
+    // function getJour(nbr) {
+    //     var offsetbeggin = new Date(year, month - 1, 0).getDay();
+    //     var day = new Date(year, month - 1, nbr - offsetbeggin)
+    //     return (day);
+    // }
+    // function rowToJour(nbr) {
+    //     let mon = getDateOfISOWeek()
+    //     return new Date(mon.getFullYear(), mon.getMonth(), mon.getDate() + nbr)
+    // }
 
     // <MiniCalendar annim={annim} eventList={generateEventList()} isSele={isWeekly} month={month} year={year} week={week} nextMonth={() => nextMonth()} prevMonth={() => prevMonth()}/>
     // <CalendarSelect reload={() => forceReload()} stockageCalendar={stockageCalendar} calendarSelecSwitch={(x) => calendarSelecSwitch(x)} calendarList={generateCalendarTable()} ajouterEvent={(x) => ajouterEvent(x)}/>

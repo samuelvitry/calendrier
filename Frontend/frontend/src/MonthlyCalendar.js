@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { MonthlyCalendarDay } from './MonthlyCalendarDay'
 import { MonthlyTopbar } from './MonthlyTopbar'
 import { AddPopup } from './AddPopup'
 import axios from 'axios'
-import { api } from './Main'
-import AES from 'crypto-js'
-import { useCookies } from "react-cookie"
+// import { api } from './Main'
+// import AES from 'crypto-js'
+// import { useCookies } from "react-cookie"
 import { EventDetail } from './EventDetail'
 
 axios.defaults.xsrfCookieName = 'csrftoken'
@@ -14,7 +14,7 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 export const MonthlyCalendar = (props) => {
 
-    const [cookies, setCookie] = useCookies();
+    // const [cookies, setCookie] = useCookies();
 
     const [isExpanded, setisExpanded] = useState(false);
 
@@ -22,20 +22,20 @@ export const MonthlyCalendar = (props) => {
 
     const [oldMonth, setOldMonth] = useState(-1)
 
-    const monthConv = {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-        8: 'August',
-        9: 'September',
-        10: 'October',
-        11: 'November',
-        12: 'December',
-    }
+    // const monthConv = {
+    //     1: 'January',
+    //     2: 'February',
+    //     3: 'March',
+    //     4: 'April',
+    //     5: 'May',
+    //     6: 'June',
+    //     7: 'July',
+    //     8: 'August',
+    //     9: 'September',
+    //     10: 'October',
+    //     11: 'November',
+    //     12: 'December',
+    // }
 
     const [isDetail, setisDetail] = useState(-1);
     const [isAdd, setisAdd] = useState(false)
@@ -46,7 +46,7 @@ export const MonthlyCalendar = (props) => {
         props.reload()
     }
 
-    if (oldMonth != props.month) {
+    if (oldMonth !== props.month) {
         let end_date = new Date(props.year, props.month, 0, 23, 59, 59).getTime() / 1000
         let start_date = new Date(props.year, props.month - 1, 1).getTime() / 1000
         for (let i = 0; i < props.recu.length; i++) {
@@ -54,22 +54,29 @@ export const MonthlyCalendar = (props) => {
             if (eventRecu['start_date'] > end_date) {
                 continue
             }
-            if (eventRecu['recurenceEndType'] == 2) {
+            if (eventRecu['recurenceEndType'] === 2) {
                 if (eventRecu['recurenceEndNbr'] / 1000 < start_date) {
                     continue
                 }
             }
-            else if (eventRecu['recurenceEndType'] == 1) {
+            else if (eventRecu['recurenceEndType'] === 1) {
                 let recuTime = 0
                 switch (eventRecu['recurence_type']) {
                     case 1:
                         recuTime = 86400
+                        break
                     case 2:
                         recuTime = 604800
+                        break
                     case 3:
                         recuTime = 22678400
+                        break
                     case 4:
                         recuTime = 31622400
+                        break
+                    default:
+                        recuTime = 0
+                        break
                 }
                 recuTime = recuTime * eventRecu['recurence_nbr']
                 recuTime = recuTime * eventRecu['recurenceEndNbr']
@@ -87,7 +94,7 @@ export const MonthlyCalendar = (props) => {
     function dispatchEvent(nbr) {
         // récup le nbr du jour réel
         let offset = new Date(props.year, props.month - 1, 1).getDay()
-        if (offset == 0) {
+        if (offset === 0) {
             offset = 7
         }
         offset = offset - 1
@@ -97,7 +104,7 @@ export const MonthlyCalendar = (props) => {
         for (let i = 0; i < props.eventList.length; i++) {
             let event = props.eventList[i]
             event['blank'] = false
-            if (event['recurence'] == -1) {
+            if (event['recurence'] === -1) {
                 if (event['start_date'] >= start_date && event['start_date'] <= end_date) {
                     tempStockage.push(event)
                 }
@@ -217,7 +224,7 @@ export const MonthlyCalendar = (props) => {
 
     function getEventByNbr(nbr) {
         for (let i = 0; i < eventList.length; i++) {
-            if (eventList[i]['nbr'] == nbr) {
+            if (eventList[i]['nbr'] === nbr) {
                 return eventList[i]
             }
         }

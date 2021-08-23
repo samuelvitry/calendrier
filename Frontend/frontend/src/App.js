@@ -1,15 +1,14 @@
-import {Header} from "./Header"
-import {Main} from "./Main"
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route} from "react-router-dom";
+import { Header } from "./Header"
+import { Main } from "./Main"
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { createBrowserHistory } from 'history';
 import { Login } from './Login'
 
 
 
-function Calendar(){
+function Calendar() {
 
-  return(
+  return (
     <>
       <Header />
       <Main />

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { AddPopup } from './AddPopup'
-import { api } from './Main'
-import AES from 'crypto-js'
-import { useCookies } from "react-cookie"
+// import { api } from './Main'
+// import AES from 'crypto-js'
+// import { useCookies } from "react-cookie"
 import { EventDetail } from './EventDetail'
 
 export const WeeklyCalendar = (props) => {
 
-    const [cookies, setCookie] = useCookies();
+    // const [cookies, setCookie] = useCookies();
     function reload() {
         props.reload()
     }
@@ -31,7 +31,7 @@ export const WeeklyCalendar = (props) => {
         11: 'November',
         12: 'December',
     }
-    const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
+    // const colorCodeConv = ['#3581B8', '#5BA94C', '#E4C111', '#FF6B35', '#A72A2A']
 
     //retourne la date de debut du jour moyenant le numéro de colonne (0 = lundis 6 = dimanche)
     function rowToJour(nbr) {
@@ -68,14 +68,14 @@ export const WeeklyCalendar = (props) => {
     }
 
     //retourne le décalage au debut du calendrier (0 si mois commence par lundis, 6 si dimanche)
-    function offsetDebut() {
-        var day = new Date(props.year, props.month - 1, 1).getDay();
-        if (day === 0) {
-            day = 7
-        }
-        day = day - 1
-        return day
-    }
+    // function offsetDebut() {
+    //     var day = new Date(props.year, props.month - 1, 1).getDay();
+    //     if (day === 0) {
+    //         day = 7
+    //     }
+    //     day = day - 1
+    //     return day
+    // }
 
     function setPopup(test) {
         setisDetail(test);
@@ -122,7 +122,7 @@ export const WeeklyCalendar = (props) => {
         let fin = lastOfDay(i).getTime() / 1000
         for (let j = 0; j < events.length; j++) {
             let event = events[j]
-            if (event['dayNbr'] == 0 && event['start_date'] > debut && event['end_date'] < fin) {
+            if (event['dayNbr'] === 0 && event['start_date'] > debut && event['end_date'] < fin) {
                 let position = event['start_date'] - debut
                 event['posY'] = Math.floor(position / 600) + 'vh'
                 weeklyStockage[i].push(event)
@@ -135,7 +135,7 @@ export const WeeklyCalendar = (props) => {
         var positionList = []
         for (let j = 0; j < weeklyStockage[i].length; j++) {
             let event = weeklyStockage[i][j]
-            if (positionList.indexOf(event['posY']) != -1) {
+            if (positionList.indexOf(event['posY']) !== -1) {
                 event['double'] = true
             }
             else {
@@ -158,19 +158,19 @@ export const WeeklyCalendar = (props) => {
                     <h2>Week {props.week} ({monthConv[props.month]}), {props.year}</h2>
                     <p className="weekly-prev" onClick={() => props.prevWeek()}>&#60;</p>
                     <p className="weekly-next" onClick={() => props.nextWeek()}>&#62;</p>
-                    {window.matchMedia('(max-width: 450px)').matches ? null : <div className='select-wrapper cal-type-switch'> <select onChange={(e) => { if (e.target.value == 'monthly') { changement() } }} className='cal-type-switch-in'>
+                    {window.matchMedia('(max-width: 450px)').matches ? null : <div className='select-wrapper cal-type-switch'> <select onChange={(e) => { if (e.target.value === 'monthly') { changement() } }} className='cal-type-switch-in'>
                         <option value='weekly'>Weekly</option>
                         <option value='monthly'>Monthly</option>
                     </select></div>}
                 </div>
-                {window.matchMedia('(max-width: 450px)').matches ? <div className='select-wrapper cal-type-switch'> <select onChange={(e) => { if (e.target.value == 'monthly') { changement() } }} className='cal-type-switch-in'>
+                {window.matchMedia('(max-width: 450px)').matches ? <div className='select-wrapper cal-type-switch'> <select onChange={(e) => { if (e.target.value === 'monthly') { changement() } }} className='cal-type-switch-in'>
                     <option value='weekly'>Weekly</option>
                     <option value='monthly'>Monthly</option>
                 </select></div> : null}
                 <div className='weekly-top-button'>
-                    <a className="button-full" onClick={() => props.add()}>
+                    <button className="button-full" onClick={() => props.add()}>
                         <span className='plus-add'>+</span>{window.matchMedia('(max-width: 450px)').matches ? null : 'New'}
-                    </a>
+                    </button>
                 </div>
             </div>
         )

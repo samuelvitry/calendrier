@@ -723,8 +723,8 @@ header h1 {
   margin-bottom: 2vh;
 }
 @media screen and (min-width: 450px) {
-  .monthly-top-button a,
-  .weekly-top-button a {
+  .monthly-top-button button,
+  .weekly-top-button button {
     padding: 12px;
     font-weight: 500;
     border-radius: 14px;
@@ -1040,7 +1040,7 @@ header h1 {
   flex-wrap: nowrap;
   position: relative;
 }
-.monthly-weekly-switch a {
+.monthly-weekly-switch button {
   padding: 12px;
 }
 .monthly-weekly-switch * {
@@ -1375,7 +1375,7 @@ input[type=number]::-webkit-outer-spin-button {
   flex-wrap: nowrap;
   margin-bottom: 0.6em;
 }
-.code-in-line a {
+.code-in-line button {
   width: fit-content;
   padding-left: 0.8em;
   padding-right: 0.8em;
@@ -1470,7 +1470,7 @@ input[type=number]::-webkit-outer-spin-button {
   flex-wrap: nowrap;
   margin-bottom: 0.7em;
 }
-.calendar-add-div a {
+.calendar-add-div button {
   width: auto;
   font-size: var(--14px);
   font-weight: 500;
@@ -1563,18 +1563,18 @@ input[type=number]::-webkit-outer-spin-button {
 .calendar-delete-btn {
   display: flex;
 }
-.calendar-delete-btn a {
+.calendar-delete-btn button {
   font-size: var(--14px);
   font-weight: 700;
   background-color: var(--border-color);
 }
-.calendar-delete-btn a + a {
+.calendar-delete-btn button + button {
   background-color: var(--error-color);
 }
 .calendar-delete-btn a:hover {
   background-color: var(--border-dark);
 }
-.calendar-delete-btn a + a:hover {
+.calendar-delete-btn button + a:hover {
   background-color: var(--error-dark);
 }
 .today {
@@ -1783,13 +1783,13 @@ input[type=number]::-webkit-outer-spin-button {
   .code-popup input {
     font-size: 16px;
   }
-  .code-popup a {
+  .code-popup button{
     font-size: 16px;
   }
   .code-in-line {
     flex-wrap: wrap;
   }
-  .code-in-line a {
+  .code-in-line button{
     width: 100%;
     margin-left: 0em;
     margin-top: .8em;
@@ -1818,11 +1818,11 @@ input[type=number]::-webkit-outer-spin-button {
   .add-popup select {
     font-size: 16px;
   }
-  .add-line a {
+  .add-line button{
     font-size: 16px;
     margin-left: 0;
   }
-  .add-line a + a {
+  .add-line button + button{
     margin-top: .5em;
   }
   .cal-type-switch {

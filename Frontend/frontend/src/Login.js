@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from './Button'
 import { sha256 } from 'js-sha256';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import axios from 'axios'
 import { api } from './Main'
 
@@ -16,7 +15,7 @@ export const Login = () => {
     function submitData() {
         var mdp = login + 'sel' + password
         mdp = sha256(mdp)
-        api.get("/login" + "?mdp=" + mdp).then((response) => { if (response.status == 200) { window.location.href = "./calendar" } }).catch((err) => { console.log(err); setIsError(true) })
+        api.get("/login?mdp=" + mdp).then((response) => { if (response.status === 200) { window.location.href = "./calendar" } }).catch((err) => { console.log(err); setIsError(true) })
     }
     function redirectHome() {
         //todo

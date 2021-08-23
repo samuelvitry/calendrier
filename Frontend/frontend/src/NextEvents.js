@@ -7,20 +7,20 @@ export const NextEvents = (props) => {
     var filteredList = props.eventList.map((x) => x)
     var now = new Date()
 
-    filteredList.sort(function(a,b) {
+    filteredList.sort(function (a, b) {
         return a['start_date'] - b['start_date']
     })
     filteredList = filteredList.filter(event => event['start_date'] > now.getTime() / 1000)
 
-    const dayConv = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-    ]
+    // const dayConv = [
+    //     'Sunday',
+    //     'Monday',
+    //     'Tuesday',
+    //     'Wednesday',
+    //     'Thursday',
+    //     'Friday',
+    //     'Saturday',
+    // ]
     const monthConv = {
         1: 'January',
         2: 'February',
@@ -44,13 +44,13 @@ export const NextEvents = (props) => {
             let date = new Date(nbr * 1000)
             let dateString = ''
             let durationT = props.event['end_date'] + 1 - props.event['start_date']
-            if (date.getDate() == now.getDate() && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear()) {
+            if (date.getDate() === now.getDate() && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
                 dateString = dateString.concat('Today')
             }
-            else if (date.getDate() == now.getDate() + 1 && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear()) {
+            else if (date.getDate() === now.getDate() + 1 && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
                 dateString = dateString.concat('Tomorrow')
             }
-            else if (date.getDate() == now.getDate() - 1 && date.getMonth() == now.getMonth() && date.getFullYear() == now.getFullYear()) {
+            else if (date.getDate() === now.getDate() - 1 && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
                 dateString = dateString.concat('Yesterday')
             }
             else {
@@ -61,7 +61,7 @@ export const NextEvents = (props) => {
                 dateString = dateString.concat(date.getFullYear())
             }
             if (durationT >= 86400) {
-                
+
             }
             else {
                 dateString = dateString.concat(' at ')
@@ -80,16 +80,16 @@ export const NextEvents = (props) => {
 
         return (
             <>
-                {isDetail ? <EventDetail event={props.event} reload={() => props.reload()} closeDetail={() => {setIsDetail(false)}}/> : null}
+                {isDetail ? <EventDetail event={props.event} reload={() => props.reload()} closeDetail={() => { setIsDetail(false) }} /> : null}
                 <div className="next-event-item" onClick={(e) => setIsDetail(true)}>
-                    <div className='next-event-dot' style={{backgroundColor: props.event['color']}}></div>
+                    <div className='next-event-dot' style={{ backgroundColor: props.event['color'] }}></div>
                     <div className='next-event-text'>
                         <p className='next-event-name'>{props.event['event_name']}</p>
                         <p className='next-event-date'>{dateToTxt(props.event['start_date'])}</p>
                     </div>
                 </div>
             </>
-            
+
         )
     }
 
@@ -98,11 +98,11 @@ export const NextEvents = (props) => {
     return (
         <div className="next-event">
             <h2>Prochains évenements</h2>
-            {filteredList.map((x) => (<NextEventItem key={x['key']} reload={() => props.reload()} event={x}/>))}
-            {filteredList.length < 1 ? 
-            <div className='next-event-error'>
-                <p>Il n'y a rien par ici...</p>
-            </div> : null}
+            {filteredList.map((x) => (<NextEventItem key={x['key']} reload={() => props.reload()} event={x} />))}
+            {filteredList.length < 1 ?
+                <div className='next-event-error'>
+                    <p>Il n'y a rien par ici...</p>
+                </div> : null}
         </div>
     )
 }

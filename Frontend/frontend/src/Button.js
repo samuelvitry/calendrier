@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Button = (props, { onClick }) => {
-    
+
     var classNom = ""
 
     if (props.full) {
@@ -18,8 +18,8 @@ export const Button = (props, { onClick }) => {
     }
 
     return (
-        <a className={classNom} onClick={() => {props.onClick()}}>
+        <button className={classNom} onClick={() => { props.onClick() }}>
             {props.txt}
-        </a>
+        </button>
     );
 }

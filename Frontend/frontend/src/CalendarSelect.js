@@ -8,7 +8,7 @@ export const CalendarSelect = (props) => {
 
     const [isAdd, setIsAdd] = useState(false)
     const [txt, setTxt] = useState('')
-    const [reload, setReload] = useState(0)
+    // const [reload, setReload] = useState(0)
     const [isDelete, setIsDelete] = useState('')
     const [isDefaultChecked, setIsDefaultChecked] = useState(true)
 
@@ -22,6 +22,9 @@ export const CalendarSelect = (props) => {
             "color": 0,
             "full": true,
             "calendar": txt,
+            "recurence": -1,
+            "recurenceEndType": 0,
+            "recurenceEndNbr": 0,
         }
         api.post("/create", data).then(res => { props.ajouterEvent() })
         setIsAdd(false)
@@ -41,7 +44,8 @@ export const CalendarSelect = (props) => {
         var eventList = props.stockageCalendar[isDelete].map((x) => x)
         eventList.shift()
         eventList.map((x) => {
-            api.get('eventDelete' + '?key=' + x['key']).then((response) => props.reload())
+            api.get('eventDelete?key=' + x['key']).then((response) => props.reload())
+            return null
         })
         setIsDelete('')
     }

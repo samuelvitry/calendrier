@@ -155,9 +155,9 @@ export const Main = (props) => {
                     tempEvents[i]['start_date'] = tempEvents[i]['start_date'] - TZoffset
                     tempEvents[i]['end_date'] = tempEvents[i]['end_date'] - TZoffset
                     var recuNbr = tempEvents[i]['recurence'].toString()
-                    if (recuNbr != -1) {
-                        tempEvents[i]['recurence_nbr'] = parseInt(recuNbr.split(1))
-                        tempEvents[i]['recurence_type'] = parseInt(recuNbr.split(0, 1))
+                    if (tempEvents[i]['recurence'] != -1) {
+                        tempEvents[i]['recurence_nbr'] = parseInt(recuNbr.split('')[1])
+                        tempEvents[i]['recurence_type'] = parseInt(recuNbr.split('')[0])
                         tempRecu.push(tempEvents[i])
                     }
                 }

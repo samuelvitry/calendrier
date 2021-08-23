@@ -87,7 +87,7 @@ export const MonthlyCalendarDay = (props, { open }) => {
         <div className="monthly-day-card" onDoubleClick={() => props.ajouterIci()}>
             <div className='monthly-number-container'><Typography className='monthly-number' variant="h5" style={{ textAlign: 'right', color: props.numColor }}>{props.day.getDate()}</Typography></div>
             <div className="events-list">
-                {nbrEvents.map((x) => <MonthlyCalendarItem nbr={eventList[x]['nbr']} name={eventList[x]['event_name']} blank={eventList[x]['blank']} date={eventList[x]['display_date']} color={eventList[x]['color']} full={eventList[x]['full']} />)}
+                {nbrEvents.map((x) => <MonthlyCalendarItem key={x} nbr={eventList[x]['nbr']} name={eventList[x]['event_name']} blank={eventList[x]['blank']} date={eventList[x]['display_date']} color={eventList[x]['color']} full={eventList[x]['full']} />)}
             </div>
         </div>
     )

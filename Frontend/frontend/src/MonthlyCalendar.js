@@ -59,6 +59,26 @@ export const MonthlyCalendar = (props) => {
                     continue
                 }
             }
+            else if (eventRecu['recurenceEndType'] == 1) {
+                let recuTime = 0
+                switch (eventRecu['recurence_type']) {
+                    case 1:
+                        recuTime = 86400
+                    case 2:
+                        recuTime = 604800
+                    case 3:
+                        recuTime = 22678400
+                    case 4:
+                        recuTime = 31622400
+                }
+                recuTime = recuTime * eventRecu['recurence_nbr']
+                recuTime = recuTime * eventRecu['recurenceEndNbr']
+                if (eventRecu['end_date'] + recuTime + 86400 < start_date) {
+                    continue
+                }
+            }
+            console.log(eventRecu)
+            //check si un event de recu end type 1 a fini (prendre le tps d'une recu (temps maxi d'un mois/week/etc * recuNbr) * nbr de recu), additioner ça a la start date de l'event et check si ça tombe avant la start date
             //puis faire les différents check
         }
         setOldMonth(props.month)
